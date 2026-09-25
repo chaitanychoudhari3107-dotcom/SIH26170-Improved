@@ -1,0 +1,298 @@
+component_id,lot_id,device_variant,disposition_A,risk_A,driving_parameter,n_params_flagged,confidence,reason_code,reason_text
+C0218,L005,CMOS_A,MONITOR,0.3040598236800932,IDDQ_24h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0219,L005,CMOS_A,PASS,0.21243599540193844,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0220,L005,CMOS_A,PASS,0.10838294566566131,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0221,L005,CMOS_A,PASS,0.22385444350340217,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0222,L005,CMOS_A,PASS,0.15642961376141873,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0223,L005,CMOS_A,PASS,0.16185692173542995,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0224,L005,CMOS_A,PASS,0.27454067666375914,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0225,L005,CMOS_A,PASS,0.15732661179078977,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0226,L005,CMOS_A,PASS,0.19217933269532012,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0227,L005,CMOS_A,PASS,0.19046681600186496,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0228,L005,CMOS_A,MONITOR,0.3098734057970411,Output_Fall_Time_96h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0229,L005,CMOS_A,PASS,0.23858086208540913,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0230,L005,CMOS_A,PASS,0.2667889295811025,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0231,L005,CMOS_A,PASS,0.27925752997265146,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0232,L005,CMOS_A,PASS,0.2086236162994449,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0233,L005,CMOS_A,PASS,0.1669474363966937,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0234,L005,CMOS_A,PASS,0.2063196769394695,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0235,L005,CMOS_A,PASS,0.25355079535378733,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0236,L005,CMOS_A,MONITOR,0.3856352601616171,Output_Fall_Time_0h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0237,L005,CMOS_A,PASS,0.10956010415038442,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0238,L005,CMOS_A,PASS,0.1718844178492402,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0239,L005,CMOS_A,PASS,0.14642215995241828,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0240,L005,CMOS_A,PASS,0.1862510216718487,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0241,L005,CMOS_A,PASS,0.2025546993324025,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0242,L005,CMOS_A,PASS,0.18401859731772593,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0243,L005,CMOS_A,PASS,0.2730761890170031,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0244,L005,CMOS_A,PASS,0.29213141446628865,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0245,L005,CMOS_A,PASS,0.15110442326991932,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0246,L005,CMOS_A,PASS,0.1866344588677979,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0247,L005,CMOS_A,PASS,0.11283594148296097,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0248,L005,CMOS_A,PASS,0.2677378403862908,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0249,L005,CMOS_A,PASS,0.15664160401002508,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0250,L005,CMOS_A,PASS,0.21163240684452153,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0251,L005,CMOS_A,PASS,0.2642208400777936,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0252,L005,CMOS_A,PASS,0.2664987934109745,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0253,L005,CMOS_A,PASS,0.21227774022454254,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0254,L005,CMOS_A,PASS,0.2828451625086082,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0255,L005,CMOS_A,PASS,0.22731902484678662,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0256,L005,CMOS_A,PASS,0.2394316215246443,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0257,L005,CMOS_A,PASS,0.28785671455298795,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0258,L005,CMOS_A,PASS,0.17960357893985118,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0259,L005,CMOS_A,PASS,0.20547054776173374,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0260,L005,CMOS_A,REJECT,1.0,IDDQ_96h,13,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0261,L005,CMOS_A,PASS,0.21786044421462253,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0262,L005,CMOS_A,PASS,0.19280610210019736,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0263,L005,CMOS_A,REJECT,1.0,Output_Rise_Time_168h,11,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0264,L005,CMOS_A,PASS,0.13662675935237265,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0265,L005,CMOS_A,REJECT,0.408991211635215,Input_Leakage_96h,4,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0266,L005,CMOS_A,REJECT,0.36198297382910655,Output_Fall_Time_96h,2,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0267,L005,CMOS_A,REJECT,0.4134878166983923,Input_Leakage_96h,4,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0268,L005,CMOS_A,PASS,0.20805506219814274,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0269,L005,CMOS_A,PASS,0.22404093350511772,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0270,L005,CMOS_A,PASS,0.25108394729690986,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0271,L005,CMOS_A,PASS,0.19533713098576352,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0272,L005,CMOS_A,MONITOR,0.3212344891475797,Input_Leakage_24h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0273,L005,CMOS_A,PASS,0.16330113054092837,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0274,L006,CMOS_A,PASS,0.2026066236116623,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0275,L006,CMOS_A,PASS,0.17241852531209073,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0276,L006,CMOS_A,PASS,0.23028626318164164,Output_Rise_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0277,L006,CMOS_A,PASS,0.24517223403481694,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0278,L006,CMOS_A,PASS,0.277702372597231,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0279,L006,CMOS_A,PASS,0.23926366037190322,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0280,L006,CMOS_A,REJECT,0.437866233628899,IDDQ_24h,4,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0281,L006,CMOS_A,PASS,0.17774729429929761,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0282,L006,CMOS_A,PASS,0.17164220524263787,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0283,L006,CMOS_A,PASS,0.1484679174981491,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0284,L006,CMOS_A,PASS,0.1451350797912219,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0285,L006,CMOS_A,PASS,0.20821134007407305,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0286,L006,CMOS_A,PASS,0.22258806568402698,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0287,L006,CMOS_A,PASS,0.17482970004818973,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0288,L006,CMOS_A,PASS,0.21936883295948212,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0289,L006,CMOS_A,PASS,0.11982720727438952,Output_Rise_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0290,L006,CMOS_A,PASS,0.19283212483155843,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0291,L006,CMOS_A,PASS,0.18987050865306374,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0292,L006,CMOS_A,MONITOR,0.3089584956398044,IDDQ_0h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0293,L006,CMOS_A,PASS,0.17376320154119668,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0294,L006,CMOS_A,REJECT,1.0,Propagation_Delay_168h,9,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0295,L006,CMOS_A,MONITOR,0.3121030140544423,Output_Fall_Time_96h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0296,L006,CMOS_A,PASS,0.25811051674777663,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0297,L006,CMOS_A,REJECT,0.3597001843582279,Output_Rise_Time_0h,5,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0298,L006,CMOS_A,PASS,0.22095741495658577,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0299,L006,CMOS_A,MONITOR,0.34435831472759737,IDDQ_0h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0300,L006,CMOS_A,PASS,0.29452536707187776,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0301,L006,CMOS_A,REJECT,1.0,Propagation_Delay_96h,13,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0302,L006,CMOS_A,PASS,0.18164126592538424,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0303,L006,CMOS_A,PASS,0.1954641231990142,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0304,L006,CMOS_A,REJECT,0.3068919581710526,Supply_Current_168h,2,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0305,L006,CMOS_A,PASS,0.2131084361418299,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0306,L006,CMOS_A,PASS,0.0971267661213019,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0307,L006,CMOS_A,PASS,0.14321979113561473,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0308,L006,CMOS_A,PASS,0.10248860418274575,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0309,L006,CMOS_A,PASS,0.20736077694333116,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0310,L006,CMOS_A,REJECT,1.0,IDDQ_0h,13,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0311,L006,CMOS_A,PASS,0.19262732571982272,IDDQ_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0312,L006,CMOS_A,PASS,0.15548773154358742,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0313,L006,CMOS_A,PASS,0.14927332545649888,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0314,L006,CMOS_A,REJECT,0.34774831646777515,Output_Rise_Time_0h,3,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0315,L006,CMOS_A,PASS,0.19244610374485321,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0316,L006,CMOS_A,PASS,0.2905061178756782,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0317,L006,CMOS_A,REJECT,0.3560802115225242,Output_Rise_Time_168h,4,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0318,L006,CMOS_A,PASS,0.18567760574637135,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0319,L006,CMOS_A,PASS,0.17423326909112352,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0320,L006,CMOS_A,PASS,0.1769418641068722,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0321,L006,CMOS_A,PASS,0.201909665318601,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0322,L006,CMOS_A,REJECT,1.0,IDDQ_168h,6,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0323,L006,CMOS_A,PASS,0.24585334176592782,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0324,L006,CMOS_A,PASS,0.28976857694509,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0325,L006,CMOS_A,REJECT,1.0,Supply_Current_168h,9,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0326,L006,CMOS_A,PASS,0.13030487243947195,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0327,L006,CMOS_A,PASS,0.18092233113021944,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0328,L006,CMOS_A,PASS,0.2709275183558314,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0329,L006,CMOS_A,PASS,0.21636262024768707,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0330,L006,CMOS_A,PASS,0.14542399318332347,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0331,L006,CMOS_A,PASS,0.16847755176048,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0332,L006,CMOS_A,PASS,0.15761748358741978,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0333,L006,CMOS_A,PASS,0.16945568833709818,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0538,L011,CMOS_B,PASS,0.2681544710336527,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0539,L011,CMOS_B,PASS,0.2264781761348086,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0540,L011,CMOS_B,PASS,0.17034920205210935,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0541,L011,CMOS_B,PASS,0.13071030011725235,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0542,L011,CMOS_B,PASS,0.23629830771990296,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0543,L011,CMOS_B,PASS,0.1975370718720681,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0544,L011,CMOS_B,REJECT,1.0,Output_Rise_Time_168h,9,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0545,L011,CMOS_B,PASS,0.18596981643076732,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0546,L011,CMOS_B,PASS,0.12380209319043749,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0547,L011,CMOS_B,REJECT,1.0,IDDQ_168h,12,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0548,L011,CMOS_B,REJECT,1.0,Output_Fall_Time_24h,15,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0549,L011,CMOS_B,PASS,0.15082114329940846,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0550,L011,CMOS_B,PASS,0.17311162154484613,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0551,L011,CMOS_B,PASS,0.17150109286715473,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0552,L011,CMOS_B,REJECT,1.0,IDDQ_168h,10,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0553,L011,CMOS_B,PASS,0.2222829153151936,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0554,L011,CMOS_B,PASS,0.19936750295240502,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0555,L011,CMOS_B,PASS,0.20710481885621937,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0556,L011,CMOS_B,PASS,0.2217329433798297,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0557,L011,CMOS_B,REJECT,1.0,Input_Leakage_168h,9,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0558,L011,CMOS_B,PASS,0.23751481260808127,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0559,L011,CMOS_B,MONITOR,0.30708896694258625,Output_Fall_Time_24h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0560,L011,CMOS_B,PASS,0.24502772238576714,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0561,L011,CMOS_B,PASS,0.1726546734479804,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0562,L011,CMOS_B,PASS,0.2238112127087315,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0563,L011,CMOS_B,PASS,0.20305271738537867,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0564,L011,CMOS_B,PASS,0.12267263415060622,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0565,L011,CMOS_B,PASS,0.12200686092921305,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0566,L011,CMOS_B,PASS,0.20091254210890974,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0567,L011,CMOS_B,MONITOR,0.3046837568670139,Input_Leakage_0h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0568,L011,CMOS_B,PASS,0.15515972737000466,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0569,L011,CMOS_B,PASS,0.14800737668765496,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0570,L011,CMOS_B,PASS,0.23087170755607112,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0571,L011,CMOS_B,PASS,0.22101428065787165,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0572,L011,CMOS_B,PASS,0.24901485988020938,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0573,L011,CMOS_B,PASS,0.19947769707046412,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0574,L011,CMOS_B,PASS,0.1530330724622096,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0575,L011,CMOS_B,PASS,0.24795327238458548,Output_Fall_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0576,L011,CMOS_B,PASS,0.27425907269656535,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0577,L011,CMOS_B,REJECT,1.0,Input_Leakage_168h,7,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0578,L011,CMOS_B,PASS,0.20127376774832095,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0579,L011,CMOS_B,PASS,0.16892787137390647,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0580,L011,CMOS_B,PASS,0.21487501183832877,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0581,L011,CMOS_B,REJECT,0.34365122501174483,Output_Fall_Time_24h,3,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0582,L011,CMOS_B,PASS,0.216611575964686,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0583,L011,CMOS_B,PASS,0.1938401787899067,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0584,L012,CMOS_B,PASS,0.17496454375782905,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0585,L012,CMOS_B,PASS,0.19661587463126068,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0586,L012,CMOS_B,PASS,0.135598095136285,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0587,L012,CMOS_B,PASS,0.2243840981561406,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0588,L012,CMOS_B,REJECT,1.0,Output_Fall_Time_168h,12,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0589,L012,CMOS_B,PASS,0.2913145307780211,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0590,L012,CMOS_B,PASS,0.13874742440389673,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0591,L012,CMOS_B,PASS,0.22924885350821897,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0592,L012,CMOS_B,REJECT,1.0,Output_Fall_Time_168h,10,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0593,L012,CMOS_B,PASS,0.28991185859622914,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0594,L012,CMOS_B,REJECT,1.0,Output_Fall_Time_168h,12,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0595,L012,CMOS_B,PASS,0.16391235050235997,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0596,L012,CMOS_B,PASS,0.14726548507518447,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0597,L012,CMOS_B,PASS,0.20053587456664496,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0598,L012,CMOS_B,REJECT,1.0,Output_Fall_Time_168h,10,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0599,L012,CMOS_B,PASS,0.16860799251973108,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0600,L012,CMOS_B,PASS,0.16279062691126883,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0601,L012,CMOS_B,PASS,0.19540680225089255,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0602,L012,CMOS_B,PASS,0.19525434550838475,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0603,L012,CMOS_B,PASS,0.14586671986422134,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0604,L012,CMOS_B,PASS,0.22493411798461044,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0605,L012,CMOS_B,PASS,0.23343159147055728,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0606,L012,CMOS_B,PASS,0.16040443271947052,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0607,L012,CMOS_B,REJECT,1.0,IDDQ_168h,10,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0608,L012,CMOS_B,PASS,0.14085468596621675,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0609,L012,CMOS_B,PASS,0.16607124542318846,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0610,L012,CMOS_B,PASS,0.24767942378931923,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0611,L012,CMOS_B,PASS,0.2508719966804214,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0612,L012,CMOS_B,PASS,0.1570137324665129,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0613,L012,CMOS_B,PASS,0.1908369726070834,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0614,L012,CMOS_B,PASS,0.22916433032819303,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0615,L012,CMOS_B,PASS,0.22912047977667446,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0616,L012,CMOS_B,PASS,0.17819494639903563,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0617,L012,CMOS_B,PASS,0.162074195424128,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0618,L012,CMOS_B,PASS,0.17091698968071042,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0619,L012,CMOS_B,PASS,0.27133481780354496,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0620,L012,CMOS_B,PASS,0.20041398397221455,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0621,L012,CMOS_B,PASS,0.2406629830327757,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0622,L012,CMOS_B,PASS,0.20483458856215275,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0623,L012,CMOS_B,PASS,0.16263847817255161,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0624,L012,CMOS_B,PASS,0.17512802516786832,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0625,L012,CMOS_B,PASS,0.1827379726802511,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0626,L012,CMOS_B,REJECT,1.0,Output_Fall_Time_168h,13,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0627,L012,CMOS_B,PASS,0.1208673917357812,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0843,L017,CMOS_C,PASS,0.16253579469886761,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0844,L017,CMOS_C,PASS,0.20620428643822603,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0845,L017,CMOS_C,MONITOR,0.30217581620304834,Input_Leakage_168h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0846,L017,CMOS_C,PASS,0.20641128421614613,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0847,L017,CMOS_C,PASS,0.18593924605115802,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0848,L017,CMOS_C,PASS,0.24213118269780604,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0849,L017,CMOS_C,PASS,0.20241120306440327,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0850,L017,CMOS_C,PASS,0.16218586940758545,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0851,L017,CMOS_C,PASS,0.2588600166300675,Propagation_Delay_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0852,L017,CMOS_C,PASS,0.29260347022840844,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0853,L017,CMOS_C,PASS,0.2557932949329474,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0854,L017,CMOS_C,PASS,0.2632388435946459,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0855,L017,CMOS_C,PASS,0.19543120208513226,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0856,L017,CMOS_C,PASS,0.1780837202995667,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0857,L017,CMOS_C,PASS,0.2352176966107946,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0858,L017,CMOS_C,PASS,0.24445009571009807,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0859,L017,CMOS_C,PASS,0.18923181836005307,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0860,L017,CMOS_C,PASS,0.17292162430231497,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0861,L017,CMOS_C,PASS,0.15146509099704436,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0862,L017,CMOS_C,PASS,0.24989889754990582,Output_Fall_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0863,L017,CMOS_C,PASS,0.28418433108896796,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0864,L017,CMOS_C,PASS,0.18219766295355466,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0865,L017,CMOS_C,PASS,0.1825494509611055,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0866,L017,CMOS_C,MONITOR,0.315265905620813,IDDQ_0h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0867,L017,CMOS_C,REJECT,0.36856605115210817,Output_Fall_Time_0h,4,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0868,L017,CMOS_C,PASS,0.1887722185405655,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0869,L017,CMOS_C,PASS,0.14411129737221398,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0870,L017,CMOS_C,PASS,0.2577994718282178,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0871,L017,CMOS_C,PASS,0.23511625400424827,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0872,L017,CMOS_C,PASS,0.12607092383505494,IDDQ_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0873,L017,CMOS_C,PASS,0.1687291825102491,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0874,L017,CMOS_C,PASS,0.22062472798136273,Supply_Current_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0875,L017,CMOS_C,PASS,0.14972489768850153,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0876,L017,CMOS_C,PASS,0.12203629386835169,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0877,L017,CMOS_C,PASS,0.2729502822068581,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0878,L017,CMOS_C,PASS,0.2504314516342274,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0879,L017,CMOS_C,MONITOR,0.3460629097980625,Output_Fall_Time_0h,1,MEDIUM,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0880,L017,CMOS_C,REJECT,1.0,Output_Rise_Time_168h,8,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0881,L017,CMOS_C,PASS,0.16488417628979596,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0882,L017,CMOS_C,PASS,0.17309830583675395,Supply_Current_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0883,L017,CMOS_C,PASS,0.15428376115909787,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0884,L017,CMOS_C,PASS,0.16751502175974445,Input_Leakage_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0885,L017,CMOS_C,PASS,0.2174651241760753,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0886,L017,CMOS_C,PASS,0.22840742156742805,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0887,L018,CMOS_C,PASS,0.1060134166706094,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0888,L018,CMOS_C,PASS,0.16249368965596284,IDDQ_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0889,L018,CMOS_C,PASS,0.15358853095039537,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0890,L018,CMOS_C,MONITOR,0.30831070367959085,Output_Rise_Time_0h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0891,L018,CMOS_C,PASS,0.1811154317620653,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0892,L018,CMOS_C,PASS,0.24710092404437747,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0893,L018,CMOS_C,PASS,0.20741042925459857,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0894,L018,CMOS_C,PASS,0.17654062487169936,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0895,L018,CMOS_C,PASS,0.150140880923037,Output_Rise_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0896,L018,CMOS_C,PASS,0.2527444132865858,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0897,L018,CMOS_C,PASS,0.26633274018763314,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0898,L018,CMOS_C,PASS,0.20664832833819383,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0899,L018,CMOS_C,PASS,0.1806462207989515,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0900,L018,CMOS_C,PASS,0.20777994432385388,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0901,L018,CMOS_C,PASS,0.21251346537711785,Output_Fall_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0902,L018,CMOS_C,PASS,0.1958955771001585,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0903,L018,CMOS_C,PASS,0.2918052278637245,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0904,L018,CMOS_C,PASS,0.239194662985797,Supply_Current_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0905,L018,CMOS_C,PASS,0.2107031135613684,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0906,L018,CMOS_C,PASS,0.2766780645829825,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0907,L018,CMOS_C,PASS,0.26795856085177794,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0908,L018,CMOS_C,REJECT,1.0,Output_Fall_Time_168h,12,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0909,L018,CMOS_C,REJECT,0.4594159786346242,IDDQ_96h,3,HIGH,A_CROSS_SECTIONAL_EXTREME,Measurement is strongly unusual relative to the component's lot peers.
+C0910,L018,CMOS_C,PASS,0.27616975270627564,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0911,L018,CMOS_C,PASS,0.19593095843728464,Output_Rise_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0912,L018,CMOS_C,MONITOR,0.33783189344218983,Output_Fall_Time_168h,1,MEDIUM,A_TEMPORAL_EXTREME,Temporal change is strongly unusual relative to the component's lot peers.
+C0913,L018,CMOS_C,PASS,0.21407750192083475,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0914,L018,CMOS_C,PASS,0.22756538254828323,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0915,L018,CMOS_C,PASS,0.10686201259023628,Output_Rise_Time_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0916,L018,CMOS_C,PASS,0.28220907999094014,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0917,L018,CMOS_C,PASS,0.12972201265494387,Input_Leakage_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0918,L018,CMOS_C,PASS,0.17061568110514574,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0919,L018,CMOS_C,PASS,0.25309052111108715,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0920,L018,CMOS_C,PASS,0.14881807713437423,Propagation_Delay_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0921,L018,CMOS_C,PASS,0.25532236549065535,Supply_Current_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0922,L018,CMOS_C,REJECT,1.0,IDDQ_96h,14,HIGH,A_CROSS_TEMP_EXTREME,Strong lot-relative evidence in both measurement level and temporal change.
+C0923,L018,CMOS_C,PASS,0.29605987780988674,Output_Fall_Time_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0924,L018,CMOS_C,PASS,0.20046454732502306,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0925,L018,CMOS_C,PASS,0.2349045460127907,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0926,L018,CMOS_C,PASS,0.19111637248394348,Propagation_Delay_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0927,L018,CMOS_C,PASS,0.22669489547324956,Input_Leakage_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0928,L018,CMOS_C,PASS,0.28035355046070626,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0929,L018,CMOS_C,PASS,0.2447791007184356,Output_Rise_Time_24h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0930,L018,CMOS_C,PASS,0.13667861832577863,IDDQ_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0931,L018,CMOS_C,PASS,0.15912463362888318,Propagation_Delay_0h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0932,L018,CMOS_C,PASS,0.26412007615391564,Output_Rise_Time_168h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.
+C0933,L018,CMOS_C,PASS,0.16041625536798515,Input_Leakage_96h,0,LOW,A_NO_STRONG_EVIDENCE,No strong lot-relative anomaly evidence detected.

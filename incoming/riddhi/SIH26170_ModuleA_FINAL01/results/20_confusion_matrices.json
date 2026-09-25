@@ -1,0 +1,33 @@
+{
+  "what_each_cell_means": {
+    "tp": "abnormal, and flagged \u2014 the screen worked",
+    "tn": "healthy, and passed \u2014 the screen stayed out of the way",
+    "fp": "HEALTHY, but flagged \u2014 costs review time, harms nobody",
+    "fn": "ABNORMAL, but passed \u2014 a real defect reaches the next stage"
+  },
+  "results_reported": 10,
+  "all_balance": true,
+  "cross_checked_against": "sklearn.metrics.confusion_matrix, every row, every run",
+  "headline": {
+    "holdout_168h": {
+      "tp": 65,
+      "tn": 1240,
+      "fp": 13,
+      "fn": 25
+    },
+    "calibration_out_of_fold": {
+      "tp": 47,
+      "tn": 844,
+      "fp": 8,
+      "fn": 7
+    },
+    "datasheet_rule_all_splits": {
+      "tp": 81,
+      "tn": 5076,
+      "fp": 0,
+      "fn": 243
+    }
+  },
+  "the_error_that_matters": "FN. Every other cell costs time; a false negative sends a defective component onward. The release operates at a 1% false-alarm budget rather than a looser one because the curve's knee is there, not because false negatives are cheap \u2014 the trade is stated in docs/VALIDATION_SUMMARY.md and the operating point is a team decision (DECISION_LOG D2).",
+  "note_on_nan": "a rate whose denominator is empty is reported NaN, never 0.0. A lot with no anomalies has no recall; printing 0.0 there would read as a failure that never happened."
+}

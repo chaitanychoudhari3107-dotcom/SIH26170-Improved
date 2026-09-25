@@ -1,0 +1,22 @@
+{
+  "version": "operational-prototype-1",
+  "release_state": "RESEARCH_PROTOTYPE",
+  "module_a_source": "Original delivered artifact; runtime lot manifest supplied by operator",
+  "module_b_source": "Reconstructed REHEARSAL artifact fitted only on delivered train and calibration lots",
+  "limitations": "Synthetic data. Module B rebuild is not the original evaluated artifact. No production qualification or guaranteed coverage.",
+  "training_input_hashes": {
+    "train": "03d6ed3e9996dae2482e9f091be72b27a88b8ed1c8b5c635d90e754fc2a5f5a7",
+    "calibration": "05efb9f38e415a0238ff2fa9c4847c112265e3bfa5e442bbde9ec8c726596e64"
+  },
+  "artifact_hashes": {
+    "module_a.joblib": "ef536d7cd0a1d506c6912bc071b50d21e67c02b2a207e78556986a78c2eb9a23",
+    "module_b.joblib": "ad64577232a87b5dd979f1b34bfe87a16996fe09dbc033fef9904b29678d0f5a"
+  },
+  "spec_sha256": "6defeac90df8833d1fcdaa0335784060caba29b0b1111411cb487af1871082e2",
+  "versions": {
+    "python": "3.12.14",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "scikit_learn": "1.8.0"
+  }
+}

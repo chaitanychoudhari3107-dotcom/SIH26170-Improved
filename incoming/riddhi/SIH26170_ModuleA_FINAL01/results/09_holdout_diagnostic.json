@@ -1,0 +1,733 @@
+{
+  "status": "DIAGNOSTIC",
+  "receipt_config_digest": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9",
+  "0": {
+    "n": 1343,
+    "overall": {
+      "tp": 14,
+      "tn": 1221,
+      "fp": 32,
+      "fn": 76,
+      "n": 1343,
+      "positives": 90,
+      "negatives": 1253,
+      "flagged": 46,
+      "passed": 1297,
+      "recall": 0.15555555555555556,
+      "specificity": 0.9744612928970471,
+      "fpr": 0.025538707102952914,
+      "fnr": 0.8444444444444444,
+      "precision": 0.30434782608695654,
+      "npv": 0.9414032382420972,
+      "accuracy": 0.9195830230826508,
+      "f1": 0.20588235294117646
+    },
+    "tiers": [
+      {
+        "tier": "CONFIRMED",
+        "n": 1,
+        "anomalies": 1,
+        "normals": 0
+      },
+      {
+        "tier": "MONITOR",
+        "n": 45,
+        "anomalies": 13,
+        "normals": 32
+      },
+      {
+        "tier": "PASS",
+        "n": 1297,
+        "anomalies": 76,
+        "normals": 1221
+      }
+    ],
+    "breakdowns": {
+      "defect_behavior": [
+        {
+          "defect_behavior": "ACCELERATING_DRIFT",
+          "actual": 17,
+          "detected": 0,
+          "detection_rate": 0.0
+        },
+        {
+          "defect_behavior": "GRADUAL_DRIFT",
+          "actual": 19,
+          "detected": 1,
+          "detection_rate": 0.05263157894736842
+        },
+        {
+          "defect_behavior": "LATE_STEP",
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        },
+        {
+          "defect_behavior": "MULTIVARIATE_SHIFT",
+          "actual": 18,
+          "detected": 6,
+          "detection_rate": 0.3333333333333333
+        },
+        {
+          "defect_behavior": "STATIC_OUTLIER",
+          "actual": 18,
+          "detected": 6,
+          "detection_rate": 0.3333333333333333
+        }
+      ],
+      "severity": [
+        {
+          "severity": "MODERATE",
+          "actual": 30,
+          "detected": 5,
+          "detection_rate": 0.16666666666666666
+        },
+        {
+          "severity": "SEVERE",
+          "actual": 30,
+          "detected": 6,
+          "detection_rate": 0.2
+        },
+        {
+          "severity": "SUBTLE",
+          "actual": 30,
+          "detected": 3,
+          "detection_rate": 0.1
+        }
+      ],
+      "primary_parameter": [
+        {
+          "primary_parameter": "Active_Supply_Current",
+          "actual": 13,
+          "detected": 2,
+          "detection_rate": 0.15384615384615385
+        },
+        {
+          "primary_parameter": "IDDQ",
+          "actual": 10,
+          "detected": 2,
+          "detection_rate": 0.2
+        },
+        {
+          "primary_parameter": "Input_Leakage_Current",
+          "actual": 27,
+          "detected": 3,
+          "detection_rate": 0.1111111111111111
+        },
+        {
+          "primary_parameter": "Output_Fall_Time",
+          "actual": 9,
+          "detected": 1,
+          "detection_rate": 0.1111111111111111
+        },
+        {
+          "primary_parameter": "Output_Rise_Time",
+          "actual": 14,
+          "detected": 1,
+          "detection_rate": 0.07142857142857142
+        },
+        {
+          "primary_parameter": "Propagation_Delay",
+          "actual": 17,
+          "detected": 5,
+          "detection_rate": 0.29411764705882354
+        }
+      ],
+      "onset_epoch": [
+        {
+          "onset_epoch": 0.0,
+          "actual": 36,
+          "detected": 12,
+          "detection_rate": 0.3333333333333333
+        },
+        {
+          "onset_epoch": 24.0,
+          "actual": 36,
+          "detected": 1,
+          "detection_rate": 0.027777777777777776
+        },
+        {
+          "onset_epoch": 168.0,
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        }
+      ],
+      "static_fail_target": [
+        {
+          "static_fail_target": 0,
+          "actual": 67,
+          "detected": 7,
+          "detection_rate": 0.1044776119402985
+        },
+        {
+          "static_fail_target": 1,
+          "actual": 23,
+          "detected": 7,
+          "detection_rate": 0.30434782608695654
+        }
+      ],
+      "static_spec_pass_168h": [
+        {
+          "static_spec_pass_168h": 0,
+          "actual": 23,
+          "detected": 7,
+          "detection_rate": 0.30434782608695654
+        },
+        {
+          "static_spec_pass_168h": 1,
+          "actual": 67,
+          "detected": 7,
+          "detection_rate": 0.1044776119402985
+        }
+      ]
+    }
+  },
+  "24": {
+    "n": 1343,
+    "overall": {
+      "tp": 19,
+      "tn": 1221,
+      "fp": 32,
+      "fn": 71,
+      "n": 1343,
+      "positives": 90,
+      "negatives": 1253,
+      "flagged": 51,
+      "passed": 1292,
+      "recall": 0.2111111111111111,
+      "specificity": 0.9744612928970471,
+      "fpr": 0.025538707102952914,
+      "fnr": 0.7888888888888889,
+      "precision": 0.37254901960784315,
+      "npv": 0.945046439628483,
+      "accuracy": 0.9233060312732688,
+      "f1": 0.2695035460992908
+    },
+    "tiers": [
+      {
+        "tier": "CONFIRMED",
+        "n": 1,
+        "anomalies": 1,
+        "normals": 0
+      },
+      {
+        "tier": "MONITOR",
+        "n": 50,
+        "anomalies": 18,
+        "normals": 32
+      },
+      {
+        "tier": "PASS",
+        "n": 1292,
+        "anomalies": 71,
+        "normals": 1221
+      }
+    ],
+    "breakdowns": {
+      "defect_behavior": [
+        {
+          "defect_behavior": "ACCELERATING_DRIFT",
+          "actual": 17,
+          "detected": 0,
+          "detection_rate": 0.0
+        },
+        {
+          "defect_behavior": "GRADUAL_DRIFT",
+          "actual": 19,
+          "detected": 4,
+          "detection_rate": 0.21052631578947367
+        },
+        {
+          "defect_behavior": "LATE_STEP",
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        },
+        {
+          "defect_behavior": "MULTIVARIATE_SHIFT",
+          "actual": 18,
+          "detected": 7,
+          "detection_rate": 0.3888888888888889
+        },
+        {
+          "defect_behavior": "STATIC_OUTLIER",
+          "actual": 18,
+          "detected": 7,
+          "detection_rate": 0.3888888888888889
+        }
+      ],
+      "severity": [
+        {
+          "severity": "MODERATE",
+          "actual": 30,
+          "detected": 6,
+          "detection_rate": 0.2
+        },
+        {
+          "severity": "SEVERE",
+          "actual": 30,
+          "detected": 9,
+          "detection_rate": 0.3
+        },
+        {
+          "severity": "SUBTLE",
+          "actual": 30,
+          "detected": 4,
+          "detection_rate": 0.13333333333333333
+        }
+      ],
+      "primary_parameter": [
+        {
+          "primary_parameter": "Active_Supply_Current",
+          "actual": 13,
+          "detected": 3,
+          "detection_rate": 0.23076923076923078
+        },
+        {
+          "primary_parameter": "IDDQ",
+          "actual": 10,
+          "detected": 2,
+          "detection_rate": 0.2
+        },
+        {
+          "primary_parameter": "Input_Leakage_Current",
+          "actual": 27,
+          "detected": 6,
+          "detection_rate": 0.2222222222222222
+        },
+        {
+          "primary_parameter": "Output_Fall_Time",
+          "actual": 9,
+          "detected": 2,
+          "detection_rate": 0.2222222222222222
+        },
+        {
+          "primary_parameter": "Output_Rise_Time",
+          "actual": 14,
+          "detected": 1,
+          "detection_rate": 0.07142857142857142
+        },
+        {
+          "primary_parameter": "Propagation_Delay",
+          "actual": 17,
+          "detected": 5,
+          "detection_rate": 0.29411764705882354
+        }
+      ],
+      "onset_epoch": [
+        {
+          "onset_epoch": 0.0,
+          "actual": 36,
+          "detected": 14,
+          "detection_rate": 0.3888888888888889
+        },
+        {
+          "onset_epoch": 24.0,
+          "actual": 36,
+          "detected": 4,
+          "detection_rate": 0.1111111111111111
+        },
+        {
+          "onset_epoch": 168.0,
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        }
+      ],
+      "static_fail_target": [
+        {
+          "static_fail_target": 0,
+          "actual": 67,
+          "detected": 10,
+          "detection_rate": 0.14925373134328357
+        },
+        {
+          "static_fail_target": 1,
+          "actual": 23,
+          "detected": 9,
+          "detection_rate": 0.391304347826087
+        }
+      ],
+      "static_spec_pass_168h": [
+        {
+          "static_spec_pass_168h": 0,
+          "actual": 23,
+          "detected": 9,
+          "detection_rate": 0.391304347826087
+        },
+        {
+          "static_spec_pass_168h": 1,
+          "actual": 67,
+          "detected": 10,
+          "detection_rate": 0.14925373134328357
+        }
+      ]
+    }
+  },
+  "96": {
+    "n": 1343,
+    "overall": {
+      "tp": 32,
+      "tn": 1222,
+      "fp": 31,
+      "fn": 58,
+      "n": 1343,
+      "positives": 90,
+      "negatives": 1253,
+      "flagged": 63,
+      "passed": 1280,
+      "recall": 0.35555555555555557,
+      "specificity": 0.9752593774940144,
+      "fpr": 0.024740622505985636,
+      "fnr": 0.6444444444444445,
+      "precision": 0.5079365079365079,
+      "npv": 0.9546875,
+      "accuracy": 0.9337304542069993,
+      "f1": 0.41830065359477125
+    },
+    "tiers": [
+      {
+        "tier": "CONFIRMED",
+        "n": 1,
+        "anomalies": 1,
+        "normals": 0
+      },
+      {
+        "tier": "MONITOR",
+        "n": 62,
+        "anomalies": 31,
+        "normals": 31
+      },
+      {
+        "tier": "PASS",
+        "n": 1280,
+        "anomalies": 58,
+        "normals": 1222
+      }
+    ],
+    "breakdowns": {
+      "defect_behavior": [
+        {
+          "defect_behavior": "ACCELERATING_DRIFT",
+          "actual": 17,
+          "detected": 7,
+          "detection_rate": 0.4117647058823529
+        },
+        {
+          "defect_behavior": "GRADUAL_DRIFT",
+          "actual": 19,
+          "detected": 9,
+          "detection_rate": 0.47368421052631576
+        },
+        {
+          "defect_behavior": "LATE_STEP",
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        },
+        {
+          "defect_behavior": "MULTIVARIATE_SHIFT",
+          "actual": 18,
+          "detected": 8,
+          "detection_rate": 0.4444444444444444
+        },
+        {
+          "defect_behavior": "STATIC_OUTLIER",
+          "actual": 18,
+          "detected": 7,
+          "detection_rate": 0.3888888888888889
+        }
+      ],
+      "severity": [
+        {
+          "severity": "MODERATE",
+          "actual": 30,
+          "detected": 8,
+          "detection_rate": 0.26666666666666666
+        },
+        {
+          "severity": "SEVERE",
+          "actual": 30,
+          "detected": 19,
+          "detection_rate": 0.6333333333333333
+        },
+        {
+          "severity": "SUBTLE",
+          "actual": 30,
+          "detected": 5,
+          "detection_rate": 0.16666666666666666
+        }
+      ],
+      "primary_parameter": [
+        {
+          "primary_parameter": "Active_Supply_Current",
+          "actual": 13,
+          "detected": 3,
+          "detection_rate": 0.23076923076923078
+        },
+        {
+          "primary_parameter": "IDDQ",
+          "actual": 10,
+          "detected": 4,
+          "detection_rate": 0.4
+        },
+        {
+          "primary_parameter": "Input_Leakage_Current",
+          "actual": 27,
+          "detected": 13,
+          "detection_rate": 0.48148148148148145
+        },
+        {
+          "primary_parameter": "Output_Fall_Time",
+          "actual": 9,
+          "detected": 3,
+          "detection_rate": 0.3333333333333333
+        },
+        {
+          "primary_parameter": "Output_Rise_Time",
+          "actual": 14,
+          "detected": 1,
+          "detection_rate": 0.07142857142857142
+        },
+        {
+          "primary_parameter": "Propagation_Delay",
+          "actual": 17,
+          "detected": 8,
+          "detection_rate": 0.47058823529411764
+        }
+      ],
+      "onset_epoch": [
+        {
+          "onset_epoch": 0.0,
+          "actual": 36,
+          "detected": 15,
+          "detection_rate": 0.4166666666666667
+        },
+        {
+          "onset_epoch": 24.0,
+          "actual": 36,
+          "detected": 16,
+          "detection_rate": 0.4444444444444444
+        },
+        {
+          "onset_epoch": 168.0,
+          "actual": 18,
+          "detected": 1,
+          "detection_rate": 0.05555555555555555
+        }
+      ],
+      "static_fail_target": [
+        {
+          "static_fail_target": 0,
+          "actual": 67,
+          "detected": 14,
+          "detection_rate": 0.208955223880597
+        },
+        {
+          "static_fail_target": 1,
+          "actual": 23,
+          "detected": 18,
+          "detection_rate": 0.782608695652174
+        }
+      ],
+      "static_spec_pass_168h": [
+        {
+          "static_spec_pass_168h": 0,
+          "actual": 23,
+          "detected": 18,
+          "detection_rate": 0.782608695652174
+        },
+        {
+          "static_spec_pass_168h": 1,
+          "actual": 67,
+          "detected": 14,
+          "detection_rate": 0.208955223880597
+        }
+      ]
+    }
+  },
+  "168": {
+    "n": 1343,
+    "overall": {
+      "tp": 65,
+      "tn": 1240,
+      "fp": 13,
+      "fn": 25,
+      "n": 1343,
+      "positives": 90,
+      "negatives": 1253,
+      "flagged": 78,
+      "passed": 1265,
+      "recall": 0.7222222222222222,
+      "specificity": 0.9896249002394254,
+      "fpr": 0.010375099760574621,
+      "fnr": 0.2777777777777778,
+      "precision": 0.8333333333333334,
+      "npv": 0.9802371541501976,
+      "accuracy": 0.9717051377513031,
+      "f1": 0.7738095238095238
+    },
+    "tiers": [
+      {
+        "tier": "CONFIRMED",
+        "n": 23,
+        "anomalies": 23,
+        "normals": 0
+      },
+      {
+        "tier": "MONITOR",
+        "n": 55,
+        "anomalies": 42,
+        "normals": 13
+      },
+      {
+        "tier": "PASS",
+        "n": 1265,
+        "anomalies": 25,
+        "normals": 1240
+      }
+    ],
+    "breakdowns": {
+      "defect_behavior": [
+        {
+          "defect_behavior": "ACCELERATING_DRIFT",
+          "actual": 17,
+          "detected": 17,
+          "detection_rate": 1.0
+        },
+        {
+          "defect_behavior": "GRADUAL_DRIFT",
+          "actual": 19,
+          "detected": 16,
+          "detection_rate": 0.8421052631578947
+        },
+        {
+          "defect_behavior": "LATE_STEP",
+          "actual": 18,
+          "detected": 17,
+          "detection_rate": 0.9444444444444444
+        },
+        {
+          "defect_behavior": "MULTIVARIATE_SHIFT",
+          "actual": 18,
+          "detected": 10,
+          "detection_rate": 0.5555555555555556
+        },
+        {
+          "defect_behavior": "STATIC_OUTLIER",
+          "actual": 18,
+          "detected": 5,
+          "detection_rate": 0.2777777777777778
+        }
+      ],
+      "severity": [
+        {
+          "severity": "MODERATE",
+          "actual": 30,
+          "detected": 25,
+          "detection_rate": 0.8333333333333334
+        },
+        {
+          "severity": "SEVERE",
+          "actual": 30,
+          "detected": 26,
+          "detection_rate": 0.8666666666666667
+        },
+        {
+          "severity": "SUBTLE",
+          "actual": 30,
+          "detected": 14,
+          "detection_rate": 0.4666666666666667
+        }
+      ],
+      "primary_parameter": [
+        {
+          "primary_parameter": "Active_Supply_Current",
+          "actual": 13,
+          "detected": 9,
+          "detection_rate": 0.6923076923076923
+        },
+        {
+          "primary_parameter": "IDDQ",
+          "actual": 10,
+          "detected": 7,
+          "detection_rate": 0.7
+        },
+        {
+          "primary_parameter": "Input_Leakage_Current",
+          "actual": 27,
+          "detected": 24,
+          "detection_rate": 0.8888888888888888
+        },
+        {
+          "primary_parameter": "Output_Fall_Time",
+          "actual": 9,
+          "detected": 7,
+          "detection_rate": 0.7777777777777778
+        },
+        {
+          "primary_parameter": "Output_Rise_Time",
+          "actual": 14,
+          "detected": 7,
+          "detection_rate": 0.5
+        },
+        {
+          "primary_parameter": "Propagation_Delay",
+          "actual": 17,
+          "detected": 11,
+          "detection_rate": 0.6470588235294118
+        }
+      ],
+      "onset_epoch": [
+        {
+          "onset_epoch": 0.0,
+          "actual": 36,
+          "detected": 15,
+          "detection_rate": 0.4166666666666667
+        },
+        {
+          "onset_epoch": 24.0,
+          "actual": 36,
+          "detected": 33,
+          "detection_rate": 0.9166666666666666
+        },
+        {
+          "onset_epoch": 168.0,
+          "actual": 18,
+          "detected": 17,
+          "detection_rate": 0.9444444444444444
+        }
+      ],
+      "static_fail_target": [
+        {
+          "static_fail_target": 0,
+          "actual": 67,
+          "detected": 42,
+          "detection_rate": 0.6268656716417911
+        },
+        {
+          "static_fail_target": 1,
+          "actual": 23,
+          "detected": 23,
+          "detection_rate": 1.0
+        }
+      ],
+      "static_spec_pass_168h": [
+        {
+          "static_spec_pass_168h": 0,
+          "actual": 23,
+          "detected": 23,
+          "detection_rate": 1.0
+        },
+        {
+          "static_spec_pass_168h": 1,
+          "actual": 67,
+          "detected": 42,
+          "detection_rate": 0.6268656716417911
+        }
+      ]
+    }
+  },
+  "warning": "The holdout informed earlier redesign. These are comparisons against prior runs, not evidence of generalisation. A fresh lot-grouped test set after design freeze is still required."
+}

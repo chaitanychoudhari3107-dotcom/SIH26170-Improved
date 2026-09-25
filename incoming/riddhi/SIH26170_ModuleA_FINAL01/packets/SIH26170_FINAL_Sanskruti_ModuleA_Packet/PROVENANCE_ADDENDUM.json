@@ -1,0 +1,58 @@
+{
+  "release_candidate": "ModuleA-FINAL01-RC1",
+  "source_tree_digest_current": "e6d86298540fc98b94c255f00ec7005fd95aa7d2818bc4348052a6bd0f4044c7",
+  "source_tree_digest_at_freeze": "820d0201e3162a07893a43a24734f6a25a6aa77a87631dfa4b0234b740203575",
+  "source_tree_moved": true,
+  "files_changed_since_freeze": [
+    "modulea/config.py",
+    "modulea/metrics.py",
+    "modulea/tiers.py",
+    "scripts/00_selfcheck.py",
+    "scripts/04_nested_validation.py",
+    "scripts/08_predict_holdout.py",
+    "scripts/09_evaluate_holdout.py",
+    "scripts/10_verify_claims.py",
+    "scripts/11_release_manifest.py",
+    "scripts/12_robustness.py",
+    "scripts/13_score_semantics.py",
+    "scripts/14_sensitivity.py",
+    "scripts/15_fusion_dryrun.py",
+    "scripts/17_provenance.py",
+    "scripts/18_build_packets.py",
+    "scripts/19_reproducibility_check.py",
+    "scripts/20_confusion_matrix.py",
+    "scripts/_common.py",
+    "scripts/_letters.py",
+    "tests/test_confusion_matrix.py",
+    "tests/test_evidence.py",
+    "tests/test_robustness.py",
+    "tests/test_score_semantics.py",
+    "tests/test_specs.py"
+  ],
+  "files_changed_in_the_prediction_path": [
+    "modulea/config.py",
+    "modulea/tiers.py"
+  ],
+  "model_config_digest": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9",
+  "model_config_stable_since_freeze": true,
+  "runtime_contract_digest": "d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200",
+  "runtime_contract_stable_since_freeze": true,
+  "build_mismatch": false,
+  "how_to_read_this": "A difference in source_tree alone is NOT a build mismatch: documentation, tests and reporting scripts move without touching what the model computes. A difference in model_config or runtime_contract IS a build mismatch, and two packets disagreeing on either means one is from a different build. Where a file in the prediction path changed, the change must be listed below with proof that no emitted value moved.",
+  "prediction_path_changes_explained": [
+    {
+      "file": "modulea/config.py",
+      "what": "PACKAGE_VERSION was added, outside config_payload()",
+      "why": "the hardening pass needed a version for the packaging, separate from the release candidate. Bumping RELEASE_CANDIDATE would have moved config_digest and announced a new model that does not exist.",
+      "found_by": "the decision not to bump the release candidate",
+      "proof_it_changed_nothing": "PACKAGE_VERSION is deliberately not part of config_payload(), so config_digest is byte-identical to the value recorded in FREEZE_RECEIPT.json: 2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9. No weight, depth, threshold or budget was touched, and the frozen prediction files still verify against the hashes stage 08 wrote."
+    },
+    {
+      "file": "modulea/tiers.py",
+      "what": "the statistical band was closed just below CONFIRMED_FLOOR",
+      "why": "an empirical rank of exactly 1.0 mapped to exactly the floor, which would put a component in the reserved out-of-specification band on statistical evidence alone. contract.validate_output would then correctly refuse the frame, so the top-ranked component of any batch was a latent serving failure.",
+      "found_by": "tests/test_score_semantics.py, during pre-integration hardening",
+      "proof_it_changed_nothing": "the four frozen holdout prediction files were regenerated after the change and are byte-identical to the versions stage 08 wrote and hashed. Their SHA-256 values in HOLDOUT_PREDICTION_RECEIPT.json still verify \u2014 stage 09 refuses to score a file whose hash moved, and it passes. On this release all eight components at rank 1.0 are also datasheet violations and score from the confirmed branch, so the clamp was never reached."
+    }
+  ]
+}

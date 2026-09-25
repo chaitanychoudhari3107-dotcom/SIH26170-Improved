@@ -1,0 +1,195 @@
+claim,status,detail
+the datasheet-limit rule raises zero false positives on the whole release,PASS,0 false positives in 5076 normals
+"the zero-FP claim is stated with an upper bound, not as 'never'",PASS,95% upper bound 0.0590%
+the holdout CONFIRMED tier contains no normal component,PASS,"23 confirmed, 0 normals"
+the shipped nested estimate is 45 of 54 at 9 false alarms,PASS,tp=45 fp=9
+the before-state under the same protocol is 44 of 54 at 7,PASS,tp=44 fp=7
+the nested run was made at the budget the release ships at,PASS,0.01
+"at a 0.01 budget, 6 of 12 folds chose pure lot_relative",PASS,6 of 12
+"at a 0.01 budget, no fold chose the inherited overall_extreme",PASS,max overall_extreme 0.0
+"at a 0.03 budget, 12 of 12 folds chose pure lot_relative",PASS,12 of 12
+"at a 0.03 budget, no fold chose the inherited overall_extreme",PASS,max overall_extreme 0.0
+the frozen artifact's config digest matches the code,PASS,2b2fa4da5ee36e7c
+the frozen artifact on disk matches its receipt hash,PASS,ef536d7cd0a1d506
+the frozen weights are the ones the docs name,PASS,"{""electrical"": 0.0, ""temporal"": 0.0, ""timing"": 0.0, ""overall_extreme"": 0.0, ""lot_relative"": 1.0}"
+holdout 0 h predictions unchanged since stage 8 wrote them,PASS,59cab8f291629b77
+holdout 24 h predictions unchanged since stage 8 wrote them,PASS,c73dd0d4644d4936
+holdout 96 h predictions unchanged since stage 8 wrote them,PASS,b29ecdfadb1c20ec
+holdout 168 h predictions unchanged since stage 8 wrote them,PASS,d9e2545a317b8911
+"the 168 h holdout result is 65 TP, 13 FP, 25 FN",PASS,"{'tp': 65, 'fp': 13, 'fn': 25}"
+"the published floor flags 78 of 1,343 holdout components",PASS,78
+within-spec static offsets are detected 6 of 21 across both splits,PASS,6 of 21
+one threshold on module_a_score reproduces module_a_disposition,PASS,floor 0.8455864571
+Module A never emits REJECT,PASS,"['MONITOR', 'PASS']"
+no document repeats a superseded figure without marking it superseded,PASS,clean
+robustness / invariance: rows shuffled,PASS,nan
+robustness / invariance: rows reversed,PASS,nan
+robustness / invariance: columns reordered,PASS,nan
+robustness / invariance: index non-monotonic,PASS,nan
+robustness / invariance: lots interleaved,PASS,nan
+robustness / invariance: an unexpected extra column is ignored,PASS,nan
+robustness / sensitivity: every measurement x1000 (unit error),PASS,CONFIRMED 23 -> 1343. The lot-relative statistic is scale-free so the statistical tier barely moves; only the 
+robustness / sensitivity: 1% multiplicative measurement noise,PASS,disposition agreement 0.9866
+robustness / refusal: a lot arrives short by one component,PASS,"GuardError: batch@168h: incomplete lots (observed, expected) [('A_L03', (69, 70))]"
+robustness / semantic: a whole lot is absent from the batch,PASS,"scored 1273 of 1343 components, and every score is identical to the full-batch run. Module A returns one row p"
+robustness / refusal: a component is duplicated,PASS,GuardError: batch@168h: duplicate component_id ['C00158']
+robustness / refusal: an unknown variant,PASS,GuardError: batch@168h: unknown device_variant ['CMOS_Z']; there is no fitted reference and substituting anoth
+robustness / refusal: a negative measurement,PASS,GuardError: batch@168h: non-positive measurements in ['IDDQ_168h']
+robustness / refusal: a zero 0 h measurement,PASS,GuardError: batch@168h: non-positive measurements in ['IDDQ_0h']
+robustness / refusal: a null measurement,PASS,GuardError: batch@168h: null or non-numeric measurements in ['Propagation_Delay_96h']
+robustness / refusal: a non-numeric measurement,PASS,GuardError: batch@168h: null or non-numeric measurements in ['IDDQ_24h']
+robustness / refusal: a missing measurement column,PASS,GuardError: batch@168h: missing required columns ['Output_Fall_Time_96h']
+robustness / refusal: a lot containing two variants,PASS,GuardError: batch@168h: lots contain more than one device_variant: ['A_L03']. The lot-relative reference assum
+robustness / refusal: a blank lot_id,PASS,GuardError: batch@168h: blank or null lot_id
+every promised invariance holds with zero score drift,PASS,max drift across invariance cases
+no robustness case failed,PASS,0
+the score is monotone in the observed anomaly rate,PASS,the observed anomaly rate rises with every score band
+the score is documented as NOT a probability,PASS,largest gap 0.747
+an individual score moves by less than 0.05 when a lot leaves the reference,PASS,0.01927755616330179
+no component below score 0.5 is anomalous on calibration,PASS,"{'band': '[0.0, 0.5)', 'components': 501, 'anomalies': 0, 'observed_anomaly_rate': 0.0}"
+no device variant is broken - every variant recalls above 0.6,PASS,"{'CMOS_A': 0.69, 'CMOS_B': 0.677, 'CMOS_C': 0.8}"
+no device variant exceeds a 2% false-alarm rate,PASS,"{'CMOS_A': 0.0146, 'CMOS_B': 0.0047, 'CMOS_C': 0.0121}"
+subtle anomalies are the weak case and are reported as such,PASS,SUBTLE detection 0.467
+fusion join / Module B's prediction file matches its receipt hash,PASS,d80d05653f9d0b5b
+fusion join / both modules name the same dataset,PASS,SIH26170-FINAL-01
+fusion join / no duplicate component_id on either side,PASS,"A 1343 rows / 1343 ids, B 1343 rows / 1343 ids"
+fusion join / every Module A component has a Module B forecast,PASS,0 missing
+fusion join / every Module B component has a Module A verdict,PASS,0 missing
+fusion join / the inner join keeps every row,PASS,1343
+fusion join / no column name collides between the two contracts except the join key,PASS,none
+fusion join / Module A emits no REJECT,PASS,"['MONITOR', 'PASS']"
+fusion join / Module B emits no disposition column,PASS,none
+"the fusion join keeps all 1,343 holdout components",PASS,1343
+no fusion join check failed,PASS,0
+"B corroboration is recorded as an association, never as a rule",PASS,"b_evidence_status is a VIEW, not a rule. No Module A disposition changes because"
+every reported confusion matrix balances: TP+TN+FP+FN = n,PASS,10 matrices
+matrix balances / holdout @ 0 h — frozen release,PASS,14+1221+32+76 = 1343
+matrix balances / holdout @ 24 h — frozen release,PASS,19+1221+32+71 = 1343
+matrix balances / holdout @ 96 h — frozen release,PASS,32+1222+31+58 = 1343
+matrix balances / holdout @ 168 h — frozen release,PASS,65+1240+13+25 = 1343
+matrix balances / holdout 168 h — CONFIRMED tier only,PASS,23+1253+0+67 = 1343
+matrix balances / holdout 168 h — statistical MONITOR tier only,PASS,42+1240+13+48 = 1343
+matrix balances / datasheet limit rule — TRAIN,PASS,45+2971+0+135 = 3151
+matrix balances / datasheet limit rule — CALIBRATION,PASS,13+852+0+41 = 906
+matrix balances / datasheet limit rule — HOLDOUT,PASS,23+1253+0+67 = 1343
+matrix balances / calibration out-of-fold — shipped configuration,PASS,47+844+8+7 = 906
+recall + FNR = 1 / holdout @ 0 h — frozen release,PASS,1.0
+specificity + FPR = 1 / holdout @ 0 h — frozen release,PASS,1.0
+recall + FNR = 1 / holdout @ 24 h — frozen release,PASS,1.0
+specificity + FPR = 1 / holdout @ 24 h — frozen release,PASS,1.0
+recall + FNR = 1 / holdout @ 96 h — frozen release,PASS,1.0
+specificity + FPR = 1 / holdout @ 96 h — frozen release,PASS,1.0
+recall + FNR = 1 / holdout @ 168 h — frozen release,PASS,1.0
+specificity + FPR = 1 / holdout @ 168 h — frozen release,PASS,1.0
+recall + FNR = 1 / holdout 168 h — CONFIRMED tier only,PASS,1.0
+specificity + FPR = 1 / holdout 168 h — CONFIRMED tier only,PASS,1.0
+recall + FNR = 1 / holdout 168 h — statistical MONITOR tier only,PASS,1.0
+specificity + FPR = 1 / holdout 168 h — statistical MONITOR tier only,PASS,1.0
+recall + FNR = 1 / datasheet limit rule — TRAIN,PASS,1.0
+specificity + FPR = 1 / datasheet limit rule — TRAIN,PASS,1.0
+recall + FNR = 1 / datasheet limit rule — CALIBRATION,PASS,1.0
+specificity + FPR = 1 / datasheet limit rule — CALIBRATION,PASS,1.0
+recall + FNR = 1 / datasheet limit rule — HOLDOUT,PASS,1.0
+specificity + FPR = 1 / datasheet limit rule — HOLDOUT,PASS,1.0
+recall + FNR = 1 / calibration out-of-fold — shipped configuration,PASS,1.0
+specificity + FPR = 1 / calibration out-of-fold — shipped configuration,PASS,1.0
+"the holdout 168 h matrix is 65 TP, 1240 TN, 13 FP, 25 FN",PASS,"{'tp': 65, 'tn': 1240, 'fp': 13, 'fn': 25}"
+the datasheet rule has zero false positives across all three splits,PASS,"{'tp': 81, 'tn': 5076, 'fp': 0, 'fn': 243}"
+"the datasheet rule's 5,076 true negatives are reported alongside its zero FP",PASS,5076
+the confusion implementation is cross-checked against sklearn every run,PASS,"sklearn.metrics.confusion_matrix, every row, every run"
+the confusion-matrix brief names all four outcomes explicitly,PASS,TP / TN / FP / FN
+no document presents an accuracy figure as a result,PASS,clean
+the model config digest has not moved since the freeze,PASS,2b2fa4da5ee36e7c
+the runtime contract digest has not moved since the freeze,PASS,d73ea59a16361e23
+there is no build mismatch,PASS,False
+the at-freeze source baseline lives outside the regenerable results/ tree,PASS,models/SOURCE_TREE_AT_FREEZE.json
+every prediction-path file that changed after the freeze is explained,PASS,"['modulea/config.py', 'modulea/tiers.py']"
+post-freeze change to modulea/config.py carries proof it changed nothing,PASS,"PACKAGE_VERSION was added, outside config_payload()"
+post-freeze change to modulea/tiers.py carries proof it changed nothing,PASS,the statistical band was closed just below CONFIRMED_FLOOR
+a perfect statistical score stays below the out-of-specification floor,PASS,statistical band is closed below the floor
+the packet identity carries the same config digest as the code,PASS,2b2fa4da5ee36e7c
+the packet publishes the monitor floor,PASS,0.8455864570737607
+the packet states Module A emits no REJECT,PASS,"['PASS', 'MONITOR']"
+packet contains README_ANUSHKA.md,PASS,README_ANUSHKA.md
+packet contains RELEASE_IDENTITY.json,PASS,RELEASE_IDENTITY.json
+packet contains SHA256SUMS.txt,PASS,SHA256SUMS.txt
+packet contains contract/runtime_contract.json,PASS,contract/runtime_contract.json
+packet contains contract/ModuleA_Output_Contract.csv,PASS,contract/ModuleA_Output_Contract.csv
+packet contains prediction/ModuleA_Final_Holdout_168h.csv,PASS,prediction/ModuleA_Final_Holdout_168h.csv
+packet contains prediction/HOLDOUT_PREDICTION_RECEIPT.json,PASS,prediction/HOLDOUT_PREDICTION_RECEIPT.json
+packet contains example/input_one_complete_lot.csv,PASS,example/input_one_complete_lot.csv
+packet contains example/output_one_complete_lot.csv,PASS,example/output_one_complete_lot.csv
+packet contains docs/INTEGRATION_NOTE.md,PASS,docs/INTEGRATION_NOTE.md
+packet contains docs/LIMITATIONS.md,PASS,docs/LIMITATIONS.md
+packet contains PROVENANCE_ADDENDUM.json,PASS,PROVENANCE_ADDENDUM.json
+packet SIH26170_FINAL_Anushka_ModuleA_Packet matches its own checksums,PASS,29 files
+packet SIH26170_FINAL_Anushka_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+packet SIH26170_FINAL_Chaitany_ModuleA_Packet matches its own checksums,PASS,22 files
+packet SIH26170_FINAL_Chaitany_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+packet SIH26170_FINAL_Nirmik_ModuleA_Packet matches its own checksums,PASS,138 files
+packet SIH26170_FINAL_Nirmik_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+packet SIH26170_FINAL_Riddhi_ModuleA_Packet matches its own checksums,PASS,22 files
+packet SIH26170_FINAL_Riddhi_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+packet SIH26170_FINAL_Sanskruti_ModuleA_Packet matches its own checksums,PASS,43 files
+packet SIH26170_FINAL_Sanskruti_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+packet SIH26170_FINAL_Tanisha_ModuleA_Packet matches its own checksums,PASS,21 files
+packet SIH26170_FINAL_Tanisha_ModuleA_Packet carries the same model digest,PASS,2b2fa4da5ee36e7c
+every file in the packet matches its listed checksum,PASS,clean
+the checkpoint records no failed step,PASS,16 steps recorded
+the checkpoint is not blocked,PASS,None
+CONTINUATION.md exists so an interrupted session can resume,PASS,present
+figure / 81 spec flags across the release,PASS,quoted as '81'
+"figure / 5,076 normal components scored",PASS,"quoted as '5,076'"
+figure / 95% upper bound 0.06%,PASS,quoted as '0.06%'
+figure / shipped nested recall 83.3%,PASS,quoted as '83.3%'
+figure / shipped nested FPR 1.06%,PASS,quoted as '1.06%'
+figure / shipped nested estimate 45 of 54 at 9,PASS,quoted as '45 of 54 at 9'
+figure / frozen operating threshold,PASS,quoted as '0.9395405'
+figure / 1% budget catches 47 of 54,PASS,quoted as '47'
+figure / zero-FP statistical threshold catches 38 of 54,PASS,quoted as '38'
+figure / holdout 78 flags,PASS,quoted as '78'
+figure / holdout CONFIRMED tier is 23 components,PASS,quoted as '23'
+figure / within-spec static detected 6 of 21,PASS,quoted as '6 of 21'
+figure / spec-failing static detected 7 of 7,PASS,quoted as '7 of 7'
+figure / holdout PR AUC of the frozen config,PASS,quoted as '0.8166'
+figure / holdout PR AUC of the inherited weights,PASS,quoted as '0.8239'
+figure / accelerating drift detected 17 of 17,PASS,quoted as '17'
+figure / static outliers detected 5 of 18,PASS,quoted as '5'
+figure / 12 calibration lots,PASS,quoted as '12'
+figure / all 180 variant-feature references used MAD,PASS,quoted as '180'
+figure / seven variant-parameter cells have no datasheet limit,PASS,quoted as 'seven'
+figure quoted in a document / 81 spec flags across the release,PASS,81
+"figure quoted in a document / 5,076 normal components scored",PASS,"5,076"
+figure quoted in a document / 95% upper bound 0.06%,PASS,0.06%
+figure quoted in a document / shipped nested recall 83.3%,PASS,83.3%
+figure quoted in a document / shipped nested FPR 1.06%,PASS,1.06%
+figure quoted in a document / shipped nested estimate 45 of 54 at 9,PASS,45 of 54 at 9
+figure quoted in a document / frozen operating threshold,PASS,0.9395405
+figure quoted in a document / 1% budget catches 47 of 54,PASS,47
+figure quoted in a document / zero-FP statistical threshold catches 38 of 54,PASS,38
+figure quoted in a document / holdout 78 flags,PASS,78
+figure quoted in a document / holdout CONFIRMED tier is 23 components,PASS,23
+figure quoted in a document / within-spec static detected 6 of 21,PASS,6 of 21
+figure quoted in a document / spec-failing static detected 7 of 7,PASS,7 of 7
+figure quoted in a document / holdout PR AUC of the frozen config,PASS,0.8166
+figure quoted in a document / holdout PR AUC of the inherited weights,PASS,0.8239
+figure quoted in a document / accelerating drift detected 17 of 17,PASS,17
+figure quoted in a document / static outliers detected 5 of 18,PASS,5
+figure quoted in a document / 12 calibration lots,PASS,12
+figure quoted in a document / all 180 variant-feature references used MAD,PASS,180
+figure quoted in a document / seven variant-parameter cells have no datasheet limit,PASS,seven
+docs/MASTER_PROMPT.md exists,PASS,MASTER_PROMPT.md
+docs/MASTER_PROMPT_DEPLOYMENT.md exists,PASS,MASTER_PROMPT_DEPLOYMENT.md
+docs/MASTER_PROMPT_FINAL_VERIFICATION.md exists,PASS,MASTER_PROMPT_FINAL_VERIFICATION.md
+docs/MASTER_PROMPT_CONFUSION_MATRIX.md exists,PASS,MASTER_PROMPT_CONFUSION_MATRIX.md
+docs/ACCEPTANCE_CRITERIA.md exists,PASS,ACCEPTANCE_CRITERIA.md
+docs/FUTURE_RELEASE_ITEMS.md exists,PASS,FUTURE_RELEASE_ITEMS.md
+docs/TEAM_HANDOFF.md exists,PASS,TEAM_HANDOFF.md
+docs/RELEASE_CHANGELOG.md exists,PASS,RELEASE_CHANGELOG.md
+docs/MODEL_CARD.md exists,PASS,MODEL_CARD.md
+docs/VALIDATION_SUMMARY.md exists,PASS,VALIDATION_SUMMARY.md
+docs/DECISION_LOG.md exists,PASS,DECISION_LOG.md
+docs/LIMITATIONS.md exists,PASS,LIMITATIONS.md
+docs/INTEGRATION_NOTE.md exists,PASS,INTEGRATION_NOTE.md
+docs/RUNBOOK.md exists,PASS,RUNBOOK.md
+docs/IMPROVEMENTS.md exists,PASS,IMPROVEMENTS.md

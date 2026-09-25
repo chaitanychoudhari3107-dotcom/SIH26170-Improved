@@ -1,0 +1,267 @@
+{
+  "module": "B",
+  "dataset": "SIH26170-FINAL-01",
+  "release_state": "REHEARSAL",
+  "frozen_at_utc": "2026-09-24T16:11:35+00:00",
+  "team_signoff": "REHEARSAL \u2014 not a production sign-off",
+  "refreeze_reason": null,
+  "frozen_config_digest": "8d0621941f86fbb817196919748c0d2007043391ec6539757720dd77ca46ab7d",
+  "runtime_contract_digest": "d19cec26170eb7250fef8d7169693a11df9228c48f337dbcc99897b7fad9ce31",
+  "source_tree_digest": "28e079f4d6a8999df3924879d7dd748c6b2038c361297320a93bcaa3e8dda90c",
+  "input_contract_digest": "c733adebf2266293aaa970726414ea9c00c4cdd2c26b378e65bb2c41440b145e",
+  "output_contract_digest": "c593740d0ff688e90214549d23ec18c4fa39470be4e8d807c5ffe26ae0b63d1e",
+  "serving_contract": {
+    "version": "mb-serving-2.0",
+    "requires_completeness_proof": true,
+    "partial_lot_default": false,
+    "min_lot_cohort": 30
+  },
+  "release_decisions": {
+    "D1": {
+      "closed": "2026-09-15",
+      "statement": "Module B emits forecasts and evidence, never a disposition.",
+      "holds": true
+    },
+    "D10": {
+      "closed": "2026-09-18",
+      "statement": "The pre-declared Output_Fall_Time rule did not fire; features stay own+lot+cross.",
+      "holds": true
+    },
+    "D11": {
+      "closed": "2026-09-19",
+      "statement": "FORECAST_REL_DELTA_CAP = None. The cap stays off for this release.",
+      "holds": true
+    },
+    "D12": {
+      "closed": "2026-09-19",
+      "statement": "Cohort-level serving contract: completeness is proved, not assumed.",
+      "holds": true
+    },
+    "D13": {
+      "closed": "2026-09-19",
+      "statement": "Tail coverage is ranked by true relative drift from 24 h.",
+      "holds": true
+    },
+    "D14": {
+      "closed": "2026-09-19",
+      "statement": "Corrected holdout-access provenance: no target, forecast, score or decision before the freeze.",
+      "holds": true
+    }
+  },
+  "holdout_access_provenance": {
+    "decision": "D14",
+    "recorded": "2026-09-19",
+    "predictor_only_file_read_before_freeze": true,
+    "hidden_168h_truth_available_to_module_b": false,
+    "holdout_forecast_generated": false,
+    "holdout_score_observed": false,
+    "model_or_config_decision_used_holdout_outcome": false,
+    "one_shot_predictive_evaluation_at_record_time": "UNSPENT (2026-09-19)",
+    "statement": "The predictor-only holdout file was read for structural and schema checks before this release. It carries no 168 h targets, none were available to Module B, no holdout forecast was produced and no holdout score was ever observed, so no model or configuration decision used a holdout outcome. The one-shot predictive evaluation was unspent when this record was made; whether it has since been spent is read from disk by one_shot_state() and recorded in the release manifest and the prediction receipt, never asserted here. From this release onward the pre-freeze stages read moduleb.holdout_manifest instead of the file, and a test fails if one of them opens it."
+  },
+  "holdout_prediction_state": "UNSPENT",
+  "config": {
+    "IDDQ": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own"
+    },
+    "Input_Leakage_Current": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own"
+    },
+    "Active_Supply_Current": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own"
+    },
+    "Propagation_Delay": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own+lot+cross"
+    },
+    "Output_Rise_Time": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own+lot+cross"
+    },
+    "Output_Fall_Time": {
+      "structure": "pooled",
+      "model": "Huber",
+      "features": "own+lot+cross"
+    }
+  },
+  "hyperparameters": {
+    "Huber": {
+      "epsilon": 1.35,
+      "alpha": 0.001,
+      "max_iter": 800
+    },
+    "Ridge": {
+      "alpha": 10.0
+    },
+    "GBR": {
+      "n_estimators": 200,
+      "learning_rate": 0.07,
+      "max_depth": 3,
+      "subsample": 0.8,
+      "min_samples_leaf": 20,
+      "random_state": 0
+    }
+  },
+  "seed": 0,
+  "n_folds": 7,
+  "target_parameterisation": "relative delta from 24h; prediction = x24 * (1 + f(features))",
+  "n_train_rows": 4057,
+  "n_train_lots": 54,
+  "train_lots": [
+    "A_L01",
+    "A_L02",
+    "A_L07",
+    "A_L08",
+    "A_L10",
+    "A_L11",
+    "A_L12",
+    "A_L13",
+    "A_L14",
+    "A_L15",
+    "A_L16",
+    "A_L17",
+    "A_L18",
+    "A_L19",
+    "A_L20",
+    "A_L21",
+    "A_L23",
+    "A_L24",
+    "B_L01",
+    "B_L02",
+    "B_L05",
+    "B_L06",
+    "B_L07",
+    "B_L08",
+    "B_L10",
+    "B_L11",
+    "B_L13",
+    "B_L14",
+    "B_L15",
+    "B_L16",
+    "B_L17",
+    "B_L19",
+    "B_L21",
+    "B_L22",
+    "B_L23",
+    "B_L24",
+    "C_L02",
+    "C_L03",
+    "C_L04",
+    "C_L05",
+    "C_L07",
+    "C_L08",
+    "C_L09",
+    "C_L10",
+    "C_L11",
+    "C_L13",
+    "C_L15",
+    "C_L16",
+    "C_L17",
+    "C_L18",
+    "C_L19",
+    "C_L21",
+    "C_L22",
+    "C_L24"
+  ],
+  "sources": {
+    "train": {
+      "path": "/workspace/scratch/28ae723cc64a/Project_final/incoming/nirmik/SIH26170_ModuleB_FINAL01_RC2/data/01_BUILD/ModuleB_Train.csv",
+      "sha256": "03d6ed3e9996dae2482e9f091be72b27a88b8ed1c8b5c635d90e754fc2a5f5a7",
+      "rows": 3151,
+      "lots": 42
+    },
+    "calibration": {
+      "path": "/workspace/scratch/28ae723cc64a/Project_final/incoming/nirmik/SIH26170_ModuleB_FINAL01_RC2/data/02_CALIBRATE/ModuleB_Calibration.csv",
+      "sha256": "05efb9f38e415a0238ff2fa9c4847c112265e3bfa5e442bbde9ec8c726596e64",
+      "rows": 906,
+      "lots": 12
+    }
+  },
+  "specs": {
+    "path": "/workspace/scratch/28ae723cc64a/Project_final/data/reference/Device_Specs.csv",
+    "sha256": "6defeac90df8833d1fcdaa0335784060caba29b0b1111411cb487af1871082e2"
+  },
+  "feature_contract": "0h and 24h measurements, own-lot medians of those, Device_Specs 0h baseline, device_variant one-hot. No 96h. No 168h. No hidden labels.",
+  "envelope": {
+    "method": "conformalised GBR quantile regression (CQR)",
+    "tau": 0.95,
+    "conformal_lots": 6,
+    "offsets": {
+      "IDDQ": -0.00527313,
+      "Input_Leakage_Current": 0.00123752,
+      "Active_Supply_Current": 0.00748786,
+      "Propagation_Delay": 0.00448845,
+      "Output_Rise_Time": 0.00094014,
+      "Output_Fall_Time": 0.0093139
+    },
+    "conformal_lot_ids": {
+      "IDDQ": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ],
+      "Input_Leakage_Current": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ],
+      "Active_Supply_Current": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ],
+      "Propagation_Delay": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ],
+      "Output_Rise_Time": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ],
+      "Output_Fall_Time": [
+        "A_L16",
+        "A_L17",
+        "B_L01",
+        "B_L08",
+        "B_L15",
+        "C_L13"
+      ]
+    },
+    "caveat": "marginal coverage is calibrated; conditional coverage on the worst-drifting decile is far below nominal. Evidence, not a screen."
+  },
+  "emits_disposition": false,
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit_learn": "1.8.0",
+    "scipy": "1.17.0"
+  },
+  "manifest_digest": "c40a9e48b43e6e15a0e50c1d9215550d240037e68844e0102570b683dccc22ad"
+}

@@ -1,0 +1,38 @@
+{
+  "0": {
+    "rows": 906,
+    "monitor": 41,
+    "confirmed": 3,
+    "reload_identical": true
+  },
+  "24": {
+    "rows": 906,
+    "monitor": 41,
+    "confirmed": 4,
+    "reload_identical": true
+  },
+  "96": {
+    "rows": 906,
+    "monitor": 45,
+    "confirmed": 4,
+    "reload_identical": true
+  },
+  "168": {
+    "rows": 906,
+    "monitor": 55,
+    "confirmed": 13,
+    "reload_identical": true
+  },
+  "preflight_checks": [
+    "signoff_present",
+    "weights_valid",
+    "operating_threshold_in_range",
+    "early_thresholds_complete",
+    "D1_no_final_disposition",
+    "D4_no_invented_limits",
+    "D5_complete_lots_required",
+    "lot_manifest_embedded",
+    "input_hashes_recorded",
+    "config_digest_stable"
+  ]
+}

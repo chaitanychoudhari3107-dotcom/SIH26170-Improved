@@ -1,0 +1,44 @@
+{
+  "receipt": "HOLDOUT_PREDICTION_RECEIPT",
+  "module": "A",
+  "release_candidate": "ModuleA-FINAL01-RC1",
+  "dataset_id": "SIH26170-FINAL-01",
+  "frozen_artifact_sha256": "ef536d7cd0a1d506c6912bc071b50d21e67c02b2a207e78556986a78c2eb9a23",
+  "config_digest": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9",
+  "runtime_contract_digest": "d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200",
+  "team_signoff": "Module A FINAL-01 freeze, 22 Sep 2026 \u2014 configuration selected under nested leave-one-lot-out on calibration only; holdout unopened at freeze time. Prepared for Nirmik Chawale, Module A owner, pending team confirmation.",
+  "holdout_input_sha256": "2030d38ef72ca2878ef4defaf2f9668d77eb73f2487490e679ecaedfeb3659a1",
+  "monitor_floor": 0.8455864570737607,
+  "operating_threshold": 0.9395405078597341,
+  "outputs": {
+    "0": {
+      "file": "ModuleA_Final_Holdout_0h.csv",
+      "rows": 1343,
+      "sha256": "59cab8f291629b77c81b948eb55ebc2a9ff6b9bb13ed82903bc66d7cd52bccc2",
+      "monitor": 46,
+      "confirmed": 1
+    },
+    "24": {
+      "file": "ModuleA_Final_Holdout_24h.csv",
+      "rows": 1343,
+      "sha256": "c73dd0d4644d4936bd1922305bd2b114f10ce084a7078d4ceab39472765868da",
+      "monitor": 51,
+      "confirmed": 1
+    },
+    "96": {
+      "file": "ModuleA_Final_Holdout_96h.csv",
+      "rows": 1343,
+      "sha256": "b29ecdfadb1c20ec68a153ae7d08c2dfb18bc35754b3d2cf9225fd6b958b6138",
+      "monitor": 63,
+      "confirmed": 1
+    },
+    "168": {
+      "file": "ModuleA_Final_Holdout_168h.csv",
+      "rows": 1343,
+      "sha256": "d9e2545a317b8911ce4e4f3f0f4f7286af1da2c8977b0f0956f3214469b625ab",
+      "monitor": 78,
+      "confirmed": 23
+    }
+  },
+  "labels_opened": false
+}

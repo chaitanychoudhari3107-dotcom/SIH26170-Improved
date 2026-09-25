@@ -1,0 +1,11 @@
+{
+  "status": "DIAGNOSTIC",
+  "finding": "detection tracks static_fail_target, not the STATIC_OUTLIER label",
+  "combined_within_spec_detection": {
+    "actual": 21,
+    "detected": 6
+  },
+  "split_composition_note": "calibration holds 6 of its 10 static outliers as spec failures; holdout holds 1 of 18. The published 8/10 on calibration and 4/18 on holdout are the same detector at the same threshold looking at two different populations.",
+  "consequence": "a threshold or model selected on calibration cannot be tuned for within-spec static offsets, because calibration contains four of them. This is a property of the dataset split, and it belongs in a note to whoever owns the generator, not in another modelling round.",
+  "ceiling_evidence": "nine statistics from five families \u2014 top-k means at k in {1,2,4,8}, the raw per-parameter extreme, two persistence statistics, a late-epoch statistic, and robust within-lot Mahalanobis \u2014 all detect 4 to 7 of the 18 holdout static outliers at a matched 3% false-alarm budget. That is a ceiling of within-lot statistics on this data, not a deficiency of any one candidate. Measured in the investigation report, section 5."
+}

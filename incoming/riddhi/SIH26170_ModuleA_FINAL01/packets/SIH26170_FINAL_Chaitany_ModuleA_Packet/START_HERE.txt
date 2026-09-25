@@ -1,0 +1,51 @@
+SIH 26170 - MODULE A - YOUR ENVELOPE
+============================================================
+
+Hello Chaitany. You are the data owner on this.
+
+WHAT MODULE A IS, IN ONE PARAGRAPH
+Components are baked at high temperature for a week (that is the "burn-in"),
+and measured at 0, 24, 96 and 168 hours. Module A looks at those measurements
+and says whether a component ALREADY looks wrong - compared to normal parts of
+the same type, and compared to the other parts in its own manufacturing lot.
+It does not predict the future; that is Module B. It does not make the final
+call; that is fusion. It says PASS or MONITOR and shows its reasoning.
+
+WHY YOU ARE GETTING A FILE
+Two things about the dataset turned out to be different from what the
+handover said. Neither is your mistake and neither breaks anything -
+but the next dataset version should know about both.
+
+WHAT IS IN HERE
+  START_HERE.txt        this page
+  README_CHAITANY.md      your letter - the detail, with the numbers
+  RELEASE_IDENTITY.json what exactly this is, so two copies can be compared
+  SHA256SUMS.txt        checksums, so you can prove nothing was altered
+  docs/                 the model card and the honest list of limitations
+  evidence/             the numbers behind every claim in your letter
+
+  Plus the folders your role needs. Your letter walks through them.
+
+WHAT TO DO
+  1. Read your letter. It is two findings and one request.
+  2. Open data_findings/05_static_composition.csv - it shows the split imbalance in one small table.
+  3. Decide whether the next split should balance it.
+
+WHAT NOT TO DO
+  - Do not regenerate SIH26170-FINAL-01. It is frozen and everything here is measured against it.
+  - Do not read this as a complaint. The dataset did its job; these are notes for the next one.
+
+THE ONE NUMBER EVERYONE SHOULD KNOW
+Out of 1,343 components in the final test, Module A flagged
+78. Of those, 65 really were faulty and
+13 were healthy parts that will cost somebody review time.
+It missed 25 faulty parts. Those 25 misses are
+the expensive number - a missed fault carries on down the line - and nobody on
+this team should quote the good numbers without them.
+
+IF SOMETHING LOOKS WRONG
+Say so. Every number in here traces to a file you have been given, and if one
+of them does not add up, that is worth more than a polite nod.
+
+  - Nirmik owns Module A. Questions go to him.
+============================================================

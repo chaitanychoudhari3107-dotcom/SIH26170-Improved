@@ -1,0 +1,63 @@
+{
+  "question_1_monotone": {
+    "answer": true,
+    "statement": "the observed anomaly rate rises with every score band",
+    "bands": [
+      {
+        "band": "[0.0, 0.5)",
+        "components": 501,
+        "anomalies": 0,
+        "observed_anomaly_rate": 0.0
+      },
+      {
+        "band": "[0.5, 0.7)",
+        "components": 206,
+        "anomalies": 4,
+        "observed_anomaly_rate": 0.019417475728155338
+      },
+      {
+        "band": "[0.7, 0.8)",
+        "components": 97,
+        "anomalies": 2,
+        "observed_anomaly_rate": 0.020618556701030927
+      },
+      {
+        "band": "[0.8, 0.85)",
+        "components": 51,
+        "anomalies": 4,
+        "observed_anomaly_rate": 0.0784313725490196
+      },
+      {
+        "band": "[0.85, 0.9)",
+        "components": 38,
+        "anomalies": 31,
+        "observed_anomaly_rate": 0.8157894736842105
+      },
+      {
+        "band": "[0.9, 0.95)",
+        "components": 13,
+        "anomalies": 13,
+        "observed_anomaly_rate": 1.0
+      }
+    ]
+  },
+  "question_2_is_it_a_probability": {
+    "answer": false,
+    "largest_gap_between_score_and_observed_rate": 0.7465686274509804,
+    "statement": "No. The largest gap between a band's midpoint and its observed anomaly rate is 0.747. A score of 0.7 does not mean 70% likely. Use the published floor and the tier, never the number's face value."
+  },
+  "question_3_individual_stability": {
+    "median_abs_drift_when_one_lot_leaves_the_reference": 0.003907109839313194,
+    "p95_abs_drift": 0.012370732953588703,
+    "max_abs_drift": 0.01927755616330179,
+    "statement": "an individual score is a rank against a population, so it moves when the population changes. Differences of a few hundredths between two components are not meaningful; the ordering and the threshold crossing are."
+  },
+  "what_the_score_is": "a monotone ranking statistic with a reserved out-of-specification band above 0.90",
+  "what_the_score_is_not": [
+    "a probability",
+    "calibrated",
+    "comparable across epochs",
+    "stable to three decimal places",
+    "a severity estimate"
+  ]
+}

@@ -1,0 +1,29 @@
+column_name,type,unit,description,module_b_rule
+component_id,string,,Unique component join key; ID order is not chronological.,context
+lot_id,string,,Manufacturing-lot context and whole-lot split key.,context
+device_family,string,,DIGITAL_CMOS.,context
+device_variant,string,,CMOS_A/CMOS_B/CMOS_C.,context
+IDDQ_0h,float,uA,IDDQ at 0h,allowed predictor
+IDDQ_24h,float,uA,IDDQ at 24h,allowed predictor
+IDDQ_96h,float,uA,IDDQ at 96h,never Module B predictor
+IDDQ_168h,float,uA,IDDQ at 168h,target only; hidden in holdout
+Input_Leakage_Current_0h,float,uA,Input_Leakage_Current at 0h,allowed predictor
+Input_Leakage_Current_24h,float,uA,Input_Leakage_Current at 24h,allowed predictor
+Input_Leakage_Current_96h,float,uA,Input_Leakage_Current at 96h,never Module B predictor
+Input_Leakage_Current_168h,float,uA,Input_Leakage_Current at 168h,target only; hidden in holdout
+Active_Supply_Current_0h,float,uA,Active_Supply_Current at 0h,allowed predictor
+Active_Supply_Current_24h,float,uA,Active_Supply_Current at 24h,allowed predictor
+Active_Supply_Current_96h,float,uA,Active_Supply_Current at 96h,never Module B predictor
+Active_Supply_Current_168h,float,uA,Active_Supply_Current at 168h,target only; hidden in holdout
+Propagation_Delay_0h,float,ns,Propagation_Delay at 0h,allowed predictor
+Propagation_Delay_24h,float,ns,Propagation_Delay at 24h,allowed predictor
+Propagation_Delay_96h,float,ns,Propagation_Delay at 96h,never Module B predictor
+Propagation_Delay_168h,float,ns,Propagation_Delay at 168h,target only; hidden in holdout
+Output_Rise_Time_0h,float,ns,Output_Rise_Time at 0h,allowed predictor
+Output_Rise_Time_24h,float,ns,Output_Rise_Time at 24h,allowed predictor
+Output_Rise_Time_96h,float,ns,Output_Rise_Time at 96h,never Module B predictor
+Output_Rise_Time_168h,float,ns,Output_Rise_Time at 168h,target only; hidden in holdout
+Output_Fall_Time_0h,float,ns,Output_Fall_Time at 0h,allowed predictor
+Output_Fall_Time_24h,float,ns,Output_Fall_Time at 24h,allowed predictor
+Output_Fall_Time_96h,float,ns,Output_Fall_Time at 96h,never Module B predictor
+Output_Fall_Time_168h,float,ns,Output_Fall_Time at 168h,target only; hidden in holdout

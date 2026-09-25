@@ -1,0 +1,89 @@
+{
+  "purpose": "Near-real-time operational/demo layer; does not modify or retrain the frozen benchmark.",
+  "benchmark_dataset_id": "SIH26170-FINAL-01",
+  "input_schema": [
+    "component_id",
+    "lot_id",
+    "device_variant",
+    "epoch_h",
+    "IDDQ",
+    "Input_Leakage_Current",
+    "Active_Supply_Current",
+    "Propagation_Delay",
+    "Output_Rise_Time",
+    "Output_Fall_Time",
+    "measured_at"
+  ],
+  "allowed_epochs_h": [
+    0,
+    24,
+    96,
+    168
+  ],
+  "validation": [
+    "component_id required",
+    "lot_id required for a new component",
+    "device_variant must be CMOS_A/CMOS_B/CMOS_C",
+    "epoch_h must be 0,24,96,168",
+    "all six measurements must be numeric and > 0",
+    "duplicate component_id + epoch_h must require explicit replace/confirm, never silent overwrite"
+  ],
+  "analysis_routing": {
+    "0h": {
+      "module_a": "baseline/lot-relative checks when sufficient lot context exists",
+      "module_b": "not run",
+      "progress_state": "AWAITING_24H"
+    },
+    "24h": {
+      "module_a": "run/update",
+      "module_b": "run 168h forecast using 0h+24h only",
+      "progress_state": "AWAITING_96H"
+    },
+    "96h": {
+      "module_a": "run/update with 96h trajectory",
+      "module_b": "do NOT use 96h; retain/re-display the 24h-based forecast",
+      "progress_state": "AWAITING_168H"
+    },
+    "168h": {
+      "module_a": "run/update with complete trajectory",
+      "module_b": "do NOT retrain; compare earlier forecast with actual 168h",
+      "progress_state": "COMPLETE"
+    }
+  },
+  "qa_disposition": {
+    "owner": "fusion",
+    "values": [
+      "PASS",
+      "MONITOR",
+      "REJECT"
+    ],
+    "note": "Operational progress state and QA disposition are separate concepts."
+  },
+  "suggested_endpoints": [
+    {
+      "method": "POST",
+      "path": "/api/measurements",
+      "purpose": "add one measurement"
+    },
+    {
+      "method": "POST",
+      "path": "/api/measurements/upload",
+      "purpose": "batch CSV upload"
+    },
+    {
+      "method": "GET",
+      "path": "/api/components/{component_id}",
+      "purpose": "component detail + history"
+    },
+    {
+      "method": "GET",
+      "path": "/api/components/{component_id}/trajectory",
+      "purpose": "parameter trajectory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dashboard/summary",
+      "purpose": "counts, recent updates, status changes"
+    }
+  ]
+}

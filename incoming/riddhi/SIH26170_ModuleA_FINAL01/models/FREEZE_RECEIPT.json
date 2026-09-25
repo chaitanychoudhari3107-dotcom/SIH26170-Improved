@@ -1,0 +1,71 @@
+{
+  "model_version": "ModuleA-FINAL01",
+  "release_candidate": "ModuleA-FINAL01-RC1",
+  "dataset_id": "SIH26170-FINAL-01",
+  "config": {
+    "dataset_id": "SIH26170-FINAL-01",
+    "model_version": "ModuleA-FINAL01",
+    "release_candidate": "ModuleA-FINAL01-RC1",
+    "weights": {
+      "electrical": 0.0,
+      "temporal": 0.0,
+      "timing": 0.0,
+      "overall_extreme": 0.0,
+      "lot_relative": 1.0
+    },
+    "depths": {
+      "group": 3,
+      "electrical": 6,
+      "temporal": 6,
+      "overall": 8,
+      "lot": 8
+    },
+    "operating_threshold": 0.9395405078597341,
+    "operating_fpr_budget": 0.01,
+    "early_fpr_budget": 0.03
+  },
+  "config_digest": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9",
+  "runtime_contract": {
+    "join_key": "component_id",
+    "emits_disposition": [
+      "PASS",
+      "MONITOR"
+    ],
+    "emits_reject": false,
+    "requires_complete_lots": true,
+    "min_lot_size": 30,
+    "contract_fields": [
+      "component_id",
+      "module_a_score",
+      "module_a_disposition",
+      "module_a_primary_parameter",
+      "module_a_reason_codes"
+    ],
+    "monitor_floor_is_published": true,
+    "invents_static_limits": false
+  },
+  "runtime_contract_digest": "d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200",
+  "team_signoff": "Module A FINAL-01 freeze, 22 Sep 2026 \u2014 configuration selected under nested leave-one-lot-out on calibration only; holdout unopened at freeze time. Prepared for Nirmik Chawale, Module A owner, pending team confirmation.",
+  "input_hashes": {
+    "train": "8f818f1b2ed5799904ea969d1bde3e3bafef09bf17bda04ce2e47f76a3b33e45",
+    "calibration": "1b7d6c4ac457c421136ef9ebc7c11f52bf6255cc052a39669149e465bed23611"
+  },
+  "preflight_checks_passed": [
+    "signoff_present",
+    "weights_valid",
+    "operating_threshold_in_range",
+    "early_thresholds_complete",
+    "D1_no_final_disposition",
+    "D4_no_invented_limits",
+    "D5_complete_lots_required",
+    "lot_manifest_embedded",
+    "input_hashes_recorded",
+    "config_digest_stable"
+  ],
+  "frozen_at_utc": "2026-09-21T18:42:42+00:00",
+  "notes": {
+    "holdout_hash_recorded_not_read": "2030d38ef72ca2878ef4defaf2f9668d77eb73f2487490e679ecaedfeb3659a1"
+  },
+  "artifact_filename": "module_a_final01.joblib",
+  "artifact_sha256": "ef536d7cd0a1d506c6912bc071b50d21e67c02b2a207e78556986a78c2eb9a23"
+}

@@ -1,0 +1,4 @@
+split,rows,lots,min_lot,max_lot,variants,has_is_anomalous
+train,3151,42,68,82,"CMOS_A,CMOS_B,CMOS_C",False
+calibration,906,12,70,82,"CMOS_A,CMOS_B,CMOS_C",True
+holdout,1343,18,69,82,"CMOS_A,CMOS_B,CMOS_C",False

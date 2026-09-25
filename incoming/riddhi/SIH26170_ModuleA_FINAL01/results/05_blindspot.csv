@@ -1,0 +1,7 @@
+split,population,actual,detected,detection_rate
+CALIBRATION,"static, fails spec",6,6,1.0
+CALIBRATION,"static, within spec",4,2,0.5
+CALIBRATION,all other behaviours,44,39,0.8863636363636364
+HOLDOUT,"static, fails spec",1,1,1.0
+HOLDOUT,"static, within spec",17,4,0.23529411764705882
+HOLDOUT,all other behaviours,72,60,0.8333333333333334

@@ -1,0 +1,61 @@
+{
+  "module_b_release": "ModuleB-FINAL01-RC2",
+  "module_b_prediction_sha256": "d80d05653f9d0b5bc1256aa6c10c25013bca0e5baee84f8600d4d814417b4f8b",
+  "rows_joined": 1343,
+  "checks": [
+    {
+      "check": "Module B's prediction file matches its receipt hash",
+      "status": "PASS",
+      "detail": "d80d05653f9d0b5b"
+    },
+    {
+      "check": "both modules name the same dataset",
+      "status": "PASS",
+      "detail": "SIH26170-FINAL-01"
+    },
+    {
+      "check": "no duplicate component_id on either side",
+      "status": "PASS",
+      "detail": "A 1343 rows / 1343 ids, B 1343 rows / 1343 ids"
+    },
+    {
+      "check": "every Module A component has a Module B forecast",
+      "status": "PASS",
+      "detail": "0 missing"
+    },
+    {
+      "check": "every Module B component has a Module A verdict",
+      "status": "PASS",
+      "detail": "0 missing"
+    },
+    {
+      "check": "the inner join keeps every row",
+      "status": "PASS",
+      "detail": "1343"
+    },
+    {
+      "check": "no column name collides between the two contracts except the join key",
+      "status": "PASS",
+      "detail": "none"
+    },
+    {
+      "check": "Module A emits no REJECT",
+      "status": "PASS",
+      "detail": "['MONITOR', 'PASS']"
+    },
+    {
+      "check": "Module B emits no disposition column",
+      "status": "PASS",
+      "detail": "none"
+    }
+  ],
+  "failures": 0,
+  "primary_parameter_agreement_where_both_name_one": 0.02308265078183172,
+  "primary_parameter_note": "A and B name the same parameter on a minority of components. That is expected and is not a defect in either: A names where a deviation is already observed, B names where drift is forecast. Fusion should treat agreement as corroboration and disagreement as two separate pieces of evidence, never as a contradiction to resolve.",
+  "b_evidence_status_counts": {
+    "NOT_APPLICABLE": 1265,
+    "NO_MATCHING_DRIFT_CODE": 59,
+    "SAME_PARAMETER_DRIFT_SUPPORT": 19
+  },
+  "warning": "b_evidence_status is a VIEW, not a rule. No Module A disposition changes because of it. A learned confirmation policy needs calibration-split B predictions made without target leakage, and those do not exist \u2014 it cannot be learned from the holdout forecasts and their labels."
+}

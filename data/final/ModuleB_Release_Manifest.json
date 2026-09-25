@@ -1,0 +1,241 @@
+{
+  "manifest": "RELEASE_MANIFEST",
+  "project": "SIH 26170 \u2014 AI-driven anomaly detection in component burn-in and screening",
+  "module": "B \u2014 168 h drift forecasting from 0 h + 24 h",
+  "owner": "Nirmik",
+  "release_candidate": "ModuleB-FINAL01-RC2",
+  "package_version": "final01.2.0",
+  "release_state": "HOLDOUT_PREDICTION_DELIVERED",
+  "built_utc": "2026-09-20T21:13:38+00:00",
+  "dataset": {
+    "id": "SIH26170-FINAL-01",
+    "status": "FINAL",
+    "generator_version_public": "v4-final1",
+    "split_id": "LOTSPLIT-05",
+    "rows": 5400,
+    "lots": 72,
+    "join_key": "component_id"
+  },
+  "inputs": {
+    "train": {
+      "filename": "ModuleB_Train.csv",
+      "bytes": 621409,
+      "sha256": "f4965db3803b9c93456e69447e047befe1b82a4c4a091e7c5220fdc28f29a2d1"
+    },
+    "calibration": {
+      "filename": "ModuleB_Calibration.csv",
+      "bytes": 178849,
+      "sha256": "5f6e977e2ea746dc01cce9f52ebe3f46c36b01b716c898b430e49f3e899130a1"
+    },
+    "holdout": {
+      "filename": "ModuleB_Holdout.csv",
+      "bytes": 191974,
+      "sha256": "e8082400cc815049ff52cbabf1940ca32663910e92d133f4ccc912e6b0d1cfe9"
+    },
+    "specs": {
+      "filename": "Device_Specs.csv",
+      "bytes": 4869,
+      "sha256": "252d5629003b5192e99f515598ef3d98c0e75cca4f712a4d0708de1a02ecf685"
+    },
+    "dictionary": {
+      "filename": "Schema_Data_Dictionary.csv",
+      "bytes": 2175,
+      "sha256": "7410b7f81fd901fc1553070724dd2e5dd6d4701c5aff7a573844cee97eb657e1"
+    },
+    "contract": {
+      "filename": "ModuleB_Output_Contract.csv",
+      "bytes": 463,
+      "sha256": "6294683e05c881e3ecdaba6cdedbedb16368ec3614ee8d4ea2f43a7f1dcd38d5"
+    },
+    "version": {
+      "filename": "Dataset_Version_Safe.json",
+      "bytes": 678,
+      "sha256": "6a6ca0072175d82708bdfb1d17cd6c35403c53fabb01f88a3b451e31a0c31bf7"
+    }
+  },
+  "digests": {
+    "model_config": "8d0621941f86fbb817196919748c0d2007043391ec6539757720dd77ca46ab7d",
+    "runtime_contract": "d19cec26170eb7250fef8d7169693a11df9228c48f337dbcc99897b7fad9ce31",
+    "source_tree": "28e079f4d6a8999df3924879d7dd748c6b2038c361297320a93bcaa3e8dda90c",
+    "input_contract": "c733adebf2266293aaa970726414ea9c00c4cdd2c26b378e65bb2c41440b145e",
+    "output_contract": "c593740d0ff688e90214549d23ec18c4fa39470be4e8d807c5ffe26ae0b63d1e"
+  },
+  "serving_contract": {
+    "serving_contract_version": "mb-serving-2.0",
+    "requires_completeness_proof": true,
+    "accepted_completeness_proofs": [
+      "request_metadata",
+      "delivery_attestation"
+    ],
+    "partial_lot_default": false,
+    "partial_lot_override": "explicit allow_partial_lot=True; recorded in the report with the offending lots and counts; report.clean is False",
+    "min_lot_cohort": 30,
+    "min_lot_cohort_role": "secondary sanity floor, never a completeness proof",
+    "input_contract": [
+      "component_id",
+      "lot_id",
+      "device_family",
+      "device_variant",
+      "IDDQ_0h",
+      "IDDQ_24h",
+      "Input_Leakage_Current_0h",
+      "Input_Leakage_Current_24h",
+      "Active_Supply_Current_0h",
+      "Active_Supply_Current_24h",
+      "Propagation_Delay_0h",
+      "Propagation_Delay_24h",
+      "Output_Rise_Time_0h",
+      "Output_Rise_Time_24h",
+      "Output_Fall_Time_0h",
+      "Output_Fall_Time_24h"
+    ],
+    "output_contract": [
+      "component_id",
+      "predicted_IDDQ_168h",
+      "predicted_Input_Leakage_Current_168h",
+      "predicted_Active_Supply_Current_168h",
+      "predicted_Propagation_Delay_168h",
+      "predicted_Output_Rise_Time_168h",
+      "predicted_Output_Fall_Time_168h",
+      "module_b_p95_IDDQ_168h",
+      "module_b_p95_Input_Leakage_Current_168h",
+      "module_b_p95_Active_Supply_Current_168h",
+      "module_b_p95_Propagation_Delay_168h",
+      "module_b_p95_Output_Rise_Time_168h",
+      "module_b_p95_Output_Fall_Time_168h",
+      "module_b_primary_parameter",
+      "module_b_reason_codes"
+    ],
+    "envelope_tau": 0.95,
+    "reason_code_thresholds": {
+      "high_drift_z": 3.0,
+      "wide_envelope_pctl": 0.9,
+      "lot_z": 3.0,
+      "no_early_signal": "delta below NOISE_CV * sqrt(2) for that parameter",
+      "noise_cv": {
+        "IDDQ": 0.01,
+        "Input_Leakage_Current": 0.02,
+        "Active_Supply_Current": 0.005,
+        "Propagation_Delay": 0.0035,
+        "Output_Rise_Time": 0.0045,
+        "Output_Fall_Time": 0.0045
+      }
+    },
+    "static_limit_policy": "no limit is invented; the seven empty Device_Specs cells never fire a limit-based code",
+    "clipping_semantics": {
+      "nonpositive_forecast": "replaced by the 24h reading, counted in the report",
+      "envelope_below_point": "raised to the point forecast, counted in the report",
+      "rel_delta_cap": null,
+      "rel_delta_cap_order": "applied before the positivity fallback"
+    },
+    "emits_disposition": false
+  },
+  "verification": {
+    "tests": {
+      "status": "PASS",
+      "passed": 102,
+      "failed": 0
+    },
+    "claim_check": {
+      "status": "PASS",
+      "passed": 210,
+      "failed": 0,
+      "checks": 210
+    }
+  },
+  "release_decisions": {
+    "D1": {
+      "closed": "2026-09-15",
+      "statement": "Module B emits forecasts and evidence, never a disposition.",
+      "holds": true
+    },
+    "D10": {
+      "closed": "2026-09-18",
+      "statement": "The pre-declared Output_Fall_Time rule did not fire; features stay own+lot+cross.",
+      "holds": true
+    },
+    "D11": {
+      "closed": "2026-09-19",
+      "statement": "FORECAST_REL_DELTA_CAP = None. The cap stays off for this release.",
+      "holds": true
+    },
+    "D12": {
+      "closed": "2026-09-19",
+      "statement": "Cohort-level serving contract: completeness is proved, not assumed.",
+      "holds": true
+    },
+    "D13": {
+      "closed": "2026-09-19",
+      "statement": "Tail coverage is ranked by true relative drift from 24 h.",
+      "holds": true
+    },
+    "D14": {
+      "closed": "2026-09-19",
+      "statement": "Corrected holdout-access provenance: no target, forecast, score or decision before the freeze.",
+      "holds": true
+    }
+  },
+  "known_limitations": [
+    "Input_Leakage_Current is ~33 % WORSE than the median-ratio baseline on the twelve calibration lots (acceptance criterion M5, FAIL). 27.7 % of that error sits on one component of 906. D11 closed with the relative-delta cap OFF, so this is carried into the freeze as a known limitation, not a fixed defect.",
+    "IDDQ and Active_Supply_Current tie a single per-variant constant under the pre-declared 5 % rule. For those two parameters Module B is not better than a well-chosen constant, and that is reported rather than hidden.",
+    "The p95 envelope is evidence, never a screen. Marginal coverage is calibrated (0.933-0.974 measured on calibration); coverage on the worst-drifting decile is 0.407-0.769. It must never be described as a safety or detection guarantee.",
+    "No cluster-conformal derivation exists for the implemented score construction on whole-lot units, so conformal coverage here is MEASURED, not proved (review finding F2).",
+    "The timing forecasts and every evidence column are COHORT statistics: they are computed against the components present in the request. A lot delivered incomplete answers a different question, which is why completeness must be proved and why the partial-lot override is recorded as degraded (D12).",
+    "Seven of eighteen variant x parameter cells have no static_spec_max in Device_Specs. No limit is invented for them and the limit-based reason codes never fire there (D1).",
+    "The measurement-noise CVs are the team's stated design assumptions, not measurements, and every figure derived from them inherits that status.",
+    "FINAL-01 is synthetic. Claims about physical realism are claims about the generator, not about silicon, and no external standard has been cited as authority for any threshold in this package.",
+    "Module B has no correctness label for its own B_ reason codes. Sparsity is measured; precision and recall of the codes are not, and cannot be here (review finding A1)."
+  ],
+  "holdout_access_provenance": {
+    "decision": "D14",
+    "recorded": "2026-09-19",
+    "predictor_only_file_read_before_freeze": true,
+    "hidden_168h_truth_available_to_module_b": false,
+    "holdout_forecast_generated": false,
+    "holdout_score_observed": false,
+    "model_or_config_decision_used_holdout_outcome": false,
+    "one_shot_predictive_evaluation_at_record_time": "UNSPENT (2026-09-19)",
+    "statement": "The predictor-only holdout file was read for structural and schema checks before this release. It carries no 168 h targets, none were available to Module B, no holdout forecast was produced and no holdout score was ever observed, so no model or configuration decision used a holdout outcome. The one-shot predictive evaluation was unspent when this record was made; whether it has since been spent is read from disk by one_shot_state() and recorded in the release manifest and the prediction receipt, never asserted here. From this release onward the pre-freeze stages read moduleb.holdout_manifest instead of the file, and a test fails if one of them opens it."
+  },
+  "holdout": {
+    "declared": "e8082400cc815049ff52cbabf1940ca32663910e92d133f4ccc912e6b0d1cfe9",
+    "n_rows": 1343,
+    "n_lots": 18,
+    "prediction_state": "SPENT",
+    "content_readers": [
+      "scripts/12_predict_holdout.py"
+    ]
+  },
+  "frozen_artifact_present": true,
+  "receipts": {
+    "freeze": {
+      "filename": "FREEZE_RECEIPT.json",
+      "sha256": "bcf3b33cefff2f1026c2158653ad4ad502d3139f8922911e2cd04ae96dfeb6a2",
+      "bytes": 2214
+    },
+    "holdout_prediction": {
+      "filename": "HOLDOUT_PREDICTION_RECEIPT.json",
+      "sha256": "5e06ab5be5948d8f8740f97ba9ad3e47f6b43164c2a0d3bcaa2309c6f1908096",
+      "bytes": 4036
+    },
+    "prediction_output": {
+      "filename": "ModuleB_Final_Holdout_Predictions.csv",
+      "sha256": "d80d05653f9d0b5bc1256aa6c10c25013bca0e5baee84f8600d4d814417b4f8b",
+      "bytes": 799995
+    }
+  },
+  "team_signoff": {
+    "state": "RECORDED",
+    "recorded": "Team sign-off 2026-09-20 \u2014 confirmed by Nirmik, Module B owner, on behalf of the team",
+    "frozen_at_utc": "2026-09-20T13:05:53+00:00",
+    "source": "embedded manifest of models/module_b_final01.joblib",
+    "note": "Read from the frozen artifact, which is the authority for it."
+  },
+  "next_actions": [
+    "Send ModuleB_Final_Holdout_Predictions.csv + HOLDOUT_PREDICTION_RECEIPT.json to Sanskruti for blind scoring.",
+    "Send models/FREEZE_RECEIPT.json to Chaitany for the archive.",
+    "Send the prediction file to Anushka only if final fusion needs it.",
+    "Change nothing in response to the scores. The one-shot is spent."
+  ],
+  "release_manifest_digest": "b11c372ba0890d78e8cf04b2361e823d4097b3cba7a5a54b950e068ab2511c0c"
+}

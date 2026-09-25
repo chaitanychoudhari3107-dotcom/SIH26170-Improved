@@ -1,0 +1,51 @@
+SIH 26170 - MODULE A - YOUR ENVELOPE
+============================================================
+
+Hello Riddhi. You are the Module A history on this.
+
+WHAT MODULE A IS, IN ONE PARAGRAPH
+Components are baked at high temperature for a week (that is the "burn-in"),
+and measured at 0, 24, 96 and 168 hours. Module A looks at those measurements
+and says whether a component ALREADY looks wrong - compared to normal parts of
+the same type, and compared to the other parts in its own manufacturing lot.
+It does not predict the future; that is Module B. It does not make the final
+call; that is fusion. It says PASS or MONITOR and shows its reasoning.
+
+WHY YOU ARE GETTING A FILE
+Your three packages were measured under one protocol. The core survived
+and is what ships; the two add-ons did not. This is what the numbers
+showed, stated plainly.
+
+WHAT IS IN HERE
+  START_HERE.txt        this page
+  README_RIDDHI.md        your letter - the detail, with the numbers
+  RELEASE_IDENTITY.json what exactly this is, so two copies can be compared
+  SHA256SUMS.txt        checksums, so you can prove nothing was altered
+  docs/                 the model card and the honest list of limitations
+  evidence/             the numbers behind every claim in your letter
+
+  Plus the folders your role needs. Your letter walks through them.
+
+WHAT TO DO
+  1. Read your letter. The structural finding is the interesting part.
+  2. Open comparison/04_nested_validation.csv for the honest estimate.
+  3. Note the hypothesis I got wrong, and why - it is in your letter.
+
+WHAT NOT TO DO
+  - Do not read this as your work being discarded. Better Potential's formula IS the release; there is a test asserting it is reproduced bit for bit.
+  - Do not re-run the old packages against the holdout to compare. It is no longer a test set.
+
+THE ONE NUMBER EVERYONE SHOULD KNOW
+Out of 1,343 components in the final test, Module A flagged
+78. Of those, 65 really were faulty and
+13 were healthy parts that will cost somebody review time.
+It missed 25 faulty parts. Those 25 misses are
+the expensive number - a missed fault carries on down the line - and nobody on
+this team should quote the good numbers without them.
+
+IF SOMETHING LOOKS WRONG
+Say so. Every number in here traces to a file you have been given, and if one
+of them does not add up, that is worth more than a polite nod.
+
+  - Nirmik owns Module A. Questions go to him.
+============================================================

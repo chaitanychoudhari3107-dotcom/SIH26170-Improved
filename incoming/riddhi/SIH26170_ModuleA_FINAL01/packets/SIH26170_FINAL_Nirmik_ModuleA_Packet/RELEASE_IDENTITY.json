@@ -1,0 +1,58 @@
+{
+  "release_candidate": "ModuleA-FINAL01-RC1",
+  "package_version": "final01.5.0",
+  "model_version": "ModuleA-FINAL01",
+  "release_state": "HOLDOUT_PREDICTION_DELIVERED",
+  "dataset": {
+    "id": "SIH26170-FINAL-01",
+    "status": "FINAL",
+    "rows": 5400,
+    "lots": 72,
+    "join_key": "component_id"
+  },
+  "digests": {
+    "model_config": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9",
+    "runtime_contract": "d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200",
+    "source_tree": "e6d86298540fc98b94c255f00ec7005fd95aa7d2818bc4348052a6bd0f4044c7",
+    "source_tree_at_freeze": "820d0201e3162a07893a43a24734f6a25a6aa77a87631dfa4b0234b740203575"
+  },
+  "source_tree_note": "A difference in source_tree alone is NOT a build mismatch: documentation, tests and reporting scripts move without touching what the model computes. A difference in model_config or runtime_contract IS a build mismatch, and two packets disagreeing on either means one is from a different build. Where a file in the prediction path changed, the change must be listed below with proof that no emitted value moved.",
+  "build_mismatch": false,
+  "output_contract_columns": [
+    "component_id",
+    "module_a_score",
+    "module_a_disposition",
+    "module_a_primary_parameter",
+    "module_a_reason_codes"
+  ],
+  "diagnostic_columns": [
+    "module_a_evidence_tier",
+    "module_a_attribution_margin",
+    "statistical_score",
+    "spec_exceedance_ratio",
+    "scored_epoch_h",
+    "analysis_status",
+    "model_version",
+    "dataset_id"
+  ],
+  "monitor_floor": 0.8455864570737607,
+  "operating_threshold": 0.9395405078597341,
+  "operating_fpr_budget": 0.01,
+  "join_key": "component_id",
+  "emits_disposition": [
+    "PASS",
+    "MONITOR"
+  ],
+  "emits_reject": false,
+  "verification": {
+    "tests": "151 passed",
+    "claims": {
+      "checked": 166,
+      "failed": 0
+    }
+  },
+  "frozen_artifact_sha256": "ef536d7cd0a1d506c6912bc071b50d21e67c02b2a207e78556986a78c2eb9a23",
+  "team_signoff": "RECORDED",
+  "holdout_prediction_state": "SPENT",
+  "built_for": "one of six role-scoped team artifacts, all derived from this release"
+}

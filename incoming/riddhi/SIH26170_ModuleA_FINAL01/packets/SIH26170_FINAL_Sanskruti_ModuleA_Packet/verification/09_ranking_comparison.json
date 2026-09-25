@@ -1,0 +1,30 @@
+{
+  "status": "DIAGNOSTIC",
+  "holdout_pr_auc_final01": 0.8166195703496681,
+  "holdout_pr_auc_inherited": 0.8239473169977151,
+  "holdout_roc_auc_final01": 0.9418151990777689,
+  "holdout_roc_auc_inherited": 0.9415802075019952,
+  "matched_workload": {
+    "73": {
+      "shipped": 64,
+      "inherited": 65
+    },
+    "78": {
+      "shipped": 65,
+      "inherited": 67
+    },
+    "90": {
+      "shipped": 69,
+      "inherited": 70
+    },
+    "100": {
+      "shipped": 70,
+      "inherited": 72
+    },
+    "125": {
+      "shipped": 72,
+      "inherited": 72
+    }
+  },
+  "reading": "the shipped weights rank slightly WORSE here than the ones they replaced. Within the noise the calibration bootstrap described, and deliberately not acted on - see DECISION_LOG D6. A configuration chosen before the holdout was seen cannot be rewritten by it."
+}

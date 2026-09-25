@@ -1,0 +1,9 @@
+check,status,detail
+sha256:train,PASS,8f818f1b2ed5799904ea969d1bde3e3bafef09bf17bda04ce2e47f76a3b33e45
+sha256:calibration,PASS,1b7d6c4ac457c421136ef9ebc7c11f52bf6255cc052a39669149e465bed23611
+sha256:holdout,PASS,2030d38ef72ca2878ef4defaf2f9668d77eb73f2487490e679ecaedfeb3659a1
+output_contract_matches_release,PASS,"release says ['component_id', 'module_a_score', 'module_a_disposition', 'module_a_primary_parameter', 'module_a_reason_codes']"
+config_digest,PASS,2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9
+runtime_contract_digest,PASS,d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200
+environment,PASS,"{""python"": ""3.11.15"", ""platform"": ""Linux-6.18.44-fc-v37-x86_64-with-glibc2.39"", ""numpy"": ""2.4.4"", ""pandas"": ""3.0.2"", ""scikit_learn"": ""1.8.0""}"
+unit_tests,PASS,151 passed

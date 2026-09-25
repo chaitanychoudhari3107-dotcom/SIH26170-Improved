@@ -1,0 +1,112 @@
+{
+  "protocol": "leave-one-lot-out over 12 calibration lots; inner leave-one-lot-out over the training lots selects weights and threshold",
+  "fpr_cap": 0.01,
+  "weight_grid_size": 1001,
+  "arms": [
+    {
+      "arm": "inherited",
+      "selection": "inherited weights (0.90/0.10) and the inherited 0.936978 cutoff \u2014 the before-state",
+      "tp": 44,
+      "tn": 845,
+      "fp": 7,
+      "fn": 10,
+      "n": 906,
+      "positives": 54,
+      "negatives": 852,
+      "flagged": 51,
+      "passed": 855,
+      "recall": 0.8148148148148148,
+      "specificity": 0.9917840375586855,
+      "fpr": 0.008215962441314555,
+      "fnr": 0.18518518518518517,
+      "precision": 0.8627450980392157,
+      "npv": 0.9883040935672515,
+      "accuracy": 0.9812362030905077,
+      "f1": 0.8380952380952381
+    },
+    {
+      "arm": "threshold",
+      "selection": "inherited weights; threshold selected inside each fold",
+      "tp": 44,
+      "tn": 842,
+      "fp": 10,
+      "fn": 10,
+      "n": 906,
+      "positives": 54,
+      "negatives": 852,
+      "flagged": 54,
+      "passed": 852,
+      "recall": 0.8148148148148148,
+      "specificity": 0.9882629107981221,
+      "fpr": 0.011737089201877934,
+      "fnr": 0.18518518518518517,
+      "precision": 0.8148148148148148,
+      "npv": 0.9882629107981221,
+      "accuracy": 0.977924944812362,
+      "f1": 0.8148148148148148
+    },
+    {
+      "arm": "full",
+      "selection": "weights AND threshold both selected inside each fold",
+      "tp": 45,
+      "tn": 842,
+      "fp": 10,
+      "fn": 9,
+      "n": 906,
+      "positives": 54,
+      "negatives": 852,
+      "flagged": 55,
+      "passed": 851,
+      "recall": 0.8333333333333334,
+      "specificity": 0.9882629107981221,
+      "fpr": 0.011737089201877934,
+      "fnr": 0.16666666666666666,
+      "precision": 0.8181818181818182,
+      "npv": 0.9894242068155111,
+      "accuracy": 0.9790286975717439,
+      "f1": 0.8256880733944955
+    },
+    {
+      "arm": "shipped",
+      "selection": "THE SHIPPED CONFIGURATION: selected weights, threshold chosen in-fold at the shipped budget",
+      "tp": 45,
+      "tn": 843,
+      "fp": 9,
+      "fn": 9,
+      "n": 906,
+      "positives": 54,
+      "negatives": 852,
+      "flagged": 54,
+      "passed": 852,
+      "recall": 0.8333333333333334,
+      "specificity": 0.9894366197183099,
+      "fpr": 0.01056338028169014,
+      "fnr": 0.16666666666666666,
+      "precision": 0.8333333333333334,
+      "npv": 0.9894366197183099,
+      "accuracy": 0.9801324503311258,
+      "f1": 0.8333333333333334
+    }
+  ],
+  "selected_weight_stability": {
+    "electrical": {
+      "0.0": 12
+    },
+    "temporal": {
+      "0.1": 6,
+      "0.0": 6
+    },
+    "timing": {
+      "0.0": 12
+    },
+    "overall_extreme": {
+      "0.0": 12
+    },
+    "lot_relative": {
+      "0.9": 6,
+      "1.0": 6
+    }
+  },
+  "reading": "The 'shipped' arm is the headline: it is what this release does, estimated out of sample. 'full' is what an unconstrained in-fold search achieves. 'inherited' is the before-state. Every arm must be read at the SAME fpr_cap, and the cap that matters is the one the release ships at \u2014 reporting an arm at a different budget from the shipped configuration is not a comparison.",
+  "warning": "fold unanimity in the weight search is budget-dependent. Do not quote it without naming the cap it was measured at."
+}

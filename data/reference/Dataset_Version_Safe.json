@@ -1,0 +1,34 @@
+{
+  "dataset_id": "SIH26170-FINAL-01",
+  "status": "FINAL",
+  "generator_version_public": "v4-final1",
+  "split_id": "LOTSPLIT-05",
+  "rows": 5400,
+  "lots": 72,
+  "variants": [
+    "CMOS_A",
+    "CMOS_B",
+    "CMOS_C"
+  ],
+  "epochs_h": [
+    0,
+    24,
+    96,
+    168
+  ],
+  "parameters": [
+    "IDDQ",
+    "Input_Leakage_Current",
+    "Active_Supply_Current",
+    "Propagation_Delay",
+    "Output_Rise_Time",
+    "Output_Fall_Time"
+  ],
+  "join_key": "component_id",
+  "notes": [
+    "component_id is an identifier, not time order",
+    "Active_Supply_Current is final parameter name",
+    "Module B uses 0h/24h only",
+    "final PASS/MONITOR/REJECT belongs to fusion"
+  ]
+}

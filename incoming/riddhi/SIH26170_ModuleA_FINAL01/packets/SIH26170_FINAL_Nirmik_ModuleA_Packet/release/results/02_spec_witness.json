@@ -1,0 +1,10 @@
+{
+  "rule": "any parameter measured above its Device_Specs static_spec_max at the scored epoch",
+  "limits_available": "11 of 18 variant x parameter cells; the other seven stay empty and the rule never fires there",
+  "normals_scored_at_168h": 5076,
+  "false_positives_observed": 0,
+  "false_positive_rate_observed": 0.0,
+  "false_positive_rate_95pct_upper_bound": 0.0005901757828120547,
+  "honest_statement": "0 false positives in 5076 normal components. Zero observed errors does not mean a zero rate: with none observed, the 95% one-sided upper bound is 0.06%. The correct claim is 'no observed false positive, true rate below 0.06%', not 'never wrong'.",
+  "what_it_does_not_do": "the rule catches a minority of anomalies on its own and adds no detections the statistical score misses on this release. Its value is certification, not recall: it marks which flags are certain."
+}

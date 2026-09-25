@@ -1,0 +1,37 @@
+{
+  "structure": [
+    {
+      "split": "train",
+      "rows": 3151,
+      "lots": 42,
+      "min_lot": 68,
+      "max_lot": 82,
+      "variants": "CMOS_A,CMOS_B,CMOS_C",
+      "has_is_anomalous": false
+    },
+    {
+      "split": "calibration",
+      "rows": 906,
+      "lots": 12,
+      "min_lot": 70,
+      "max_lot": 82,
+      "variants": "CMOS_A,CMOS_B,CMOS_C",
+      "has_is_anomalous": true
+    },
+    {
+      "split": "holdout",
+      "rows": 1343,
+      "lots": 18,
+      "min_lot": 69,
+      "max_lot": 82,
+      "variants": "CMOS_A,CMOS_B,CMOS_C",
+      "has_is_anomalous": false
+    }
+  ],
+  "findings": [
+    "splits are disjoint by component_id and by lot_id",
+    "0 of 180 variant-feature references needed a fallback scale; the inherited code would have scored each of those as z = 0, i.e. perfectly normal",
+    "the train split carries no is_anomalous column, so its contamination cannot be measured without the hidden labels; stage 2 shows 45 of its 3,151 components exceed a datasheet static maximum, which is only possible if the split is not anomaly-free. The handoff's description of it as a 'Normal-reference split' is therefore wrong. Median and MAD have a 50% breakdown point, so a contamination of this size does not move the reference materially \u2014 the point is that it is disclosed and bounded, not absent."
+  ],
+  "config_digest": "2b2fa4da5ee36e7cc8893ecba3519e7052198f215433892c3fae6a2291d2e6a9"
+}

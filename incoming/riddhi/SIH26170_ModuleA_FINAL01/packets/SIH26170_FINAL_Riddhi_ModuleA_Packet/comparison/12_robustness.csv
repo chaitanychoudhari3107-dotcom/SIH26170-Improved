@@ -1,0 +1,20 @@
+kind,case,status,max_score_drift,detail
+INVARIANCE,rows shuffled,PASS,0.0,
+INVARIANCE,rows reversed,PASS,0.0,
+INVARIANCE,columns reordered,PASS,0.0,
+INVARIANCE,index non-monotonic,PASS,0.0,
+INVARIANCE,lots interleaved,PASS,0.0,
+INVARIANCE,an unexpected extra column is ignored,PASS,0.0,
+SENSITIVITY,every measurement x1000 (unit error),PASS,0.9980132450331126,"CONFIRMED 23 -> 1343. The lot-relative statistic is scale-free so the statistical tier barely moves; only the datasheet-limit tier notices. A unit error is NOT caught by the statistical score — it is caught by the spec witness, and only upward."
+SENSITIVITY,1% multiplicative measurement noise,PASS,0.6089403973509934,disposition agreement 0.9866
+REFUSAL,a lot arrives short by one component,PASS,,"GuardError: batch@168h: incomplete lots (observed, expected) [('A_L03', (69, 70))]"
+SEMANTIC,a whole lot is absent from the batch,PASS,0.0,"scored 1273 of 1343 components, and every score is identical to the full-batch run. Module A returns one row per component SENT, not one per component in the release. A caller expecting full coverage must check the row count; Module A cannot know which lots were meant to arrive."
+REFUSAL,a component is duplicated,PASS,,GuardError: batch@168h: duplicate component_id ['C00158']
+REFUSAL,an unknown variant,PASS,,GuardError: batch@168h: unknown device_variant ['CMOS_Z']; there is no fitted reference and substituting another variant's
+REFUSAL,a negative measurement,PASS,,GuardError: batch@168h: non-positive measurements in ['IDDQ_168h']
+REFUSAL,a zero 0 h measurement,PASS,,GuardError: batch@168h: non-positive measurements in ['IDDQ_0h']
+REFUSAL,a null measurement,PASS,,GuardError: batch@168h: null or non-numeric measurements in ['Propagation_Delay_96h']
+REFUSAL,a non-numeric measurement,PASS,,GuardError: batch@168h: null or non-numeric measurements in ['IDDQ_24h']
+REFUSAL,a missing measurement column,PASS,,GuardError: batch@168h: missing required columns ['Output_Fall_Time_96h']
+REFUSAL,a lot containing two variants,PASS,,GuardError: batch@168h: lots contain more than one device_variant: ['A_L03']. The lot-relative reference assumes one varia
+REFUSAL,a blank lot_id,PASS,,GuardError: batch@168h: blank or null lot_id

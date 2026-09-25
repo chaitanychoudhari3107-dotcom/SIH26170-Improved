@@ -1,0 +1,7 @@
+{
+  "cases": 19,
+  "invariance_cases": 6,
+  "refusal_cases": 10,
+  "failures": [],
+  "note": "A unit error is the one perturbation the statistical score cannot see, because a lot-relative robust z is scale-free by construction. That is a property of the method, not a bug, and it belongs in the integration note so nobody assumes otherwise."
+}

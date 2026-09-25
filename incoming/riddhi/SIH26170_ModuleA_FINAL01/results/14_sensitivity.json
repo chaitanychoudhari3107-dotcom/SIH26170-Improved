@@ -1,0 +1,135 @@
+{
+  "status": "DIAGNOSTIC",
+  "per_lot_recall": {
+    "min": 0.25,
+    "median": 0.7142857142857143,
+    "max": 1.0,
+    "worst_lots": [
+      {
+        "lot_id": "C_L06",
+        "tp": 1,
+        "fn": 3,
+        "recall": 0.25
+      },
+      {
+        "lot_id": "B_L03",
+        "tp": 3,
+        "fn": 4,
+        "recall": 0.42857142857142855
+      },
+      {
+        "lot_id": "B_L18",
+        "tp": 3,
+        "fn": 3,
+        "recall": 0.5
+      }
+    ]
+  },
+  "per_lot_fpr": {
+    "min": 0.0,
+    "max": 0.038461538461538464,
+    "worst_lots": [
+      {
+        "lot_id": "C_L06",
+        "fp": 3,
+        "fpr": 0.038461538461538464
+      },
+      {
+        "lot_id": "A_L04",
+        "fp": 2,
+        "fpr": 0.031746031746031744
+      },
+      {
+        "lot_id": "A_L22",
+        "fp": 2,
+        "fpr": 0.02702702702702703
+      }
+    ]
+  },
+  "per_variant": [
+    {
+      "device_variant": "CMOS_A",
+      "components": 441,
+      "tp": 20,
+      "tn": 406,
+      "fp": 6,
+      "fn": 9,
+      "n": 441,
+      "positives": 29,
+      "negatives": 412,
+      "flagged": 26,
+      "passed": 415,
+      "recall": 0.6896551724137931,
+      "specificity": 0.9854368932038835,
+      "fpr": 0.014563106796116505,
+      "fnr": 0.3103448275862069,
+      "precision": 0.7692307692307693,
+      "npv": 0.9783132530120482,
+      "accuracy": 0.9659863945578231,
+      "f1": 0.7272727272727273
+    },
+    {
+      "device_variant": "CMOS_B",
+      "components": 458,
+      "tp": 21,
+      "tn": 425,
+      "fp": 2,
+      "fn": 10,
+      "n": 458,
+      "positives": 31,
+      "negatives": 427,
+      "flagged": 23,
+      "passed": 435,
+      "recall": 0.6774193548387096,
+      "specificity": 0.9953161592505855,
+      "fpr": 0.00468384074941452,
+      "fnr": 0.3225806451612903,
+      "precision": 0.9130434782608695,
+      "npv": 0.9770114942528736,
+      "accuracy": 0.9737991266375546,
+      "f1": 0.7777777777777778
+    },
+    {
+      "device_variant": "CMOS_C",
+      "components": 444,
+      "tp": 24,
+      "tn": 409,
+      "fp": 5,
+      "fn": 6,
+      "n": 444,
+      "positives": 30,
+      "negatives": 414,
+      "flagged": 29,
+      "passed": 415,
+      "recall": 0.8,
+      "specificity": 0.9879227053140096,
+      "fpr": 0.012077294685990338,
+      "fnr": 0.2,
+      "precision": 0.8275862068965517,
+      "npv": 0.9855421686746988,
+      "accuracy": 0.9752252252252253,
+      "f1": 0.8135593220338984
+    }
+  ],
+  "per_severity": [
+    {
+      "severity": "SEVERE",
+      "anomalies": 30,
+      "detected": 26,
+      "detection_rate": 0.8666666666666667
+    },
+    {
+      "severity": "MODERATE",
+      "anomalies": 30,
+      "detected": 25,
+      "detection_rate": 0.8333333333333334
+    },
+    {
+      "severity": "SUBTLE",
+      "anomalies": 30,
+      "detected": 14,
+      "detection_rate": 0.4666666666666667
+    }
+  ],
+  "uniformity_statement": "per-lot recall ranges from 0.25 to 1.00 across 18 holdout lots. The aggregate is not carried by a few lots, but a spread of 0.75 on lots of ~75 components with ~5 anomalies each is mostly small-sample noise and should not be read as a per-lot quality signal."
+}

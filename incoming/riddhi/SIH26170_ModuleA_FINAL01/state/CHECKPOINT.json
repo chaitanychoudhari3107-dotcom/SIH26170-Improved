@@ -1,0 +1,183 @@
+{
+  "schema": "modulea-checkpoint/1",
+  "release_candidate": "ModuleA-FINAL01 (package final01.4.0)",
+  "phase": "FINAL_DELIVERED",
+  "updated_utc": "2026-09-22T13:40:24+00:00",
+  "goal": "Bring Module A to the verification depth of ModuleB-FINAL01-RC2 and hand a packet to Anushka for fusion integration.",
+  "invariants_never_to_break": [
+    "FINAL-01 is frozen; the holdout run is spent; no score reopens either",
+    "the fitted model does not change in this phase - hardening only",
+    "config_digest 2b2fa4da5ee36e7c and runtime_contract_digest d73ea59a16361e23 must stay identical, or the phase has failed",
+    "no claim enters a document without a check in scripts/10_verify_claims.py"
+  ],
+  "steps": [
+    {
+      "step": "00_failsafe",
+      "status": "DONE",
+      "detail": "checkpoint mechanism and CONTINUATION.md written; a fresh session can resume from state/CHECKPOINT.json alone",
+      "artifacts": [
+        "state/CHECKPOINT.json",
+        "state/checkpoint.py",
+        "CONTINUATION.md"
+      ],
+      "at_utc": "2026-09-21T18:59:43+00:00"
+    },
+    {
+      "step": "01_master_prompt",
+      "status": "DONE",
+      "detail": "deployment-phase brief written",
+      "artifacts": [
+        "docs/MASTER_PROMPT_DEPLOYMENT.md"
+      ],
+      "at_utc": "2026-09-21T19:00:15+00:00"
+    },
+    {
+      "step": "12_robustness",
+      "status": "DONE",
+      "detail": "20 perturbation cases: 6 invariances hold exactly, 11 refusals fire, 2 sensitivities measured, 1 semantic documented (a batch missing a whole lot is scored, not refused)",
+      "artifacts": [
+        "results/12_robustness.csv",
+        "results/12_robustness.json"
+      ],
+      "at_utc": "2026-09-21T19:01:36+00:00"
+    },
+    {
+      "step": "13_score_semantics",
+      "status": "DONE",
+      "detail": "score is monotone in the anomaly rate across all bands; NOT a probability (largest gap 0.747); individual scores stable to ~0.02 when a whole lot leaves the reference",
+      "artifacts": [
+        "results/13_score_bands.csv",
+        "results/13_score_semantics.json"
+      ],
+      "at_utc": "2026-09-21T19:04:12+00:00"
+    },
+    {
+      "step": "14_sensitivity",
+      "status": "DONE",
+      "detail": "per-variant recall 0.68-0.80 with no broken variant; severity drives the spread (SEVERE 0.87, SUBTLE 0.47); B same-parameter corroboration is 19/19 real but cannot become a rule without calibration-split B forecasts",
+      "artifacts": [
+        "results/14_per_lot.csv",
+        "results/14_per_variant.csv",
+        "results/14_per_severity.csv",
+        "results/14_b_corroboration.csv",
+        "results/14_sensitivity.json"
+      ],
+      "at_utc": "2026-09-21T19:04:12+00:00"
+    },
+    {
+      "step": "15_fusion_dryrun",
+      "status": "DONE",
+      "detail": "joined to ModuleB-FINAL01-RC2's frozen holdout packet: 1343 rows, 9 of 9 checks pass, no id gaps either way, no column-name collisions",
+      "artifacts": [
+        "results/15_fusion_dryrun.csv",
+        "results/15_fusion_joined_holdout.csv"
+      ],
+      "at_utc": "2026-09-21T19:04:12+00:00"
+    },
+    {
+      "step": "16_boundary_fix",
+      "status": "DONE",
+      "detail": "tests/test_score_semantics.py found that a statistical rank of exactly 1.0 maps to exactly CONFIRMED_FLOOR, which would make validate_output refuse the frame and turn the top-ranked component of any batch into a serving failure. 8 holdout components sit at rank 1.0 and escape only because all 8 are also datasheet violations. Band closed just below the floor; predictions byte-identical; both digests unchanged.",
+      "artifacts": [
+        "modulea/tiers.py",
+        "tests/test_score_semantics.py"
+      ],
+      "at_utc": "2026-09-21T19:06:41+00:00"
+    },
+    {
+      "step": "17_provenance",
+      "status": "DONE",
+      "detail": "at-freeze source baseline recorded; 10 files changed post-freeze, 1 in the prediction path, explained with proof of byte-identical predictions; build_mismatch false",
+      "artifacts": [
+        "PROVENANCE_ADDENDUM.json"
+      ],
+      "at_utc": "2026-09-21T19:11:12+00:00"
+    },
+    {
+      "step": "18_packets",
+      "status": "DONE",
+      "detail": "serving example and Anushka integration packet built from results/",
+      "artifacts": [
+        "packets/SIH26170_FINAL_Anushka_ModuleA_Integration_Packet.zip"
+      ],
+      "at_utc": "2026-09-21T19:11:12+00:00"
+    },
+    {
+      "step": "19_claims",
+      "status": "DONE",
+      "detail": "claim checks expanded from 18 to 130, including figure-level cross-checks in both directions",
+      "artifacts": [
+        "results/10_verify_claims.csv"
+      ],
+      "at_utc": "2026-09-21T19:11:12+00:00"
+    },
+    {
+      "step": "20_docs",
+      "status": "DONE",
+      "detail": "ACCEPTANCE_CRITERIA, FUTURE_RELEASE_ITEMS, TEAM_HANDOFF, RELEASE_CHANGELOG written",
+      "artifacts": [
+        "docs/"
+      ],
+      "at_utc": "2026-09-21T19:11:12+00:00"
+    },
+    {
+      "step": "21_final_verification",
+      "status": "DONE",
+      "detail": "full clean re-run of all 10 ungated stages; holdout metrics reproduce exactly (65/13/25 at 168h); 79 tests, 131 claim checks, 0 failures; config digest unchanged at 2b2fa4da5ee36e7c",
+      "artifacts": [
+        "RELEASE_MANIFEST.json",
+        "results/10_verify_claims.csv"
+      ],
+      "at_utc": "2026-09-21T19:14:57+00:00"
+    },
+    {
+      "step": "22_budget_correction",
+      "status": "DONE",
+      "detail": "the claim checker caught the headline nested estimate being quoted from a 3% run while the release ships at 1%. Corrected to 45/54 at 9 FP; a mislabelled nested arm fixed with explicit LEGACY_WEIGHTS; the weight-unanimity claim restated as budget-dependent, with the robust finding (no fold ever chose overall_extreme) now carrying decision D3. Docs, changelog and claim checks all updated.",
+      "artifacts": [
+        "results/04_nested_validation.csv",
+        "results/04_nested_validation_cap03.csv",
+        "docs/DECISION_LOG.md",
+        "docs/VALIDATION_SUMMARY.md"
+      ],
+      "at_utc": "2026-09-21T19:20:22+00:00"
+    },
+    {
+      "step": "23_reproducibility",
+      "status": "DONE",
+      "detail": "two independent runs compared file by file: 39 of 39 analysis outputs byte-identical. Two defects found and fixed getting there: 00_selfcheck.csv recorded pytest's wall-clock time so no two runs could ever match, and run_all.py could not complete on a cleared results/ because stages 14 and 15 read the GATED stage 08's one-shot output from it. Frozen predictions now live in prediction/, which a clean re-run cannot destroy, and run_all refuses to start if they are absent.",
+      "artifacts": [
+        "scripts/19_reproducibility_check.py",
+        "results/19_reproducibility.csv",
+        "prediction/"
+      ],
+      "at_utc": "2026-09-21T19:43:27+00:00"
+    },
+    {
+      "step": "24_two_run_verification",
+      "status": "DONE",
+      "detail": "two independent canonical analysis runs compared: 44 of 44 files byte-identical, verdict REPRODUCIBLE. Five defects found and fixed: the at-freeze provenance baseline could erase itself from results/; four layers of circularity between the claim ledger, the packets and the comparison; a results file no stage produced; runtime_contract.json dropped from Anushka's packet by the builder rewrite; packet zips carrying filesystem timestamps. Analysis and release are now separate phases.",
+      "artifacts": [
+        "scripts/run_canonical.sh",
+        "scripts/release.sh",
+        "results/19_reproducibility.csv",
+        "models/SOURCE_TREE_AT_FREEZE.json"
+      ],
+      "at_utc": "2026-09-22T01:58:35+00:00"
+    },
+    {
+      "step": "25_confusion_matrix_audit",
+      "status": "DONE",
+      "detail": "all four cells now reported for every result: 10 matrices, each reconciled and cross-checked against sklearn on every run. 72 new tests pin the orientation, which arithmetic alone cannot catch. Two defects fixed: the packet build was not idempotent (stage 18 embedded a claim count the post-packet ledger then changed), and an over-broad accuracy check failed on the sentence explaining accuracy is not reported. Two independent runs REPRODUCIBLE 47 of 47; all six zips byte-identical across rebuilds; config digest unchanged.",
+      "artifacts": [
+        "scripts/20_confusion_matrix.py",
+        "tests/test_confusion_matrix.py",
+        "docs/MASTER_PROMPT_CONFUSION_MATRIX.md",
+        "packets/ENVELOPE.md"
+      ],
+      "at_utc": "2026-09-22T13:40:24+00:00"
+    }
+  ],
+  "next_action": "DELIVERED \u2014 Module A is closed",
+  "blocked_on": null
+}

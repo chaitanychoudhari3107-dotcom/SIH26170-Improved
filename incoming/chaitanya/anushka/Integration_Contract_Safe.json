@@ -1,0 +1,51 @@
+{
+  "join_key": "component_id",
+  "module_a": {
+    "fields": [
+      "component_id",
+      "module_a_score",
+      "module_a_disposition",
+      "module_a_primary_parameter",
+      "module_a_reason_codes"
+    ]
+  },
+  "module_b": {
+    "fields": [
+      "component_id",
+      "predicted_IDDQ_168h",
+      "predicted_Input_Leakage_Current_168h",
+      "predicted_Active_Supply_Current_168h",
+      "predicted_Propagation_Delay_168h",
+      "predicted_Output_Rise_Time_168h",
+      "predicted_Output_Fall_Time_168h",
+      "module_b_p95_IDDQ_168h",
+      "module_b_p95_Input_Leakage_Current_168h",
+      "module_b_p95_Active_Supply_Current_168h",
+      "module_b_p95_Propagation_Delay_168h",
+      "module_b_p95_Output_Rise_Time_168h",
+      "module_b_p95_Output_Fall_Time_168h",
+      "module_b_primary_parameter",
+      "module_b_reason_codes"
+    ],
+    "owns_final_disposition": false
+  },
+  "fusion": {
+    "final_dispositions": [
+      "PASS",
+      "MONITOR",
+      "REJECT"
+    ],
+    "fields": [
+      "component_id",
+      "module_a_score",
+      "module_a_disposition",
+      "module_a_primary_parameter",
+      "module_a_reason_codes",
+      "module_b_primary_parameter",
+      "module_b_reason_codes",
+      "final_disposition",
+      "fusion_reason_codes"
+    ],
+    "exact_rule": "to be implemented/frozen by integration team"
+  }
+}

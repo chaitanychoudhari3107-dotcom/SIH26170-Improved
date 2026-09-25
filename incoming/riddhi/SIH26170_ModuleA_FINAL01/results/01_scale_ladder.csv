@@ -1,0 +1,4 @@
+device_variant,features,MAD,IQR,STD
+CMOS_A,60,60,0,0
+CMOS_B,60,60,0,0
+CMOS_C,60,60,0,0

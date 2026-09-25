@@ -1,0 +1,11 @@
+result,tp+tn+fp+fn,components_scored,balances,recall+fnr,specificity+fpr
+holdout @ 0 h — frozen release,1343,1343,True,1.0,1.0
+holdout @ 24 h — frozen release,1343,1343,True,1.0,1.0
+holdout @ 96 h — frozen release,1343,1343,True,1.0,1.0
+holdout @ 168 h — frozen release,1343,1343,True,1.0,1.0
+holdout 168 h — CONFIRMED tier only,1343,1343,True,1.0,1.0
+holdout 168 h — statistical MONITOR tier only,1343,1343,True,1.0,1.0
+datasheet limit rule — TRAIN,3151,3151,True,1.0,1.0
+datasheet limit rule — CALIBRATION,906,906,True,1.0,1.0
+datasheet limit rule — HOLDOUT,1343,1343,True,1.0,1.0
+calibration out-of-fold — shipped configuration,906,906,True,1.0,1.0

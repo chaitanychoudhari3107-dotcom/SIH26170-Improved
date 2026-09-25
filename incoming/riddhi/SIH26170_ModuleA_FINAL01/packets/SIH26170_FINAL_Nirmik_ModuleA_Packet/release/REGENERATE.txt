@@ -1,0 +1,8 @@
+This copy of the release deliberately omits the outputs of the packet
+build itself: results/18_*, results/19_reproducibility.*, and
+results/10_verify_claims_with_packets.csv. Including them would make this
+archive's hash depend on when it was built.
+
+Regenerate them with:
+  bash scripts/run_canonical.sh <release-root> <moduleB-packet-root>
+  bash scripts/release.sh <release-root> <second-run>/results

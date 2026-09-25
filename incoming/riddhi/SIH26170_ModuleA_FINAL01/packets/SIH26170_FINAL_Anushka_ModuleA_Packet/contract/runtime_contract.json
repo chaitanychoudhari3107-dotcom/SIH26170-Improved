@@ -1,0 +1,44 @@
+{
+  "serving_contract_version": "ma-serving-1.0",
+  "runtime_contract_digest": "d73ea59a16361e23790ab975f8804d7cae7afd5c9f39ab58a9b2f9c76359a200",
+  "join_key": "component_id",
+  "emits_disposition": [
+    "PASS",
+    "MONITOR"
+  ],
+  "emits_reject": false,
+  "requires_complete_lots": true,
+  "min_lot_size": 30,
+  "contract_fields": [
+    "component_id",
+    "module_a_score",
+    "module_a_disposition",
+    "module_a_primary_parameter",
+    "module_a_reason_codes"
+  ],
+  "monitor_floor_is_published": true,
+  "invents_static_limits": false,
+  "monitor_floor": 0.8455864570737607,
+  "operating_threshold": 0.9395405078597341,
+  "score_bands": {
+    "statistical": "[0.00, 0.90)",
+    "out_of_specification": "[0.90, 1.00]"
+  },
+  "epochs_supported": [
+    0,
+    24,
+    96,
+    168
+  ],
+  "refuses": [
+    "a lot that cannot be proved complete against external lot sizes",
+    "an unknown device_variant",
+    "a null, non-numeric, zero or negative measurement",
+    "a duplicate component_id",
+    "a lot containing more than one device_variant",
+    "a lot below 30 components"
+  ],
+  "does_not_refuse": [
+    "a batch that omits a whole lot - screening one lot is legitimate, so Module A returns one row per component SENT"
+  ]
+}

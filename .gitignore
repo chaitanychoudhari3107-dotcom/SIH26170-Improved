@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Production builds
+/dist/
+dist-ssr/
+frontend/dist-ssr/
+!frontend/dist/
+!frontend/dist/**
+build/
+tools/
+*.exe
+
+# Python caches and bytecode
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.npy
+*.joblib
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local databases and runtime stores
+*.db-shm
+*.db-wal
+backend/operational.db
+backend/sih26170.db
+
+# Environment variables & secrets
+.env
+.env.*
+*.local
+*.pem
+*.key
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS & Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.tmp
+
+!data/runtime/*.joblib

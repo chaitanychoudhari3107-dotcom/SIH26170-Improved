@@ -1,0 +1,10 @@
+check,status,detail
+Module B's prediction file matches its receipt hash,PASS,d80d05653f9d0b5b
+both modules name the same dataset,PASS,SIH26170-FINAL-01
+no duplicate component_id on either side,PASS,"A 1343 rows / 1343 ids, B 1343 rows / 1343 ids"
+every Module A component has a Module B forecast,PASS,0 missing
+every Module B component has a Module A verdict,PASS,0 missing
+the inner join keeps every row,PASS,1343
+no column name collides between the two contracts except the join key,PASS,none
+Module A emits no REJECT,PASS,"['MONITOR', 'PASS']"
+Module B emits no disposition column,PASS,none
