@@ -100,3 +100,21 @@ CREATE TABLE IF NOT EXISTS review_actions (
     actor TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- A report is an operator allegation tied to immutable model output. It is
+-- never used as a training label or as automatic evidence of a physical fault.
+CREATE TABLE IF NOT EXISTS missed_defect_feedback (
+    feedback_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_id INTEGER NOT NULL REFERENCES screening_runs(run_id),
+    component_id TEXT NOT NULL REFERENCES components(component_id),
+    reported_disposition TEXT NOT NULL CHECK(reported_disposition IN ('PASS','PROVISIONAL_PASS')),
+    suspected_reason TEXT NOT NULL,
+    evidence_reference TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'SUSPECTED' CHECK(status IN ('SUSPECTED','QA_REVIEWED_DEFECT','DISMISSED')),
+    resolution_reason TEXT,
+    actor TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    resolved_at TEXT,
+    UNIQUE(run_id, component_id)
+);
+CREATE INDEX IF NOT EXISTS idx_missed_feedback_run ON missed_defect_feedback(run_id);

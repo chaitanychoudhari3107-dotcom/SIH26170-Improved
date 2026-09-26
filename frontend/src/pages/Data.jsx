@@ -11,6 +11,8 @@ export default function Data() {
   const [preview,setPreview]=useState(null), [run,setRun]=useState(null), [selected,setSelected]=useState('');
   const [busy,setBusy]=useState(false), [error,setError]=useState(''), [notice,setNotice]=useState('');
   const [action,setAction]=useState('ACKNOWLEDGE'), [reason,setReason]=useState('');
+  const [missReason,setMissReason]=useState(''), [missEvidence,setMissEvidence]=useState('');
+  const [feedbackStatus,setFeedbackStatus]=useState('QA_REVIEWED_DEFECT'), [resolutionReason,setResolutionReason]=useState('');
   async function refresh(){ const c=await api.get('/api/operational/config'); setConfig(c); if(c.mode!=='protected'||c.can_write)setLots(await api.get('/api/operational/lots')); }
   useEffect(()=>{refresh().catch(e=>setError(e.message));},[]);
   async function task(fn){setBusy(true);setError('');setNotice('');try{await fn();}catch(e){setError(e.message);}finally{setBusy(false);}}
@@ -18,6 +20,7 @@ export default function Data() {
   async function openRun(id){const result=await api.get(`/api/operational/runs/${id}`);setRun(result);setSelected(result.components[0]?.component_id||'');}
   const component=run?.components.find(c=>c.component_id===selected);
   const priorAlert=component?.prior_24h_alert;
+  const feedback=run?.feedback?.filter(f=>f.component_id===selected).at(-1);
   const finalReview=run?.reviews?.filter(r=>r.component_id===selected&&['APPROVE','REJECT'].includes(r.action)).at(-1);
   return <div className="workspace"><PageHeader title="Lot screening workspace" subtitle="Explore the read-only guided demo, then import complete lots and record review decisions."/>
     <GuidedDemo />
@@ -26,6 +29,7 @@ export default function Data() {
       {config?.mode==='protected'&&config.can_write&&<button onClick={()=>{api.setToken('');setLots([]);setRun(null);refresh();}}>Lock workspace</button>}
       {config?.mode==='read_only'&&<p>Imports and analysis are disabled. Configure an operator key on the server to enable this workspace.</p>}
       <p>Model runtime: {config?.runtime?.ready?'verified artifacts loaded':'unavailable'}. Reviews use a shared operator identity.</p>
+      {config?.can_write&&<div className="work-actions"><button onClick={()=>task(()=>api.download('/api/operational/feedback/export','qa_feedback_reports.csv'))}>Export QA feedback CSV</button><p>If this server has no persistent database disk, download reports before a redeploy; the default SQLite file can be reset.</p></div>}
     </section>
     {error&&<p className="work-error" role="alert">{error}</p>}{notice&&<p role="status">{notice}</p>}{busy&&<p role="status">Working… Larger lots may take a moment.</p>}
     <section className="work-panel"><h2>1. Import measurements</h2><div className="work-fields">
@@ -47,7 +51,7 @@ export default function Data() {
     </section>
     {run&&<section className="work-panel"><h2>3. Review run #{run.run_id} · {run.lot_id} · {run.epoch_h}h</h2><p>{Object.entries(run.counts).map(([k,v])=>`${k}: ${v}`).join(' · ')}</p><p>HOLD means forecast risk; REJECT means an observed specification breach. Early passes are provisional. Missing specification limits are not inferred.</p>
     <div className="work-actions">{['json','csv'].map(f=><button key={f} onClick={()=>task(()=>api.download(`/api/operational/runs/${run.run_id}/export?format=${f}`,`run_${run.run_id}.${f}`))}>Export {f.toUpperCase()}</button>)}</div>
-    <label>Component<select value={selected} onChange={e=>{setSelected(e.target.value);setAction('ACKNOWLEDGE');}}>{[...run.components].sort((a,b)=>({REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[a.disposition]-{REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[b.disposition])).map(c=><option key={c.component_id} value={c.component_id}>{c.disposition} · {c.component_id}</option>)}</select></label>
+    <label>Component<select value={selected} onChange={e=>{setSelected(e.target.value);setAction('ACKNOWLEDGE');setMissReason('');setMissEvidence('');setResolutionReason('');}}>{[...run.components].sort((a,b)=>({REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[a.disposition]-{REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[b.disposition])).map(c=><option key={c.component_id} value={c.component_id}>{c.disposition} · {c.component_id}</option>)}</select></label>
     {component&&<><h3>{component.disposition} · {component.component_id}</h3><p>{component.reason}</p>
     {priorAlert&&<div className="work-prior-alert" role="status"><strong>Earlier 24h alert: {priorAlert.disposition} · run #{priorAlert.run_id}</strong><p>{priorAlert.reason}</p>{finalReview?<p>Final review recorded: {finalReview.action} by {finalReview.actor} at {finalReview.created_at}. The model output remains unchanged.</p>:<p>QA review required: the current {component.disposition} snapshot does not erase this earlier alert. Inspect the evidence and record APPROVE, REJECT, or a retest request as appropriate.</p>}</div>}
     <div className="work-next-action"><strong>Next QA action</strong>
@@ -56,7 +60,23 @@ export default function Data() {
         run.epoch_h<168?<p>PROVISIONAL_PASS means no configured alert so far. Continue burn-in; final approval is unavailable until the 168h run.</p>:
         <p>PASS means no current configured alert at 168h. {priorAlert?'The earlier 24h alert still needs a recorded QA decision.':'An engineer may review the full evidence before recording approval.'}</p>}
     </div><div className="work-table"><table><thead><tr>{['Parameter','Unit','Limit','0h','24h','96h','168h','Forecast 168h','Upper bound','Absolute error'].map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>{Object.entries(component.parameters).map(([p,v])=><tr key={p}><th>{p.replaceAll('_',' ')}</th>{[v.unit,v.limit,...epochs.map(e=>v.observed[String(e)]),v.predicted_168h,v.upper_168h,v.absolute_error].map((x,i)=><td key={i}>{x==null?'—':typeof x==='number'?Number(x.toPrecision(5)):x}</td>)}</tr>)}</tbody></table></div>
-    <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/reviews`,{component_id:selected,action,reason});setReason('');const updated=await api.get(`/api/operational/runs/${run.run_id}`);setRun(updated);setNotice('Review recorded. Original model output preserved.');});}}><h3>Record a review</h3><label>Action<select value={action} onChange={e=>setAction(e.target.value)}>{['ACKNOWLEDGE','REQUEST_RETEST','HOLD','REJECT',...(run.epoch_h===168&&component.disposition==='PASS'?['APPROVE']:[])].map(a=><option key={a}>{a}</option>)}</select></label><label>Reason (at least 10 characters)<textarea ref={reasonInput} required minLength={10} maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label><button disabled={busy||!config?.can_write||reason.trim().length<10}>Save review</button></form>
+    {['PASS','PROVISIONAL_PASS'].includes(component.disposition)&&<div className="work-feedback"><h3>Suspected missed defect · QA feedback</h3>
+      <p>Report a suspected miss with a measurement, retest, or inspection reference. This creates a QA record; it does not change the model result or train a new model. A provisional 24h pass is not a final clearance.</p>
+      {feedback?<><p><strong>Status: {feedback.status.replaceAll('_',' ')}</strong> · reported against {feedback.reported_disposition} at {feedback.created_at}</p>
+        <p>Concern: {feedback.suspected_reason}<br/>Evidence reference: {feedback.evidence_reference}</p>
+        {feedback.resolution_reason&&<p>QA resolution: {feedback.resolution_reason} ({feedback.resolved_at})</p>}
+        {feedback.status==='SUSPECTED'&&<form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/feedback/${feedback.feedback_id}/resolve`,{status:feedbackStatus,resolution_reason:resolutionReason});await openRun(run.run_id);setResolutionReason('');setNotice('QA feedback reviewed. Model output remains unchanged.');});}}>
+          <label>QA outcome<select value={feedbackStatus} onChange={e=>setFeedbackStatus(e.target.value)}><option value="QA_REVIEWED_DEFECT">QA reviewed defect</option><option value="DISMISSED">Dismissed after review</option></select></label>
+          <label>Review evidence and rationale<textarea minLength={10} maxLength={2000} required value={resolutionReason} onChange={e=>setResolutionReason(e.target.value)}/></label>
+          <button disabled={busy||!config?.can_write||resolutionReason.trim().length<10}>Save QA outcome</button>
+        </form>}</>:
+        <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/feedback`,{component_id:selected,suspected_reason:missReason,evidence_reference:missEvidence});await openRun(run.run_id);setAction('ACKNOWLEDGE');setMissReason('');setMissEvidence('');setNotice('Suspected miss recorded for QA. Model output remains unchanged.');});}}>
+          <label>Why this may be a miss<textarea minLength={10} maxLength={2000} required value={missReason} onChange={e=>setMissReason(e.target.value)}/></label>
+          <label>Evidence reference (retest ID, inspection note, or measurement)<textarea minLength={10} maxLength={2000} required value={missEvidence} onChange={e=>setMissEvidence(e.target.value)}/></label>
+          <button disabled={busy||!config?.can_write||missReason.trim().length<10||missEvidence.trim().length<10}>Report suspected miss</button>
+        </form>}
+    </div>}
+    <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/reviews`,{component_id:selected,action,reason});setReason('');const updated=await api.get(`/api/operational/runs/${run.run_id}`);setRun(updated);setNotice('Review recorded. Original model output preserved.');});}}><h3>Record a review</h3><label>Action<select value={action} onChange={e=>setAction(e.target.value)}>{['ACKNOWLEDGE','REQUEST_RETEST','HOLD','REJECT',...(run.epoch_h===168&&component.disposition==='PASS'&&(!feedback||feedback.status==='DISMISSED')?['APPROVE']:[])].map(a=><option key={a}>{a}</option>)}</select></label><label>Reason (at least 10 characters)<textarea ref={reasonInput} required minLength={10} maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label><button disabled={busy||!config?.can_write||reason.trim().length<10}>Save review</button></form>
     <ul>{run.reviews?.filter(r=>r.component_id===selected).map(r=><li key={r.review_id}>{r.created_at} · {r.action} · {r.actor}: {r.reason}</li>)}</ul></>}
     <details><summary>Model provenance and forecast receipt</summary><pre>{JSON.stringify({model:run.model_provenance,forecast:run.forecast_receipt,input_hash:run.input_hash,policy:run.policy_version},null,2)}</pre></details></section>}
   </div>;

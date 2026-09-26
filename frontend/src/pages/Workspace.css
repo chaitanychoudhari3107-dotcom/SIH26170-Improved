@@ -2,6 +2,8 @@
 .work-next-action{border:1px solid #fbbf24;border-radius:8px;padding:16px;margin:16px 0;background:rgba(251,191,36,.08)}
 .work-prior-alert{border:2px solid var(--status-monitor,#f59e0b);border-radius:8px;padding:16px;margin:16px 0;background:var(--status-monitor-bg,rgba(245,158,11,.1));color:var(--text-primary,#f1f5f9)}
 .work-prior-alert strong{color:var(--status-monitor-text,#fbbf24)}
+.work-feedback{border:1px solid var(--border-focus,#38bdf8);border-radius:8px;padding:16px;margin:20px 0;background:rgba(56,189,248,.06)}
+.work-feedback h3{margin:0 0 8px}.work-feedback textarea{width:100%}
 
 .workspace button:hover:not(:disabled){background:var(--bg-card-hover,#141c2e);border-color:var(--border-focus,#38bdf8)}
 .workspace select option{background:var(--bg-input,#080d16);color:var(--text-primary,#f1f5f9)}

@@ -55,6 +55,17 @@ class ReviewInput(StrictInput):
     reason: str = Field(min_length=10, max_length=2000)
 
 
+class FeedbackInput(StrictInput):
+    component_id: str = Field(pattern=ID_PATTERN)
+    suspected_reason: str = Field(min_length=10, max_length=2000)
+    evidence_reference: str = Field(min_length=10, max_length=2000)
+
+
+class FeedbackResolution(StrictInput):
+    status: Literal['QA_REVIEWED_DEFECT', 'DISMISSED']
+    resolution_reason: str = Field(min_length=10, max_length=2000)
+
+
 def fetch_lot(connection, lot_id):
     lot = connection.execute('SELECT * FROM lots WHERE lot_id=?', (lot_id,)).fetchone()
     if lot is None:
@@ -224,7 +235,10 @@ def get_run(connection, run_id):
     if record is None:
         raise HTTPException(404, 'Analysis run not found')
     result = {'run_id': record['run_id'], 'created_at': record['created_at'], **json.loads(record['payload']),
-              'reviews': [dict(r) for r in connection.execute('SELECT * FROM review_actions WHERE run_id=? ORDER BY review_id', (run_id,))]}
+              'reviews': [dict(r) for r in connection.execute('SELECT * FROM review_actions WHERE run_id=? ORDER BY review_id', (run_id,))],
+              'feedback': [dict(r) for r in connection.execute(
+                  'SELECT f.* FROM missed_defect_feedback f JOIN screening_runs s ON s.run_id=f.run_id WHERE s.lot_id=? ORDER BY f.feedback_id',
+                  (record['lot_id'],))]}
     return attach_prior_alerts(connection, fetch_lot(connection, record['lot_id']), result)
 
 
@@ -263,10 +277,65 @@ def review(run_id: int, data: ReviewInput, request: Request):
                 raise HTTPException(422, 'Release approval requires the complete 168h run')
             if data.action == 'APPROVE' and next(r for r in run['components'] if r['component_id'] == data.component_id)['disposition'] != 'PASS':
                 raise HTTPException(422, 'Release approval requires a 168h PASS decision; record a hold or rejection instead')
+            if data.action == 'APPROVE' and any(r['component_id'] == data.component_id and r['status'] != 'DISMISSED' for r in run['feedback']):
+                raise HTTPException(409, 'An active missed-defect report blocks approval; investigate or dismiss it with evidence first')
             actor = 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'
             cur = connection.execute('INSERT INTO review_actions(run_id,component_id,action,reason,actor) VALUES(?,?,?,?,?)',
                                      (run_id, data.component_id, data.action, data.reason, actor))
     return {'review_id': cur.lastrowid, 'message': 'Review recorded; model output is preserved'}
+
+
+@router.post('/operational/runs/{run_id}/feedback', dependencies=[Depends(write_access)])
+def report_miss(run_id: int, data: FeedbackInput):
+    with closing(get_connection()) as connection:
+        with connection:
+            connection.execute('BEGIN IMMEDIATE')
+            run = get_run(connection, run_id)
+            part = next((p for p in run['components'] if p['component_id'] == data.component_id), None)
+            if part is None:
+                raise HTTPException(422, 'Component is not part of this run')
+            if part['disposition'] not in {'PASS', 'PROVISIONAL_PASS'}:
+                raise HTTPException(422, 'Suspected miss reports apply to PASS or PROVISIONAL_PASS; use a standard review for an alerted part')
+            if any(f['component_id'] == data.component_id and f['status'] != 'DISMISSED' for f in run['feedback']):
+                raise HTTPException(409, 'This component already has an active missed-defect report in its lot')
+            try:
+                cur = connection.execute('INSERT INTO missed_defect_feedback(run_id,component_id,reported_disposition,suspected_reason,evidence_reference,actor) VALUES(?,?,?,?,?,?)',
+                                         (run_id, data.component_id, part['disposition'], data.suspected_reason,
+                                          data.evidence_reference, 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'))
+            except sqlite3.IntegrityError:
+                raise HTTPException(409, 'This run and component already have a missed-defect report')
+    return {'feedback_id': cur.lastrowid, 'status': 'SUSPECTED',
+            'message': 'Suspected miss recorded for QA; frozen model output and training artifacts were not changed'}
+
+
+@router.post('/operational/feedback/{feedback_id}/resolve', dependencies=[Depends(write_access)])
+def resolve_feedback(feedback_id: int, data: FeedbackResolution):
+    with closing(get_connection()) as connection:
+        with connection:
+            connection.execute('BEGIN IMMEDIATE')
+            record = connection.execute('SELECT * FROM missed_defect_feedback WHERE feedback_id=?', (feedback_id,)).fetchone()
+            if record is None:
+                raise HTTPException(404, 'Feedback report not found')
+            if record['status'] != 'SUSPECTED':
+                raise HTTPException(409, 'This report has already been reviewed')
+            connection.execute('UPDATE missed_defect_feedback SET status=?,resolution_reason=?,resolved_at=CURRENT_TIMESTAMP WHERE feedback_id=?',
+                               (data.status, data.resolution_reason, feedback_id))
+    return {'feedback_id': feedback_id, 'status': data.status,
+            'message': 'QA annotation saved; no automatic model retraining occurred'}
+
+
+@router.get('/operational/feedback/export', dependencies=[Depends(read_access)])
+def export_feedback():
+    with closing(get_connection()) as connection:
+        rows = connection.execute('SELECT f.feedback_id,f.run_id,s.lot_id,s.epoch_h,f.component_id,f.reported_disposition,f.status,f.suspected_reason,f.evidence_reference,f.resolution_reason,f.actor,f.created_at,f.resolved_at FROM missed_defect_feedback f JOIN screening_runs s ON s.run_id=f.run_id ORDER BY f.feedback_id').fetchall()
+    output = io.StringIO()
+    fields = ['feedback_id','run_id','lot_id','epoch_h','component_id','reported_disposition','status',
+              'suspected_reason','evidence_reference','resolution_reason','actor','created_at','resolved_at']
+    writer = csv.DictWriter(output, fieldnames=fields)
+    writer.writeheader()
+    writer.writerows([dict(r) for r in rows])
+    return Response(output.getvalue(), media_type='text/csv',
+                    headers={'Content-Disposition': 'attachment; filename="qa_feedback_reports.csv"'})
 
 
 @router.get('/components/{component_id}', dependencies=[Depends(read_access)])
