@@ -46,14 +46,6 @@ export default function Overview() {
         </div>
       </PageHeader>
 
-      <div className="overview-demo-entry">
-        <div>
-          <strong>Start here: see a screening decision in about one minute</strong>
-          <p>Choose a synthetic component, see its 0h/24h readings and 168h forecast, then reveal what happened later. No password or CSV is needed.</p>
-        </div>
-        <button type="button" onClick={() => navigate('/data')}>Open public guided demo <ArrowRight size={16}/></button>
-      </div>
-
       {/* Quick Search Banner */}
       <div className="overview-search-banner">
         <div className="search-banner-inner">
