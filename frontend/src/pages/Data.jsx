@@ -9,7 +9,7 @@ export default function Data() {
   const [config,setConfig]=useState(null), [lots,setLots]=useState([]), [key,setKey]=useState('');
   const [form,setForm]=useState({lot_id:'DEMO_A',device_variant:'CMOS_A',expected_count:78,epoch_h:24,csv_text:''});
   const [preview,setPreview]=useState(null), [run,setRun]=useState(null), [selected,setSelected]=useState('');
-  const [busy,setBusy]=useState(false), [error,setError]=useState(''), [notice,setNotice]=useState('');
+  const [busy,setBusy]=useState(false), [error,setError]=useState(''), [notice,setNotice]=useState(''), [importNotice,setImportNotice]=useState('');
   const [action,setAction]=useState('ACKNOWLEDGE'), [reason,setReason]=useState('');
   const [missReason,setMissReason]=useState(''), [missEvidence,setMissEvidence]=useState('');
   const [feedbackStatus,setFeedbackStatus]=useState('QA_REVIEWED_DEFECT'), [resolutionReason,setResolutionReason]=useState('');
@@ -17,7 +17,7 @@ export default function Data() {
   async function refresh(){ const c=await api.get('/api/operational/config'); setConfig(c); if(c.mode!=='protected'||c.can_write)setLots(await api.get('/api/operational/lots')); }
   useEffect(()=>{refresh().catch(e=>setError(e.message));},[]);
   async function task(fn){setBusy(true);setError('');setNotice('');try{await fn();}catch(e){setError(e.message);}finally{setBusy(false);}}
-  function update(k,v){setForm(f=>({...f,[k]:v}));setPreview(null);}
+  function update(k,v){setForm(f=>({...f,[k]:v}));setPreview(null);setImportNotice('');}
   async function openRun(id){const result=await api.get(`/api/operational/runs/${id}`);setRun(result);setSelected(result.components[0]?.component_id||'');}
   const component=run?.components.find(c=>c.component_id===selected);
   const priorAlert=component?.prior_24h_alert;
@@ -27,7 +27,7 @@ export default function Data() {
   return <div className="workspace"><PageHeader title="Lot screening workspace" subtitle="Explore the read-only guided demo, then import complete lots and record review decisions."/>
     <GuidedDemo />
     <section className="work-panel"><h2>Research prototype · {config?.mode||'Loading'}</h2><p>{config?.runtime?.limitations}</p><p>Current: µA. Time: ns. Minimum lot size: 30. Declare the expected lot size from your test manifest before importing.</p>
-      {config?.mode==='protected'&&!config.can_write&&<form onSubmit={e=>{e.preventDefault();task(async()=>{api.setToken(key);try{await api.get('/api/operational/access');await refresh();setKey('');}catch(err){api.setToken('');throw err;}});}}><label>Operator key <input type="password" autoComplete="off" value={key} onChange={e=>setKey(e.target.value)} required/></label><button disabled={busy}>Unlock workspace</button></form>}
+      {config?.mode==='protected'&&!config.can_write&&<><p>Want to try importing a lot? Unlock the operator workspace here. The public guided demo above works without a key.</p>{config.public_demo_key&&<p className="work-gate-note"><strong>Evaluator demo key:</strong> <code>{config.public_demo_key}</code><br/>Enter this key below to try CSV import and QA review. This is a shared, disposable demonstration workspace; records can be changed by other visitors and may reset on redeploy.</p>}<form onSubmit={e=>{e.preventDefault();task(async()=>{api.setToken(key);try{await api.get('/api/operational/access');await refresh();setKey('');}catch(err){api.setToken('');throw err;}});}}><label>Operator key <input type="password" autoComplete="off" value={key} onChange={e=>setKey(e.target.value)} required/></label><button disabled={busy}>Unlock workspace</button></form></>}
       {config?.mode==='protected'&&config.can_write&&<button onClick={()=>{api.setToken('');setLots([]);setRun(null);refresh();}}>Lock workspace</button>}
       {config?.mode==='read_only'&&<p>Imports and analysis are disabled. Configure an operator key on the server to enable this workspace.</p>}
       <p>Model runtime: {config?.runtime?.ready?'verified artifacts loaded':'unavailable'}. Reviews use a shared operator identity.</p>
@@ -44,8 +44,9 @@ export default function Data() {
       <div className="work-actions"><button onClick={()=>task(()=>api.download(`/api/operational/template?epoch_h=${form.epoch_h}`,`template_${form.epoch_h}h.csv`))}>Download template</button>
       <a href="/demo/DEMO_A_24h.csv" download>Synthetic training fixture (24h)</a><a href="/demo/DEMO_A_168h.csv" download>Same fixture (168h)</a>
       <button disabled={busy||!config?.can_write||!form.csv_text} onClick={()=>task(async()=>setPreview(await api.post('/api/operational/import/validate',form)))}>Validate CSV</button>
-      <button disabled={busy||!preview||!config?.can_write} onClick={()=>task(async()=>{const r=await api.post('/api/operational/import',form);setNotice(`Imported ${r.inserted_measurements} measurements; ${r.unchanged_measurements} unchanged.`);setPreview(null);await refresh();})}>Import validated CSV</button></div>
+      <button disabled={busy||!preview||!config?.can_write} onClick={()=>task(async()=>{const r=await api.post('/api/operational/import',form);setImportNotice(r.inserted_measurements?`Import complete: ${r.inserted_measurements} measurements added; ${r.unchanged_measurements} already present. Find ${r.lot_id} in section 2 below.`:`Import complete: all ${r.unchanged_measurements} measurements were already present in ${r.lot_id}. Nothing was duplicated. Check section 2 below.`);setPreview(null);await refresh();})}>Import validated CSV</button></div>
       {preview&&<p role="status">Valid: {preview.rows} rows, {preview.new_measurements} new measurements. Lot completeness after import: {preview.registered_after_import}/{preview.expected_count}.</p>}
+      {importNotice&&<p className="work-gate-note" role="status"><strong>{importNotice}</strong></p>}
       <p>The downloadable fixture is training data for workflow testing, not independent accuracy evidence. Use its row count as the expected component count.</p>
     </section>
     <section className="work-panel"><h2>1B. Submit confirmed QA outcomes</h2>

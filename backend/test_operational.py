@@ -13,7 +13,7 @@ class OperationalTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.db = patch.object(operational_db, 'DATABASE_PATH', Path(self.temp.name)/'test.db'); self.db.start()
-        self.env = patch.dict('os.environ', {'SIH26170_OPERATOR_KEY':'test-operator','SIH26170_ENABLE_DEMO_WRITES':'0'}); self.env.start()
+        self.env = patch.dict('os.environ', {'SIH26170_OPERATOR_KEY':'test-operator','SIH26170_PUBLIC_DEMO_KEY':'','SIH26170_ENABLE_DEMO_WRITES':'0'}); self.env.start()
         self.client=TestClient(app, headers={'Authorization':'Bearer test-operator'})
     def tearDown(self):
         self.env.stop(); self.db.stop(); self.temp.cleanup()
@@ -24,7 +24,7 @@ class OperationalTests(unittest.TestCase):
         r=self.client.post('/api/operational/'+url,json=data)
         self.assertEqual(r.status_code,status,r.text[:1500]);return r.json()
     def test_read_only_default_blocks_writes(self):
-        with patch.dict('os.environ', {'SIH26170_OPERATOR_KEY':'','SIH26170_ENABLE_DEMO_WRITES':'0'}):
+        with patch.dict('os.environ', {'SIH26170_OPERATOR_KEY':'','SIH26170_PUBLIC_DEMO_KEY':'','SIH26170_ENABLE_DEMO_WRITES':'0'}):
             self.assertEqual(self.client.get('/api/operational/config').json()['mode'],'read_only')
             self.post('import',self.payload(),403)
     def test_request_limit_and_readiness(self):
@@ -46,6 +46,17 @@ class OperationalTests(unittest.TestCase):
         self.assertEqual(TestClient(app).post('/api/operational/import',json=self.payload()).status_code,401)
         self.post('import/validate',self.payload())
         self.assertEqual(self.client.get('/api/operational/lots').json(),[])
+    def test_public_demo_key_is_explicit_and_disposable(self):
+        unauthenticated = TestClient(app)
+        self.assertEqual(unauthenticated.get('/api/operational/config').json()['public_demo_key'], '')
+        with patch.dict('os.environ', {'SIH26170_PUBLIC_DEMO_KEY': 'judge-demo-credential'}):
+            config = unauthenticated.get('/api/operational/config').json()
+            self.assertEqual(config['public_demo_key'], 'judge-demo-credential')
+            self.assertFalse(config['can_write'])
+            self.assertEqual(unauthenticated.get('/api/operational/lots').status_code, 401)
+            demo_client = TestClient(app, headers={'Authorization': 'Bearer judge-demo-credential'})
+            self.assertTrue(demo_client.get('/api/operational/config').json()['can_write'])
+            self.assertEqual(demo_client.post('/api/operational/import', json=self.payload()).status_code, 200)
     def test_incomplete_and_conflicting_imports(self):
         p=self.payload();p['csv_text']='\n'.join(p['csv_text'].splitlines()[:3])+'\n'
         self.post('import',p)

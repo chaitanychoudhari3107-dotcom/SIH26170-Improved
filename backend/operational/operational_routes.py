@@ -2,6 +2,7 @@
 import csv
 import io
 import json
+import os
 import re
 import sqlite3
 from contextlib import closing
@@ -188,6 +189,7 @@ def ensure_lot(connection, data):
 @router.get('/operational/config')
 def configuration(request: Request):
     return {'mode': access_mode(), 'can_write': has_access(request), 'min_lot_size': 30,
+            'public_demo_key': os.environ.get('SIH26170_PUBLIC_DEMO_KEY', ''),
             'parameters': PARAMS, 'epochs': EPOCHS, 'runtime': runtime_status()}
 
 

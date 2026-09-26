@@ -5,15 +5,18 @@ from fastapi import HTTPException, Request
 
 
 def access_mode():
-    if os.environ.get('SIH26170_OPERATOR_KEY'):
+    if os.environ.get('SIH26170_OPERATOR_KEY') or os.environ.get('SIH26170_PUBLIC_DEMO_KEY'):
         return 'protected'
     return 'local_demo' if os.environ.get('SIH26170_ENABLE_DEMO_WRITES') == '1' else 'read_only'
 
 
 def has_access(request: Request):
-    key = os.environ.get('SIH26170_OPERATOR_KEY', '')
     supplied = request.headers.get('Authorization', '').removeprefix('Bearer ')
-    return bool(key and hmac.compare_digest(key.encode(), supplied.encode())) or access_mode() == 'local_demo'
+    for name in ('SIH26170_OPERATOR_KEY', 'SIH26170_PUBLIC_DEMO_KEY'):
+        key = os.environ.get(name, '')
+        if key and hmac.compare_digest(key.encode(), supplied.encode()):
+            return True
+    return access_mode() == 'local_demo'
 
 
 def read_access(request: Request):
