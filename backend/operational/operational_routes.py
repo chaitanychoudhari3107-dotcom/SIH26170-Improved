@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field, FiniteFloat, ConfigDict
 from .operational_db import get_connection
 from .access import read_access, write_access, access_mode, has_access
 from .inference import PARAMS, EPOCHS, IDS, runtime_status, analyze
+from .demo import demo_result
 
 router = APIRouter(prefix='/api', tags=['Operational workspace'])
 VARIANTS = Literal['CMOS_A', 'CMOS_B', 'CMOS_C']
@@ -129,6 +130,14 @@ def ensure_lot(connection, data):
 def configuration(request: Request):
     return {'mode': access_mode(), 'can_write': has_access(request), 'min_lot_size': 30,
             'parameters': PARAMS, 'epochs': EPOCHS, 'runtime': runtime_status()}
+
+
+@router.get('/operational/demo')
+def guided_demo():
+    """Public read-only illustration of the real policy on a fixed training lot."""
+    if not runtime_status()['ready']:
+        raise HTTPException(503, 'Runtime models unavailable for the guided demo')
+    return demo_result()
 
 
 @router.get('/operational/access', dependencies=[Depends(write_access)])

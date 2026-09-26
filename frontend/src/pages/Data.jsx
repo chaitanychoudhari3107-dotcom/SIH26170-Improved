@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PageHeader } from '../components/layout/PageHeader';
+import GuidedDemo from '../components/GuidedDemo';
 import { api } from '../services/api';
 import './Workspace.css';
 const epochs = [0, 24, 96, 168];
 export default function Data() {
+  const reasonInput = useRef(null);
   const [config,setConfig]=useState(null), [lots,setLots]=useState([]), [key,setKey]=useState('');
   const [form,setForm]=useState({lot_id:'DEMO_A',device_variant:'CMOS_A',expected_count:78,epoch_h:24,csv_text:''});
   const [preview,setPreview]=useState(null), [run,setRun]=useState(null), [selected,setSelected]=useState('');
@@ -15,7 +17,8 @@ export default function Data() {
   function update(k,v){setForm(f=>({...f,[k]:v}));setPreview(null);}
   async function openRun(id){const result=await api.get(`/api/operational/runs/${id}`);setRun(result);setSelected(result.components[0]?.component_id||'');}
   const component=run?.components.find(c=>c.component_id===selected);
-  return <div className="workspace"><PageHeader title="Lot screening workspace" subtitle="Import complete lots, run screening, inspect evidence, and record review decisions."/>
+  return <div className="workspace"><PageHeader title="Lot screening workspace" subtitle="Explore the read-only guided demo, then import complete lots and record review decisions."/>
+    <GuidedDemo />
     <section className="work-panel"><h2>Research prototype · {config?.mode||'Loading'}</h2><p>{config?.runtime?.limitations}</p><p>Current: µA. Time: ns. Minimum lot size: 30. Declare the expected lot size from your test manifest before importing.</p>
       {config?.mode==='protected'&&!config.can_write&&<form onSubmit={e=>{e.preventDefault();task(async()=>{api.setToken(key);try{await api.get('/api/operational/access');await refresh();setKey('');}catch(err){api.setToken('');throw err;}});}}><label>Operator key <input type="password" autoComplete="off" value={key} onChange={e=>setKey(e.target.value)} required/></label><button disabled={busy}>Unlock workspace</button></form>}
       {config?.mode==='protected'&&config.can_write&&<button onClick={()=>{api.setToken('');setLots([]);setRun(null);refresh();}}>Lock workspace</button>}
@@ -43,8 +46,14 @@ export default function Data() {
     {run&&<section className="work-panel"><h2>3. Review run #{run.run_id} · {run.lot_id} · {run.epoch_h}h</h2><p>{Object.entries(run.counts).map(([k,v])=>`${k}: ${v}`).join(' · ')}</p><p>HOLD means forecast risk; REJECT means an observed specification breach. Early passes are provisional. Missing specification limits are not inferred.</p>
     <div className="work-actions">{['json','csv'].map(f=><button key={f} onClick={()=>task(()=>api.download(`/api/operational/runs/${run.run_id}/export?format=${f}`,`run_${run.run_id}.${f}`))}>Export {f.toUpperCase()}</button>)}</div>
     <label>Component<select value={selected} onChange={e=>setSelected(e.target.value)}>{[...run.components].sort((a,b)=>({REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[a.disposition]-{REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[b.disposition])).map(c=><option key={c.component_id} value={c.component_id}>{c.disposition} · {c.component_id}</option>)}</select></label>
-    {component&&<><h3>{component.disposition} · {component.component_id}</h3><p>{component.reason}</p><div className="work-table"><table><thead><tr>{['Parameter','Unit','Limit','0h','24h','96h','168h','Forecast 168h','Upper bound','Absolute error'].map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>{Object.entries(component.parameters).map(([p,v])=><tr key={p}><th>{p.replaceAll('_',' ')}</th>{[v.unit,v.limit,...epochs.map(e=>v.observed[String(e)]),v.predicted_168h,v.upper_168h,v.absolute_error].map((x,i)=><td key={i}>{x==null?'—':typeof x==='number'?Number(x.toPrecision(5)):x}</td>)}</tr>)}</tbody></table></div>
-    <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/reviews`,{component_id:selected,action,reason});setReason('');const updated=await api.get(`/api/operational/runs/${run.run_id}`);setRun(updated);setNotice('Review recorded. Original model output preserved.');});}}><h3>Record a review</h3><label>Action<select value={action} onChange={e=>setAction(e.target.value)}>{['ACKNOWLEDGE','REQUEST_RETEST','HOLD','REJECT',...(run.epoch_h===168?['APPROVE']:[])].map(a=><option key={a}>{a}</option>)}</select></label><label>Reason (at least 10 characters)<textarea required minLength={10} maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label><button disabled={busy||!config?.can_write||reason.trim().length<10}>Save review</button></form>
+    {component&&<><h3>{component.disposition} · {component.component_id}</h3><p>{component.reason}</p>
+    <div className="work-next-action"><strong>Next QA action</strong>
+      {component.disposition==='MONITOR'||component.disposition==='HOLD'?<><p>Keep this part on review. Repeat the relevant measurement or ask an engineer to investigate before any release decision.</p><button type="button" disabled={!config?.can_write} onClick={()=>{setAction('REQUEST_RETEST');reasonInput.current?.focus();}}>Request retest for this part</button></>:
+        component.disposition==='REJECT'?<p>Observed limit breach: isolate this part and record a REJECT or HOLD review with the evidence.</p>:
+        run.epoch_h<168?<p>PROVISIONAL_PASS means no configured alert so far. Continue burn-in; final approval is unavailable until the 168h run.</p>:
+        <p>PASS means no configured alert at 168h. An engineer may review the full evidence before recording approval.</p>}
+    </div><div className="work-table"><table><thead><tr>{['Parameter','Unit','Limit','0h','24h','96h','168h','Forecast 168h','Upper bound','Absolute error'].map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>{Object.entries(component.parameters).map(([p,v])=><tr key={p}><th>{p.replaceAll('_',' ')}</th>{[v.unit,v.limit,...epochs.map(e=>v.observed[String(e)]),v.predicted_168h,v.upper_168h,v.absolute_error].map((x,i)=><td key={i}>{x==null?'—':typeof x==='number'?Number(x.toPrecision(5)):x}</td>)}</tr>)}</tbody></table></div>
+    <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/reviews`,{component_id:selected,action,reason});setReason('');const updated=await api.get(`/api/operational/runs/${run.run_id}`);setRun(updated);setNotice('Review recorded. Original model output preserved.');});}}><h3>Record a review</h3><label>Action<select value={action} onChange={e=>setAction(e.target.value)}>{['ACKNOWLEDGE','REQUEST_RETEST','HOLD','REJECT',...(run.epoch_h===168?['APPROVE']:[])].map(a=><option key={a}>{a}</option>)}</select></label><label>Reason (at least 10 characters)<textarea ref={reasonInput} required minLength={10} maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label><button disabled={busy||!config?.can_write||reason.trim().length<10}>Save review</button></form>
     <ul>{run.reviews?.filter(r=>r.component_id===selected).map(r=><li key={r.review_id}>{r.created_at} · {r.action} · {r.actor}: {r.reason}</li>)}</ul></>}
     <details><summary>Model provenance and forecast receipt</summary><pre>{JSON.stringify({model:run.model_provenance,forecast:run.forecast_receipt,input_hash:run.input_hash,policy:run.policy_version},null,2)}</pre></details></section>}
   </div>;
