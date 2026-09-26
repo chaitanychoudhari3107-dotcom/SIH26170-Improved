@@ -6,6 +6,7 @@ import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { useApi } from '../hooks/useApi';
 import { Sliders } from 'lucide-react';
+import OperationalEvaluation from '../components/OperationalEvaluation';
 import './Models.css';
 
 export default function Models() {
@@ -28,12 +29,12 @@ export default function Models() {
     <div className="page-models">
       <PageHeader 
         title="Model Performance & Evaluation Telemetry" 
-        subtitle="Module A holdout results at 168h. MONITOR and CONFIRMED count as alerts; these metrics do not evaluate Module B or the fused PASS/MONITOR/REJECT policy."
+        subtitle="Operational workspace policy at 24h and 168h, followed by separate frozen Module A and Module B release metrics. Synthetic retrospective evaluation."
       >
         <div className="models-header-chips">
           <span className="spec-chip">
             <span className="spec-dot live" />
-            EVAL SPLIT: HOLDOUT (168H)
+            EVAL SPLIT: HOLDOUT (24H / 168H)
           </span>
           <span className="spec-chip">
             POPULATION: 1,343 COMPONENTS
@@ -41,32 +42,36 @@ export default function Models() {
         </div>
       </PageHeader>
 
+      <OperationalEvaluation />
+
+      <h2>Separate frozen Module A release evaluation</h2>
+      <p className="models-scope-note">The cards and matrix below describe Module A at 168h; they are not the operational review-gate matrix above. The Module B release forecast table also uses a different saved artifact from the operational rehearsal fit.</p>
       {/* Top Headline Telemetry Strip */}
       <div className="eval-strip-grid">
         <div className="eval-strip-card">
           <span className="strip-label">F2 SCORE (RECALL-FOCUSED)</span>
-          <div className="strip-val text-accent">{(baseline.f2 * 100 || 74.2).toFixed(2)}%</div>
+          <div className="strip-val text-accent">{(baseline.f2 * 100).toFixed(2)}%</div>
           <span className="strip-sub">Module A only · synthetic holdout</span>
         </div>
         <div className="eval-strip-card">
           <span className="strip-label">RECALL / SENSITIVITY</span>
-          <div className="strip-val text-pass">{(baseline.recall * 100 || 72.2).toFixed(2)}%</div>
-          <span className="strip-sub">{baseline.tp || 65} / {baseline.positives || 90} Defects Flagged</span>
+          <div className="strip-val text-pass">{(baseline.recall * 100).toFixed(2)}%</div>
+          <span className="strip-sub">{baseline.tp} / {baseline.positives} Defects Flagged</span>
         </div>
         <div className="eval-strip-card">
           <span className="strip-label">PRECISION (PPV)</span>
-          <div className="strip-val">{(baseline.precision * 100 || 83.3).toFixed(2)}%</div>
-          <span className="strip-sub">{baseline.tp || 65} / {baseline.flagged || 78} Alerts True</span>
+          <div className="strip-val">{(baseline.precision * 100).toFixed(2)}%</div>
+          <span className="strip-sub">{baseline.tp} / {baseline.flagged} Alerts True</span>
         </div>
         <div className="eval-strip-card">
           <span className="strip-label">FPR (FALSE ALARM RATE)</span>
-          <div className="strip-val">{(baseline.fpr * 100 || 1.04).toFixed(2)}%</div>
-          <span className="strip-sub">{baseline.fp || 13} / {baseline.negatives || 1253} Healthy Parts</span>
+          <div className="strip-val">{(baseline.fpr * 100).toFixed(2)}%</div>
+          <span className="strip-sub">{baseline.fp} / {baseline.negatives} Healthy Parts</span>
         </div>
         <div className="eval-strip-card">
           <span className="strip-label">ACCURACY</span>
-          <div className="strip-val">{(baseline.accuracy * 100 || 97.2).toFixed(2)}%</div>
-          <span className="strip-sub">1,305 / 1,343 Correct</span>
+          <div className="strip-val">{(baseline.accuracy * 100).toFixed(2)}%</div>
+          <span className="strip-sub">{baseline.tp + baseline.tn} / {baseline.positives + baseline.negatives} Correct</span>
         </div>
       </div>
 

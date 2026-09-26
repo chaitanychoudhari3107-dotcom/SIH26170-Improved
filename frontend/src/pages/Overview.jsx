@@ -33,7 +33,7 @@ export default function Overview() {
     <div className="page-overview">
       <PageHeader 
         title="Fleet Reliability & Screening Command" 
-        subtitle="Synthetic holdout · LOTSPLIT-05 · 1,343 components across 18 lots"
+        subtitle="Frozen benchmark explorer · synthetic holdout · 1,343 components across 18 lots. Operational policy performance is shown separately under Models."
       >
         <div className="header-chips">
           <span className="spec-chip">
@@ -89,7 +89,7 @@ export default function Overview() {
             {summary?.pass_count?.toLocaleString() || '1,113'}
           </div>
           <div className="kpi-sub">
-            <strong>{((summary?.pass_count / summary?.total) * 100).toFixed(1)}%</strong> without an alert under the fused policy
+            <strong>{((summary?.pass_count / summary?.total) * 100).toFixed(1)}%</strong> under the frozen explorer fusion output
           </div>
           <div className="kpi-bar-track">
             <div className="kpi-bar-fill pass" style={{ width: `${(summary?.pass_count / summary?.total) * 100}%` }} />
@@ -121,7 +121,7 @@ export default function Overview() {
             {summary?.reject_count?.toLocaleString() || '28'}
           </div>
           <div className="kpi-sub">
-            <strong>{summary?.confirmed_count ?? 23}</strong> observed hard-limit breaches + <strong>{(summary?.reject_count ?? 28) - (summary?.confirmed_count ?? 23)}</strong> forecast-only holds
+            <strong>{summary?.confirmed_count ?? 23}</strong> observed hard-limit breaches + <strong>{(summary?.reject_count ?? 28) - (summary?.confirmed_count ?? 23)}</strong> forecast-only holds in the frozen explorer output
           </div>
           <div className="kpi-bar-track">
             <div className="kpi-bar-fill reject" style={{ width: `${(summary?.reject_count / summary?.total) * 100}%` }} />

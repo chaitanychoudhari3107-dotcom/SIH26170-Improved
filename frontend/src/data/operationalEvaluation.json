@@ -1,0 +1,33 @@
+{
+  "scope": "Retrospective synthetic holdout, already inspected",
+  "policy": "prototype-review-policy-1",
+  "population": 1343,
+  "defects": 90,
+  "healthy": 1253,
+  "lots": 18,
+  "module_b_artifact": "Reconstructed rehearsal fit",
+  "epochs": {
+    "24": {
+      "dispositions": {"REJECT": 1, "HOLD": 10, "MONITOR": 210, "PROVISIONAL_PASS": 1122},
+      "static_limits": {"tp": 1, "fp": 0, "fn": 89, "tn": 1253},
+      "module_a": {"tp": 19, "fp": 32, "fn": 71, "tn": 1221},
+      "strong_signal": {"tp": 7, "fp": 4, "fn": 83, "tn": 1249},
+      "review_gate": {"tp": 45, "fp": 176, "fn": 45, "tn": 1077}
+    },
+    "168": {
+      "dispositions": {"REJECT": 23, "HOLD": 5, "MONITOR": 203, "PASS": 1112},
+      "static_limits": {"tp": 23, "fp": 0, "fn": 67, "tn": 1253},
+      "module_a": {"tp": 65, "fp": 13, "fn": 25, "tn": 1240},
+      "strong_signal": {"tp": 24, "fp": 4, "fn": 66, "tn": 1249},
+      "review_gate": {"tp": 69, "fp": 162, "fn": 21, "tn": 1091}
+    }
+  },
+  "module_b": [
+    {"parameter": "IDDQ", "unit": "µA", "all_mae": 0.0264, "defect_mae": 0.0990, "all_coverage": 0.892, "defect_coverage": 0.644},
+    {"parameter": "Input leakage", "unit": "µA", "all_mae": 0.0060, "defect_mae": 0.0627, "all_coverage": 0.934, "defect_coverage": 0.711},
+    {"parameter": "Active supply current", "unit": "µA", "all_mae": 1.1399, "defect_mae": 1.8251, "all_coverage": 0.929, "defect_coverage": 0.822},
+    {"parameter": "Propagation delay", "unit": "ns", "all_mae": 0.0939, "defect_mae": 0.2463, "all_coverage": 0.917, "defect_coverage": 0.833},
+    {"parameter": "Output rise time", "unit": "ns", "all_mae": 0.0849, "defect_mae": 0.1556, "all_coverage": 0.894, "defect_coverage": 0.778},
+    {"parameter": "Output fall time", "unit": "ns", "all_mae": 0.0791, "defect_mae": 0.2356, "all_coverage": 0.950, "defect_coverage": 0.822}
+  ]
+}

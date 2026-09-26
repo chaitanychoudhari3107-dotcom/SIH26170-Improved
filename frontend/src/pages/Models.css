@@ -4,6 +4,7 @@
   gap: 1.75rem;
   max-width: 1300px;
 }
+.models-scope-note{color:var(--text-secondary);line-height:1.5;margin:0}
 
 .models-header-chips {
   display: flex;
