@@ -473,3 +473,8 @@
 .models-release-content>h2{font:600 1.25rem var(--bt-font-sans);margin:0}.models-release-content .models-scope-note{color:#bdcecd}
 .models-release-details summary:focus-visible{outline:3px solid var(--bt-forecast);outline-offset:3px}
 @media(max-width:640px){.models-release-details>summary small{margin-left:0}.models-release-content{padding:.75rem}.models-intro h1{font-size:2rem}}
+.page-models .table-responsive{overflow-x:auto;max-width:100%;min-width:0}
+.page-models .epoch-eval-table{min-width:620px}
+.page-models .comparison-table{min-width:650px}
+.page-models .confusion-matrix-card .card-content{overflow-x:auto}
+@media(max-width:640px){.cm-matrix-container{min-width:540px}.cm-derivations-panel{min-width:0}.derivation-row{flex-wrap:wrap;gap:.3rem}.d-label{width:auto;min-width:120px}.d-formula{min-width:140px}}

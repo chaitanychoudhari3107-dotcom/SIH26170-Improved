@@ -44,3 +44,4 @@
 .operational-row-tag{display:inline-block;margin-left:.5rem;vertical-align:middle;border-radius:3px;background:#896127;color:#fff3d8;font:600 .6rem var(--bt-font-mono);padding:.15rem .3rem}
 .operational-table th{color:#e2ebe9}.operational-table td{color:#d9e7e5}.operational-table th,.operational-table td{border-color:#384b56}
 @media(max-width:700px){.operational-headline{grid-template-columns:1fr}.operational-matrix{grid-template-columns:1fr}.operational-lead .operational-tabs{flex-wrap:wrap}}
+@media(max-width:700px){.operational-figure{overflow-x:auto}.operational-figure svg{min-width:580px}.operational-figure p{min-width:0}}

@@ -542,3 +542,10 @@
 .dataset-evidence-links button{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--border-bright);border-radius:8px;background:var(--bg-elevated);color:var(--text-primary);font:inherit;cursor:pointer}
 .dataset-evidence-links button:hover,.dataset-evidence-links button:focus-visible{border-color:var(--border-focus);outline:2px solid var(--border-focus);outline-offset:2px}
 @media(max-width:760px){.dataset-evidence{flex-direction:column;align-items:stretch}.dataset-evidence-links{min-width:0}}
+
+@media(max-width:640px){
+  .page-overview{min-width:0}
+  .overview-search-banner{padding:1rem}
+  .search-banner-inner,.search-banner-input{min-width:0;width:100%}
+  .overview-bottom-grid,.modules-overview-grid{min-width:0}
+}

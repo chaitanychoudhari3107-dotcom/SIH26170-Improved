@@ -18,8 +18,8 @@
   /* Typography Colors */
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-dim: #475569;
+  --text-muted: #a2b3c5;
+  --text-dim: #879aaf;
   --text-accent: #38bdf8;
   
   /* Brand & Accents */
@@ -67,4 +67,3 @@
   
   --sidebar-width: 260px;
 }
-

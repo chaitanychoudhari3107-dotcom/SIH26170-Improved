@@ -115,6 +115,8 @@
   border-color: var(--border-focus);
 }
 
+@media(max-width:480px){.search-filter-box{min-width:0;width:100%}.filter-toolbar-card{padding:.85rem}.select-filters-group{min-width:0}}
+
 .btn-reset-filters {
   display: inline-flex;
   align-items: center;
@@ -271,4 +273,3 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
-
