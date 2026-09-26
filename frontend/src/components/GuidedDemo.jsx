@@ -37,24 +37,28 @@ export default function GuidedDemo() {
   const padding = Math.max(spread * 0.12, Math.max(...(visibleValues.length ? visibleValues : [1])) * 0.02);
   const yDomain = visibleValues.length ? [Math.max(0, Math.min(...visibleValues) - padding), Math.max(...visibleValues) + padding] : ['auto', 'auto'];
   return <section className="guided-demo work-panel" aria-label="Guided operational demonstration">
-    <h2>Guided demo · three real policy decisions</h2>
-    <p>The backend analyses the full 78-part training fixture at 24h, then reuses the same forecast when it evaluates the later readings. This public demo does not import data into your workspace or need an operator key.</p>
+    <h2>Guided demo · four real policy decisions</h2>
+    <p>The backend analyses complete synthetic lots at 24h, then reuses each lot's early forecast for its 168h run. The fourth case uses a separate constructed 50-part stress lot to show an earlier warning beside a later PASS. This public demo does not import data into your workspace or need an operator key.</p>
     {error && <p role="alert" className="work-error">Demo unavailable: {error}</p>}
     {!demo && !error && <p role="status">Running the synthetic lot through the operational model…</p>}
     {item && <>
       <div className="demo-cases" role="group" aria-label="Choose a demonstration case">
         {demo.cases.map((c, index) => <button key={c.component_id} type="button" aria-pressed={selected === index} onClick={() => {
-          setSelected(index); setParameter(c.primary_parameter); setShowLater(false);
+          setSelected(index); setParameter(c.primary_parameter); setShowLater(Boolean(c.at_168h.prior_24h_alert));
         }}>{c.title}</button>)}
       </div>
       <h3>{item.component_id} · {item.title}</h3>
-      <p>{item.description} This example has no disclosed defect label, so its decision is not proof of correct classification.</p>
+      <p>{item.description} This example has no independently verified physical defect label, so its decision is not proof of correct classification.</p>
       <div className="demo-steps">
         <div><span>1 · Measurements</span><strong>0h + 24h observed</strong></div>
         <div><span>2 · Model B</span><strong>168h forecast + upper bound</strong></div>
-        <div><span>3 · Model A</span><strong>Compared with the 78-part lot</strong></div>
+        <div><span>3 · Model A</span><strong>Compared with the {item.lot_size || demo.lot_size}-part lot</strong></div>
         <div><span>4 · QA action</span><strong>{item.at_24h.disposition.replaceAll('_', ' ')}</strong></div>
       </div>
+      {item.at_168h.prior_24h_alert && <div className="demo-history-alert" role="status">
+        <strong>Earlier 24h MONITOR → current 168h PASS · QA review still needed</strong>
+        <p>The 168h model snapshot says PASS, but it does not erase the 24h warning. This is a retrospective constructed stress case, shown here so the review rule is visible without unlocking the operator workspace.</p>
+      </div>}
       <label>Inspect parameter <select value={parameter} onChange={e => setParameter(e.target.value)}>
         {Object.keys(item.parameters).map(p => <option key={p} value={p}>{p.replaceAll('_', ' ')}</option>)}
       </select></label>
