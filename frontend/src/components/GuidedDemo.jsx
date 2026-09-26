@@ -30,8 +30,10 @@ export default function GuidedDemo() {
   const values = measurement && [measurement.observed_early['0'], measurement.observed_early['24'],
     measurement.predicted_168h, measurement.upper_168h,
     ...(showLater ? Object.values(measurement.observed_retrospective) : [])].filter(Number.isFinite);
-  const showLimit = measurement?.limit != null && measurement.limit <= Math.max(...(values || [1])) * 2;
-  const visibleValues = measurement ? [...values, measurement.lot_median_24h,
+  const coreValues = measurement ? [...values, measurement.lot_median_24h] : [];
+  const coreSpread = coreValues.length ? Math.max(...coreValues) - Math.min(...coreValues) : 0;
+  const showLimit = measurement?.limit != null && measurement.limit >= Math.min(...coreValues) - coreSpread && measurement.limit <= Math.max(...coreValues) + coreSpread;
+  const visibleValues = measurement ? [...coreValues,
     ...(showLimit ? [measurement.limit] : [])] : [];
   const spread = visibleValues.length ? Math.max(...visibleValues) - Math.min(...visibleValues) : 0;
   const padding = Math.max(spread * 0.12, Math.max(...(visibleValues.length ? visibleValues : [1])) * 0.02);
@@ -90,15 +92,17 @@ export default function GuidedDemo() {
               <Tooltip formatter={(v, name) => [`${readable(v)} ${measurement.unit}`, name]}
                 contentStyle={{backgroundColor: '#111723', border: '1px solid #2a3b5c', color: '#f1f5f9'}}
                 labelStyle={{color: '#f1f5f9'}} itemStyle={{color: '#f1f5f9'}} /><Legend />
-              <ReferenceLine y={measurement.lot_median_24h} stroke="#c084fc" strokeDasharray="5 5" label="24h lot median" />
+              <ReferenceLine x="24h" stroke="#94a3b8" strokeDasharray="3 5" />
               {showLimit && <ReferenceLine y={measurement.limit} stroke="#f87171" strokeDasharray="2 4" label="limit" />}
               <Line type="linear" dataKey="measured" name="Observed" stroke="#34d399" strokeWidth={3} connectNulls={false} />
               <Line type="linear" dataKey="forecast" name="Forecast from 0h/24h" stroke="#38bdf8" strokeWidth={3} strokeDasharray="6 3" connectNulls />
+              <ReferenceDot x="24h" y={measurement.lot_median_24h} r={6} fill="#c084fc" stroke="#111827" />
+              <ReferenceLine segment={[{x:'168h',y:measurement.predicted_168h},{x:'168h',y:measurement.upper_168h}]} stroke="#fbbf24" strokeWidth={3} />
               {measurement.upper_168h != null && <ReferenceDot x="168h" y={measurement.upper_168h} r={6} fill="#fbbf24" stroke="#111827" label="upper" />}
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <p>24h lot median: {readable(measurement.lot_median_24h)} {measurement.unit} · 168h forecast: {readable(measurement.predicted_168h)} {measurement.unit} · upper bound: {readable(measurement.upper_168h)} {measurement.unit} · {measurement.limit == null ? 'no supplied static limit' : `static limit: ${readable(measurement.limit)} ${measurement.unit}`}. The lot median is context, not the policy threshold.</p>
+        <p>24h lot median (purple point): {readable(measurement.lot_median_24h)} {measurement.unit} · 168h forecast: {readable(measurement.predicted_168h)} {measurement.unit} · upper bound (amber marker): {readable(measurement.upper_168h)} {measurement.unit} · {measurement.limit == null ? 'no supplied static limit' : `static limit: ${readable(measurement.limit)} ${measurement.unit}${showLimit ? '' : ' (outside this chart scale)'}`}. The median is a single 24h lot comparison, not a forecast or specification limit. The vertical marker at 24h is the early-decision cutoff.</p>
       </>}
       <div className="demo-decision"><strong>24h: {item.at_24h.disposition.replaceAll('_', ' ')}</strong><p>{item.at_24h.reason}</p><p>Module A: {item.at_24h.module_a_disposition} · score {readable(item.at_24h.module_a_score)}. {item.at_24h.module_b_reason_codes ? `Module B codes: ${item.at_24h.module_b_reason_codes}` : 'No Module B warning codes.'}</p></div>
       <button type="button" onClick={() => setShowLater(v => !v)} aria-expanded={showLater}>{showLater ? 'Hide retrospective measurements' : 'Reveal 96h and 168h observed readings'}</button>
