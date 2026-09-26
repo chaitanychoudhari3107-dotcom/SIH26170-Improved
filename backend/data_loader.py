@@ -501,14 +501,14 @@ def get_pipeline_architecture() -> dict:
             {
                 "id": 6,
                 "name": "FastAPI Analytical Engine",
-                "source": "backend/ (Port 8001)",
-                "description": "FastAPI serves the stored benchmark outputs and operational measurement records; new records are not yet passed through the frozen models.",
+                "source": "backend/ (deployment-assigned port)",
+                "description": "FastAPI serves stored benchmark outputs separately from operator records. Complete imported lots can be analyzed by the loaded operational Module A and rehearsal Module B artifacts.",
                 "status": "ONLINE"
             },
             {
                 "id": 7,
                 "name": "Interactive Application",
-                "source": "frontend/ (Port 5174)",
+                "source": "frontend/ (served with the API in deployment)",
                 "description": "Modern dark-theme analytical console for fleet monitoring, component-level failure diagnostics, and operational screening.",
                 "status": "ONLINE"
             }

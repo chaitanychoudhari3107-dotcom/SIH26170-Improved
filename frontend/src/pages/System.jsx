@@ -28,8 +28,8 @@ export default function System() {
     { id: 3, name: 'Module A Screening Scorer', source: 'Multi-Epoch Static & Lot Outlier Classifier', description: 'Static datasheet limit checking combined with robust lot-relative Mahalanobis outlier scoring.', status: 'EXECUTED_168H' },
     { id: 4, name: 'Module B Prognosis Engine', source: '0h-24h Early Burn-in Readings', description: 'Projections estimating 168h completion values with P95 uncertainty intervals.', status: 'EXECUTED_WIDE' },
     { id: 5, name: 'Decision Fusion Layer', source: 'Fusion_Joined_Holdout.csv', description: 'Cross-module corroboration enforcing CONFIRMED -> REJECT, forecast breaches -> REJECT, drift -> MONITOR, compliant -> PASS.', status: 'SYNTHESIZED' },
-    { id: 6, name: 'FastAPI Analytical Engine', source: 'backend/ (Port 8001)', description: 'In-memory analytics server providing instant search, deep-dive evaluation, and operational isolation.', status: 'ONLINE' },
-    { id: 7, name: 'Interactive Application', source: 'frontend/ (Port 5174)', description: 'Modern dark-theme analytical console for fleet monitoring and diagnostics.', status: 'ONLINE' }
+    { id: 6, name: 'FastAPI Analytical Engine', source: 'backend/ (deployment port)', description: 'Analytics service providing search, deep-dive evaluation, and operational isolation.', status: 'ONLINE' },
+    { id: 7, name: 'Interactive Application', source: 'frontend/ (served by FastAPI)', description: 'Analytical console for fleet monitoring and diagnostics.', status: 'ONLINE' }
   ];
 
   const currentStage = stages.find(s => s.id === activeStageId) || stages[0];
@@ -66,7 +66,7 @@ export default function System() {
             <span className="telemetry-title">API Analytical Engine</span>
             <Badge status="PASS">ONLINE</Badge>
           </div>
-          <div className="telemetry-val">FastAPI :8001</div>
+          <div className="telemetry-val">FastAPI service</div>
           <div className="telemetry-meta">
             <span>Uptime: {statusData?.uptime ? `${Math.floor(statusData.uptime / 3600)}h ${Math.floor((statusData.uptime % 3600) / 60)}m` : 'Active'}</span>
             <span>Env: {statusData?.environment || 'production'}</span>
@@ -95,7 +95,7 @@ export default function System() {
           <div className="telemetry-val">operational.db</div>
           <div className="telemetry-meta">
             <span>Separate from benchmark files</span>
-            <span>SQLite WAL Mode</span>
+            <span>SQLite operator records</span>
           </div>
         </div>
 
@@ -244,12 +244,12 @@ export default function System() {
 
               {currentStage.id === 6 && (
                 <div className="contract-content">
-                  <h4>Stage 6: In-Memory Analytical Server (FastAPI)</h4>
+                  <h4>Stage 6: Analytical and Operational Server (FastAPI)</h4>
                   <p>
-                    FastAPI serves stored benchmark outputs and separate operational records. Operational entry does not yet run the frozen models on newly entered devices.
+                    FastAPI serves saved benchmark outputs separately from imported operational lots. Once every required component and epoch is present, an operator can run whole-lot screening with the loaded Module A artifact and the rebuilt rehearsal Module B artifact. The result is stored with its input hash and policy version.
                   </p>
                   <div className="contract-tags">
-                    <span className="contract-tag">Port: 8001</span>
+                    <span className="contract-tag">Whole-lot input gate</span>
                     <span className="contract-tag">Latency: not independently benchmarked</span>
                   </div>
                 </div>

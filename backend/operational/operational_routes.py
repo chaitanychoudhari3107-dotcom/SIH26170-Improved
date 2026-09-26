@@ -454,7 +454,13 @@ def export_feedback():
               'suspected_reason','evidence_reference','resolution_reason','actor','created_at','resolved_at']
     writer = csv.DictWriter(output, fieldnames=fields)
     writer.writeheader()
-    writer.writerows([dict(r) for r in rows])
+    # These fields are supplied by operators and may be opened in a spreadsheet.
+    for record in rows:
+        row = dict(record)
+        for field in ('suspected_reason', 'evidence_reference', 'resolution_reason'):
+            if row[field] is not None:
+                row[field] = safe_csv_text(row[field])
+        writer.writerow(row)
     return Response(output.getvalue(), media_type='text/csv',
                     headers={'Content-Disposition': 'attachment; filename="qa_feedback_reports.csv"'})
 
