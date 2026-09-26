@@ -108,8 +108,8 @@
 }
 
 .btn-toggle.active {
-  background-color: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.35);
+  background-color: rgba(129, 185, 230, 0.12);
+  border-color: rgba(129, 185, 230, 0.35);
   color: var(--accent);
 }
 
@@ -186,18 +186,18 @@
 }
 
 .tp-cell {
-  border-color: rgba(16, 185, 129, 0.3);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  border-color: rgba(130, 199, 181, 0.3);
+  background: linear-gradient(135deg, rgba(130, 199, 181, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .fn-cell {
-  border-color: rgba(244, 63, 94, 0.3);
-  background: linear-gradient(135deg, rgba(244, 63, 94, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  border-color: rgba(243, 122, 123, 0.3);
+  background: linear-gradient(135deg, rgba(243, 122, 123, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .fp-cell {
-  border-color: rgba(245, 158, 11, 0.3);
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(12, 16, 25, 0.6) 100%);
+  border-color: rgba(243, 182, 90, 0.3);
+  background: linear-gradient(135deg, rgba(243, 182, 90, 0.06) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .tn-cell {
@@ -261,7 +261,7 @@
 }
 
 .derivation-row.highlight {
-  border-top: 1px dashed rgba(56, 189, 248, 0.3);
+  border-top: 1px dashed rgba(129, 185, 230, 0.3);
   padding-top: 0.5rem;
   border-bottom: none;
 }
@@ -318,12 +318,12 @@
 }
 
 .comparison-table tr.active-row {
-  background-color: rgba(56, 189, 248, 0.05);
+  background-color: rgba(129, 185, 230, 0.05);
 }
 
 .tradeoff-explanation-box {
-  background-color: rgba(245, 158, 11, 0.04);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background-color: rgba(243, 182, 90, 0.04);
+  border: 1px solid rgba(243, 182, 90, 0.2);
   border-radius: var(--radius-sm);
   padding: 1rem;
   display: flex;
@@ -375,7 +375,7 @@
   line-height: 1.4;
   margin: 0;
   padding-top: 0.4rem;
-  border-top: 1px solid rgba(245, 158, 11, 0.2);
+  border-top: 1px solid rgba(243, 182, 90, 0.2);
 }
 
 /* Subgrids */
@@ -413,7 +413,7 @@
 }
 
 .epoch-eval-table tr.highlight-epoch {
-  background-color: rgba(56, 189, 248, 0.05);
+  background-color: rgba(129, 185, 230, 0.05);
 }
 
 .subgrid-note {

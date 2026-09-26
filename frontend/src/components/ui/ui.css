@@ -48,14 +48,14 @@
 
 .badge-confirmed {
   background-color: var(--tier-confirmed-bg);
-  color: #f472b6;
+  color: #f37a7b;
   border: 1px solid var(--tier-confirmed-border);
 }
 
 .badge-variant {
-  background-color: rgba(56, 189, 248, 0.08);
+  background-color: rgba(129, 185, 230, 0.08);
   color: var(--accent);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(129, 185, 230, 0.2);
 }
 
 .badge-epoch {

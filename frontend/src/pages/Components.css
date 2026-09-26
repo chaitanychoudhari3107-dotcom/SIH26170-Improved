@@ -122,8 +122,8 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.45rem 0.75rem;
-  background-color: rgba(244, 63, 94, 0.08);
-  border: 1px solid rgba(244, 63, 94, 0.2);
+  background-color: rgba(243, 122, 123, 0.08);
+  border: 1px solid rgba(243, 122, 123, 0.2);
   border-radius: var(--radius-sm);
   color: var(--status-reject-text);
   font-size: 0.75rem;
@@ -133,7 +133,7 @@
 }
 
 .btn-reset-filters:hover {
-  background-color: rgba(244, 63, 94, 0.15);
+  background-color: rgba(243, 122, 123, 0.15);
 }
 
 /* Catalog Table Card */

@@ -28,3 +28,9 @@
 }
 
 @media(max-width:700px){.page-header{flex-wrap:wrap;gap:.7rem;margin-bottom:1.25rem}.page-title{font-size:1.5rem}.page-header-actions{flex-wrap:wrap}}
+
+/* Paper introductions pair with graphite evidence panels on every route. */
+.page-header { padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid var(--bt-rule); border-radius: var(--bt-radius-panel); background: var(--bt-canvas); color: var(--bt-ink); }
+.page-header .page-title { color: var(--bt-ink); font-family: var(--bt-font-sans); }
+.page-header .page-subtitle { color: var(--bt-ink-secondary); max-width: 75ch; }
+.page-header .page-header-actions { --text-primary: var(--bt-ink); --text-secondary: var(--bt-ink-secondary); --accent: var(--bt-forecast); }

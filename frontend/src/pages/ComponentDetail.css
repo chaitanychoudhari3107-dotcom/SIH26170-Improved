@@ -91,17 +91,17 @@
 
 .verdict-banner.pass {
   border-color: var(--status-pass-border);
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: linear-gradient(90deg, rgba(130, 199, 181, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .verdict-banner.monitor {
   border-color: var(--status-monitor-border);
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: linear-gradient(90deg, rgba(243, 182, 90, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .verdict-banner.reject {
   border-color: var(--status-reject-border);
-  background: linear-gradient(90deg, rgba(244, 63, 94, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: linear-gradient(90deg, rgba(243, 122, 123, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
 }
 
 .verdict-banner-icon {
@@ -271,8 +271,8 @@
 .corroboration-box {
   margin-top: 1rem;
   padding: 0.75rem;
-  background-color: rgba(56, 189, 248, 0.04);
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  background-color: rgba(129, 185, 230, 0.04);
+  border: 1px solid rgba(129, 185, 230, 0.15);
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
@@ -382,12 +382,12 @@
 }
 
 .param-card.primary-param {
-  border-color: rgba(56, 189, 248, 0.4);
+  border-color: rgba(129, 185, 230, 0.4);
 }
 
 .param-card.exceeds-limit {
-  border-color: rgba(244, 63, 94, 0.4);
-  background: linear-gradient(180deg, rgba(244, 63, 94, 0.04) 0%, rgba(15, 21, 34, 1) 100%);
+  border-color: rgba(243, 122, 123, 0.4);
+  background: linear-gradient(180deg, rgba(243, 122, 123, 0.04) 0%, rgba(15, 21, 34, 1) 100%);
 }
 
 .primary-pill {
@@ -399,9 +399,9 @@
   font-weight: 700;
   padding: 0.15rem 0.5rem;
   border-radius: var(--radius-xs);
-  background-color: rgba(56, 189, 248, 0.15);
+  background-color: rgba(129, 185, 230, 0.15);
   color: var(--accent);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  border: 1px solid rgba(129, 185, 230, 0.3);
 }
 
 .param-stats {
@@ -479,9 +479,9 @@
 .epoch-badge {
   display: inline-block;
   padding: 0.15rem 0.5rem;
-  background-color: rgba(56, 189, 248, 0.1);
+  background-color: rgba(129, 185, 230, 0.1);
   color: var(--accent);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(129, 185, 230, 0.25);
   border-radius: var(--radius-xs);
   font-size: 0.75rem;
   font-weight: 700;

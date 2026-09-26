@@ -213,7 +213,7 @@
 }
 
 .lineage-strip-btn:hover {
-  background-color: rgba(56, 189, 248, 0.1);
+  background-color: rgba(129, 185, 230, 0.1);
 }
 
 .lineage-flow-steps {
@@ -238,13 +238,13 @@
 }
 
 .flow-step.active {
-  border-color: rgba(56, 189, 248, 0.3);
-  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, rgba(12, 16, 25, 0) 100%);
+  border-color: rgba(129, 185, 230, 0.3);
+  background: linear-gradient(180deg, rgba(129, 185, 230, 0.05) 0%, rgba(12, 16, 25, 0) 100%);
 }
 
 .flow-step.highlight {
-  border-color: rgba(16, 185, 129, 0.4);
-  background: linear-gradient(180deg, rgba(16, 185, 129, 0.06) 0%, rgba(12, 16, 25, 0) 100%);
+  border-color: rgba(130, 199, 181, 0.4);
+  background: linear-gradient(180deg, rgba(130, 199, 181, 0.06) 0%, rgba(12, 16, 25, 0) 100%);
 }
 
 .step-num {
@@ -337,8 +337,8 @@
   align-items: flex-start;
   gap: 0.6rem;
   padding: 0.75rem;
-  background-color: rgba(56, 189, 248, 0.05);
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  background-color: rgba(129, 185, 230, 0.05);
+  border: 1px solid rgba(129, 185, 230, 0.15);
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
   color: var(--text-secondary);
@@ -364,8 +364,8 @@
 }
 
 .eval-mini-box.highlight {
-  border-color: rgba(56, 189, 248, 0.3);
-  background-color: rgba(56, 189, 248, 0.04);
+  border-color: rgba(129, 185, 230, 0.3);
+  background-color: rgba(129, 185, 230, 0.04);
 }
 
 .eval-mini-label {
@@ -390,8 +390,8 @@
 
 .decision-callout {
   padding: 0.75rem;
-  background-color: rgba(245, 158, 11, 0.05);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background-color: rgba(243, 182, 90, 0.05);
+  border: 1px solid rgba(243, 182, 90, 0.2);
   border-radius: var(--radius-sm);
   margin-top: 0.35rem;
 }
@@ -460,7 +460,7 @@
 
 .variant-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+  background: linear-gradient(90deg, #4d80aa 0%, #81b9e6 100%);
   border-radius: 3px;
 }
 
@@ -534,10 +534,10 @@
 }
 
 .btn-view-all:hover {
-  background-color: rgba(56, 189, 248, 0.1);
+  background-color: rgba(129, 185, 230, 0.1);
 }
 
-.overview-policy-note{margin:10px 0 20px;padding:12px 16px;border-left:3px solid #38bdf8;background:rgba(56,189,248,.06);color:var(--text-secondary,#cbd5e1);line-height:1.5}
+.overview-policy-note{margin:10px 0 20px;padding:12px 16px;border-left:3px solid #81b9e6;background:rgba(129,185,230,.06);color:var(--text-secondary,#cbd5e1);line-height:1.5}
 .dataset-evidence{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 24px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:var(--bg-card)}
 .dataset-evidence h2{margin:0 0 10px;font-size:1.15rem;color:var(--text-primary)}
 .dataset-evidence p{margin:7px 0;max-width:850px;color:var(--text-secondary);line-height:1.55}

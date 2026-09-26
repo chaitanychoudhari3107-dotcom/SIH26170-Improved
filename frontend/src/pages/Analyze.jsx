@@ -7,7 +7,7 @@ import { Badge } from '../components/ui/Badge';
 import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { EmptyState } from '../components/ui/EmptyState';
-import { Search, ArrowRight, Cpu } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import { api } from '../services/api';
 import './Analyze.css';
 
@@ -72,7 +72,7 @@ export default function Analyze() {
             onChange={setInputValue}
             onSubmit={handleSearch}
             placeholder="Search by Component ID (e.g. C00158, C00282) or Lot (e.g. A_L03)..."
-            autoFocus={true}
+            autoFocus={false}
           />
         </div>
 
@@ -109,15 +109,26 @@ export default function Analyze() {
         )}
 
         {!loading && !error && !query && (
-          <div className="search-prompt-card">
-            <div className="prompt-icon-box">
-              <Cpu size={32} className="text-accent" />
+          <section className="inspection-start" aria-labelledby="inspection-start-title">
+            <span className="inspection-kicker">FOLLOW THE EVIDENCE</span>
+            <h2 id="inspection-start-title">One component. Three questions.</h2>
+            <p className="inspection-intro">Is it unusual in its lot? Where is it heading? What should QA do next?</p>
+            <div className="inspection-steps">
+              <div><span>01 / COMPARE</span><h3>Measured behaviour</h3><p>Inspect readings and the component’s position within its lot.</p></div>
+              <div><span>02 / FORECAST</span><h3>Future drift</h3><p>Check the 168h forecast and upper bound against the parameter limit.</p></div>
+              <div><span>03 / REVIEW</span><h3>QA decision</h3><p>Read the combined decision and the evidence that supports it.</p></div>
             </div>
-            <h3 className="prompt-title">Ready for Component Diagnostic</h3>
-            <p className="prompt-desc">
-              Enter any component ID from the frozen holdout dataset to inspect its static screening score, 4-epoch degradation trajectory, Module B 168h drift forecast, and synthesized reliability verdict.
-            </p>
-          </div>
+            <div className="inspection-examples">
+              {samples.map(sample => (
+                <button key={sample.id} className="inspection-example" onClick={() => navigate(`/analyze/${sample.id}`)}>
+                  <Badge status={sample.type}>{sample.type}</Badge>
+                  <strong>{sample.type === 'PASS' ? 'Inspect a passing component' : sample.type === 'MONITOR' ? 'Investigate a review case' : 'Examine a rejection'}</strong>
+                  <span className="code-font">{sample.id} <ArrowRight size={16} aria-hidden="true" /></span>
+                </button>
+              ))}
+            </div>
+            <p className="inspection-footnote">Examples come from the synthetic holdout registry. Forecasts and observed later readings are separate evidence; a PASS is not a flight qualification.</p>
+          </section>
         )}
 
         {!loading && !error && results.length > 0 && (
@@ -135,6 +146,9 @@ export default function Analyze() {
                 return (
                   <div 
                     key={res.component_id} 
+                    role="link"
+                    tabIndex={0}
+                    onKeyDown={event => { if (event.key === 'Enter') navigate(`/analyze/${res.component_id}`); }}
                     className={`component-result-card ${isFail ? 'fail-border' : ''}`}
                     onClick={() => navigate(`/analyze/${res.component_id}`)}
                   >

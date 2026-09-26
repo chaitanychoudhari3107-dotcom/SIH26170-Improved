@@ -26,7 +26,7 @@
 
 .search-input-wrapper .search-input:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 14px rgba(129, 185, 230, 0.2);
 }
 
 .sample-chips-row {
@@ -80,8 +80,8 @@
   width: 64px;
   height: 64px;
   border-radius: var(--radius-md);
-  background-color: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background-color: rgba(129, 185, 230, 0.08);
+  border: 1px solid rgba(129, 185, 230, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,3 +191,21 @@
 .result-score strong {
   color: var(--text-primary);
 }
+
+.inspection-start { padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--border-default); border-radius: var(--radius-lg); background: var(--bg-card); }
+.inspection-kicker { color: var(--accent); font: 600 .7rem var(--font-mono); letter-spacing: .12em; }
+.inspection-start h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.035em; margin: .6rem 0; }
+.inspection-intro { color: var(--text-secondary); max-width: 65ch; }
+.inspection-steps, .inspection-examples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.inspection-steps > div { border-top: 1px solid var(--border-bright); padding-top: 1rem; }
+.inspection-steps span { font: 500 .68rem var(--font-mono); color: var(--text-secondary); }
+.inspection-steps h3 { font-size: 1rem; margin: .5rem 0; }
+.inspection-steps p, .inspection-footnote { font-size: .85rem; color: var(--text-secondary); line-height: 1.6; }
+.inspection-example { display: flex; flex-direction: column; align-items: flex-start; gap: .85rem; padding: 1rem; border: 1px solid var(--border-default); border-radius: var(--radius-sm); background: var(--bg-elevated); color: var(--text-primary); text-align: left; transition: background .16s, border-color .16s; }
+.inspection-example:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+.inspection-example strong { font-size: .9rem; }
+.inspection-example > span:last-child { display: flex; justify-content: space-between; width: 100%; font-size: .75rem; color: var(--text-secondary); }
+.inspection-footnote { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border-default); }
+.results-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.res-card-id, .res-val { overflow-wrap: anywhere; }
+@media(max-width:700px) { .inspection-steps, .inspection-examples { grid-template-columns: 1fr; } }

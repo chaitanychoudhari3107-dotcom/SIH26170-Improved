@@ -85,7 +85,7 @@ export default function ComponentStory() {
               <Line type="linear" dataKey="observed" name="Observed" stroke="#82c7b5" strokeWidth={3} dot={{r:4}} connectNulls={false} />
               <Line type="linear" dataKey="forecast" name="Forecast from 0h/24h" stroke="#81b9e6" strokeWidth={2.5} strokeDasharray="6 4" connectNulls dot={{r:4}} />
               <ReferenceLine segment={[{x:'168h',y:measurement.predicted_168h},{x:'168h',y:measurement.upper_168h}]} stroke="#f3b65a" strokeWidth={3} />
-              <ReferenceDot x="24h" y={measurement.lot_median_24h} r={5} fill="#dbb578" stroke="#15242c" />
+              <ReferenceDot x="24h" y={measurement.lot_median_24h} r={5} fill="#d8cfb2" stroke="#15242c" />
               {measurement.upper_168h != null && <ReferenceDot x="168h" y={measurement.upper_168h} r={5} fill="#f3b65a" stroke="#15242c" />}
             </LineChart>
           </ResponsiveContainer>

@@ -1,53 +1,53 @@
 :root {
   /* Surface & Backgrounds */
-  --bg-primary: #07090e;
-  --bg-surface: #0c1019;
-  --bg-elevated: #111723;
-  --bg-card: #0f1522;
-  --bg-card-hover: #141c2e;
-  --bg-input: #080d16;
+  --bg-primary: #101b21;
+  --bg-surface: #15242c;
+  --bg-elevated: #20343b;
+  --bg-card: #15242c;
+  --bg-card-hover: #29424a;
+  --bg-input: #101b21;
   --bg-glass: rgba(12, 16, 25, 0.75);
   
   /* Borders */
-  --border-default: #1b263b;
-  --border-subtle: #141d2d;
-  --border-bright: #2a3b5c;
-  --border-focus: #38bdf8;
-  --border-gradient: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(30, 58, 138, 0.1) 100%);
+  --border-default: #3a5057;
+  --border-subtle: #2d424a;
+  --border-bright: #526b73;
+  --border-focus: #81b9e6;
+  --border-gradient: linear-gradient(135deg, rgba(129, 185, 230, 0.3) 0%, rgba(30, 58, 138, 0.1) 100%);
   
   /* Typography Colors */
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #a2b3c5;
-  --text-dim: #879aaf;
-  --text-accent: #38bdf8;
+  --text-primary: #f2f3ea;
+  --text-secondary: #b4c9c7;
+  --text-muted: #b4c9c7;
+  --text-dim: #a7bbb9;
+  --text-accent: #81b9e6;
   
   /* Brand & Accents */
-  --accent: #38bdf8;
-  --accent-cyan: #06b6d4;
-  --accent-blue: #2563eb;
-  --accent-hover: #7dd3fc;
-  --accent-glow: rgba(56, 189, 248, 0.15);
+  --accent: #81b9e6;
+  --accent-cyan: #81b9e6;
+  --accent-blue: #4d80aa;
+  --accent-hover: #a4cdeb;
+  --accent-glow: rgba(129, 185, 230, 0.15);
   
   /* Status Semantics */
-  --status-pass: #10b981;
-  --status-pass-text: #34d399;
-  --status-pass-bg: rgba(16, 185, 129, 0.1);
-  --status-pass-border: rgba(16, 185, 129, 0.25);
+  --status-pass: #82c7b5;
+  --status-pass-text: #82c7b5;
+  --status-pass-bg: rgba(130, 199, 181, 0.1);
+  --status-pass-border: rgba(130, 199, 181, 0.25);
   
-  --status-monitor: #f59e0b;
-  --status-monitor-text: #fbbf24;
-  --status-monitor-bg: rgba(245, 158, 11, 0.1);
-  --status-monitor-border: rgba(245, 158, 11, 0.25);
+  --status-monitor: #f3b65a;
+  --status-monitor-text: #f3b65a;
+  --status-monitor-bg: rgba(243, 182, 90, 0.1);
+  --status-monitor-border: rgba(243, 182, 90, 0.25);
   
-  --status-reject: #f43f5e;
-  --status-reject-text: #fb7185;
-  --status-reject-bg: rgba(244, 63, 94, 0.1);
-  --status-reject-border: rgba(244, 63, 94, 0.25);
+  --status-reject: #f37a7b;
+  --status-reject-text: #f37a7b;
+  --status-reject-bg: rgba(243, 122, 123, 0.1);
+  --status-reject-border: rgba(243, 122, 123, 0.25);
   
-  --tier-confirmed: #ec4899;
-  --tier-confirmed-bg: rgba(236, 72, 153, 0.12);
-  --tier-confirmed-border: rgba(236, 72, 153, 0.3);
+  --tier-confirmed: #f37a7b;
+  --tier-confirmed-bg: rgba(243, 122, 123, 0.12);
+  --tier-confirmed-border: rgba(243, 122, 123, 0.3);
 
   /* Geometry & Layout */
   --radius-xs: 4px;
@@ -59,11 +59,11 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.12);
+  --shadow-glow: 0 0 20px rgba(129, 185, 230, 0.12);
   
   /* Fonts */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
   
   --sidebar-width: 260px;
 }
