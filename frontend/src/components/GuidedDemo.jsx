@@ -64,7 +64,9 @@ export default function GuidedDemo() {
             <LineChart data={chart} margin={{top: 20, right: 25, bottom: 5, left: 15}}>
               <CartesianGrid strokeDasharray="3 3" stroke="#64748b" opacity={0.35} />
               <XAxis dataKey="hour" /><YAxis domain={yDomain} width={65} tickFormatter={readable} />
-              <Tooltip formatter={(v, name) => [`${readable(v)} ${measurement.unit}`, name]} /><Legend />
+              <Tooltip formatter={(v, name) => [`${readable(v)} ${measurement.unit}`, name]}
+                contentStyle={{backgroundColor: '#111723', border: '1px solid #2a3b5c', color: '#f1f5f9'}}
+                labelStyle={{color: '#f1f5f9'}} itemStyle={{color: '#f1f5f9'}} /><Legend />
               <ReferenceLine y={measurement.lot_median_24h} stroke="#c084fc" strokeDasharray="5 5" label="24h lot median" />
               {showLimit && <ReferenceLine y={measurement.limit} stroke="#f87171" strokeDasharray="2 4" label="limit" />}
               <Line type="linear" dataKey="measured" name="Observed" stroke="#34d399" strokeWidth={3} connectNulls={false} />

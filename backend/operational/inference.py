@@ -84,6 +84,31 @@ def frame_for_lot(connection, lot, epoch):
     return pd.DataFrame(rows)
 
 
+def prior_alerts_for(connection, lot):
+    """Find earlier alerts for the same immutable 0h/24h measurements."""
+    early_hash = digest(frame_for_lot(connection, lot, 24).to_dict('records'))
+    past = connection.execute(
+        'SELECT run_id,payload FROM screening_runs WHERE lot_id=? AND epoch_h=24 AND input_hash=? ORDER BY run_id',
+        (lot['lot_id'], early_hash)).fetchall()
+    alerts = {}
+    for saved_run in past:
+        prior = json.loads(saved_run['payload'])
+        for part in prior['components']:
+            if part['disposition'] in {'REJECT', 'HOLD', 'MONITOR'}:
+                alerts[part['component_id']] = {
+                    'run_id': saved_run['run_id'], 'disposition': part['disposition'],
+                    'reason': part['reason'], 'policy_version': prior['policy_version']}
+    return alerts
+
+
+def attach_prior_alerts(connection, lot, result):
+    if result['epoch_h'] == 168:
+        prior = prior_alerts_for(connection, lot)
+        for part in result['components']:
+            part['prior_24h_alert'] = prior.get(part['component_id'])
+    return result
+
+
 def analyze(connection, lot, epoch):
     original_a, b, manifest = load_models()
     frame = frame_for_lot(connection, lot, epoch)
@@ -92,7 +117,8 @@ def analyze(connection, lot, epoch):
     existing = connection.execute('SELECT run_id, payload FROM screening_runs WHERE lot_id=? AND epoch_h=? AND input_hash=? AND runtime_version=?',
                                   (lot['lot_id'], epoch, input_hash, version)).fetchone()
     if existing:
-        return {'run_id': existing['run_id'], **json.loads(existing['payload']), 'reused': True}
+        cached = {'run_id': existing['run_id'], **json.loads(existing['payload']), 'reused': True}
+        return attach_prior_alerts(connection, lot, cached)
     a = copy(original_a)
     a.expected_lot_sizes = {lot['lot_id']: lot['expected_count']}
     a_out = a.predict(frame, epoch=epoch).set_index('component_id')
@@ -117,6 +143,7 @@ def analyze(connection, lot, epoch):
             saved = connection.execute('SELECT * FROM forecast_runs WHERE forecast_id=?', (cursor.lastrowid,)).fetchone()
             forecast_receipt = {'forecast_id': saved['forecast_id'], 'created_at': saved['created_at'], 'reused': False, **pack['receipt']}
         forecasts = {r['component_id']: r for r in pack['rows']}
+    prior_alerts = prior_alerts_for(connection, lot) if epoch == 168 else {}
     output = []
     for raw in frame.to_dict('records'):
         cid = raw['component_id']
@@ -148,7 +175,8 @@ def analyze(connection, lot, epoch):
             reason = 'No configured alert at this epoch; this is not a qualification certificate'
         output.append({'component_id': cid, 'disposition': disposition, 'reason': reason,
                        'module_a': observed, 'module_b': forecast, 'parameters': parameters,
-                       'observed_breaches': breaches, 'forecast_risks': forecast_risks})
+                       'observed_breaches': breaches, 'forecast_risks': forecast_risks,
+                       'prior_24h_alert': prior_alerts.get(cid)})
     from collections import Counter
     payload = clean({'lot_id': lot['lot_id'], 'device_variant': lot['device_variant'], 'epoch_h': epoch,
                      'input_hash': input_hash, 'runtime_version': version, 'policy_version': POLICY_VERSION,

@@ -11,7 +11,7 @@ from fastapi.responses import Response
 from pydantic import BaseModel, Field, FiniteFloat, ConfigDict
 from .operational_db import get_connection
 from .access import read_access, write_access, access_mode, has_access
-from .inference import PARAMS, EPOCHS, IDS, runtime_status, analyze
+from .inference import PARAMS, EPOCHS, IDS, runtime_status, analyze, attach_prior_alerts
 from .demo import demo_result
 
 router = APIRouter(prefix='/api', tags=['Operational workspace'])
@@ -223,8 +223,9 @@ def get_run(connection, run_id):
     record = connection.execute('SELECT * FROM screening_runs WHERE run_id=?', (run_id,)).fetchone()
     if record is None:
         raise HTTPException(404, 'Analysis run not found')
-    return {'run_id': record['run_id'], 'created_at': record['created_at'], **json.loads(record['payload']),
-            'reviews': [dict(r) for r in connection.execute('SELECT * FROM review_actions WHERE run_id=? ORDER BY review_id', (run_id,))]}
+    result = {'run_id': record['run_id'], 'created_at': record['created_at'], **json.loads(record['payload']),
+              'reviews': [dict(r) for r in connection.execute('SELECT * FROM review_actions WHERE run_id=? ORDER BY review_id', (run_id,))]}
+    return attach_prior_alerts(connection, fetch_lot(connection, record['lot_id']), result)
 
 
 @router.get('/operational/runs/{run_id}', dependencies=[Depends(read_access)])
@@ -260,6 +261,8 @@ def review(run_id: int, data: ReviewInput, request: Request):
                 raise HTTPException(422, 'Component is not part of this run')
             if data.action == 'APPROVE' and run['epoch_h'] != 168:
                 raise HTTPException(422, 'Release approval requires the complete 168h run')
+            if data.action == 'APPROVE' and next(r for r in run['components'] if r['component_id'] == data.component_id)['disposition'] != 'PASS':
+                raise HTTPException(422, 'Release approval requires a 168h PASS decision; record a hold or rejection instead')
             actor = 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'
             cur = connection.execute('INSERT INTO review_actions(run_id,component_id,action,reason,actor) VALUES(?,?,?,?,?)',
                                      (run_id, data.component_id, data.action, data.reason, actor))
