@@ -11,4 +11,12 @@
 .operational-table{overflow-x:auto}.operational-table table{border-collapse:collapse;width:100%;min-width:620px;font-size:.82rem}
 .operational-table th,.operational-table td{padding:.7rem;text-align:left;border-bottom:1px solid var(--border-default)}
 .operational-table th{color:var(--text-primary)}.operational-table td{font-family:var(--font-mono)}
+.operational-figure{margin:1rem 0 1.25rem;border:1px solid var(--border-default);border-radius:10px;padding:.65rem;background:var(--bg-card)}
+.operational-figure svg{width:100%;height:auto;display:block;color:var(--text-primary)}
+.operational-figure p{margin:.25rem .65rem .5rem}
+.operational-grid{stroke:var(--border-default);stroke-width:1}
+.operational-axis{fill:var(--text-secondary);font:12px var(--font-mono)}
+.operational-axis-caption,.operational-figure-title{fill:var(--text-primary);font:14px var(--font-mono)}
+.operational-figure-title{font-weight:700}
+.operational-point-label{fill:var(--text-primary);font:12px var(--font-mono)}
 @media(max-width:700px){.operational-matrix{grid-template-columns:repeat(2,minmax(0,1fr))}}

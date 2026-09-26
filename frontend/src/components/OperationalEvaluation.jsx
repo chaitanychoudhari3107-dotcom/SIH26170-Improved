@@ -10,6 +10,37 @@ const operatingPoints = [
   ['review_gate', 'Operational review gate'],
 ];
 
+const figurePoints = [
+  ['static_limits', 'Static limits', '#4d7285'],
+  ['module_a', 'Module A', '#149291'],
+  ['review_gate', 'Fusion review gate', '#db8051'],
+];
+
+function ReviewTradeoffFigure({ current, epoch }) {
+  const x = value => 70 + value * 2.4;
+  const y = value => 270 - value * 2.6;
+  return <div className="operational-figure">
+    <svg viewBox="0 0 640 350" role="img" aria-label={`${epoch} hour chart: defective parts caught versus healthy parts sent for review on the same synthetic holdout`}>
+      <text x="320" y="21" textAnchor="middle" className="operational-figure-title">{epoch}h · same 1,343 components</text>
+      {[0, 50, 100, 150, 200].map(tick => <g key={`x${tick}`}>
+        <line x1={x(tick)} x2={x(tick)} y1="35" y2="270" className="operational-grid" />
+        <text x={x(tick)} y="289" textAnchor="middle" className="operational-axis">{tick}</text>
+      </g>)}
+      {[0, 30, 60, 90].map(tick => <g key={`y${tick}`}>
+        <line x1="70" x2="550" y1={y(tick)} y2={y(tick)} className="operational-grid" />
+        <text x="57" y={y(tick) + 4} textAnchor="end" className="operational-axis">{tick}</text>
+      </g>)}
+      {figurePoints.map(([key, label, fill]) => { const m = current[key]; return <g key={key}>
+        <circle cx={x(m.fp)} cy={y(m.tp)} r="8" fill={fill}><title>{label}: {m.tp} of 90 defective parts caught; {m.fp} of 1,253 healthy parts reviewed</title></circle>
+        <text x={x(m.fp)} y={y(m.tp) - 14} textAnchor={m.fp > 125 ? 'end' : 'start'} className="operational-point-label">{label} · {m.tp} / {m.fp}</text>
+      </g>; })}
+      <text x="310" y="322" textAnchor="middle" className="operational-axis-caption">Healthy parts sent for review (out of 1,253)</text>
+      <text transform="translate(17 159) rotate(-90)" textAnchor="middle" className="operational-axis-caption">Defective parts caught (out of 90)</text>
+    </svg>
+    <p><strong>Point labels:</strong> defects caught / healthy reviews. Each point uses the same lots at {epoch}h; a position farther right means more healthy parts sent for review.</p>
+  </div>;
+}
+
 export default function OperationalEvaluation() {
   const [epoch, setEpoch] = useState('24');
   const current = evaluation.epochs[epoch];
@@ -31,6 +62,7 @@ export default function OperationalEvaluation() {
     </Card>
     <Card title={`Same ${epoch}h lots · defects caught versus healthy reviews`}>
       <p>Each row uses the same {evaluation.population.toLocaleString()} labelled parts. Static limits flag observed specification breaches only; Module A flags its MONITOR output; the operational rows run the actual workspace policy. More catches can require substantially more healthy reviews.</p>
+      <ReviewTradeoffFigure current={current} epoch={epoch} />
       <div className="operational-table"><table><thead><tr><th>Decision rule</th><th>Defects caught / 90</th><th>Defects missed</th><th>Healthy reviewed / 1,253</th></tr></thead><tbody>
         {operatingPoints.map(([key, label]) => { const m = current[key]; return <tr key={key}><th scope="row">{label}</th><td>{m.tp} ({((m.tp / 90) * 100).toFixed(1)}%)</td><td>{m.fn}</td><td>{m.fp} ({((m.fp / 1253) * 100).toFixed(2)}%)</td></tr>; })}
       </tbody></table></div>
