@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {"key":"static_pass_latent","label":"Static-pass latent drift","injected":8,"controls":56,"review24":4,"controls24":15,"review168":8,"controls168":6},
+    {"key":"low_start_late_drifter","label":"Low-start late drifter","injected":8,"controls":56,"review24":0,"controls24":15,"review168":8,"controls168":7},
+    {"key":"benign_high_baseline","label":"Benign high baseline","injected":0,"controls":64,"review24":0,"controls24":18,"review168":0,"controls168":13},
+    {"key":"whole_lot_shift","label":"Benign whole-lot shift","injected":0,"controls":64,"review24":0,"controls24":40,"review168":0,"controls168":6},
+    {"key":"peer_baseline_corruption","label":"Defect-heavy peer baseline","injected":32,"controls":32,"review24":32,"controls24":6,"review168":4,"controls168":5}
+  ]
+}

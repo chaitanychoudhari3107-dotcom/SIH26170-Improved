@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from './ui/Card';
 import evaluation from '../data/operationalEvaluation.json';
+import challenge from '../data/challengeEvaluation.json';
 import './OperationalEvaluation.css';
 
 const operatingPoints = [
@@ -67,6 +68,14 @@ export default function OperationalEvaluation() {
         {operatingPoints.map(([key, label]) => { const m = current[key]; return <tr key={key}><th scope="row">{label}</th><td>{m.tp} ({((m.tp / 90) * 100).toFixed(1)}%)</td><td>{m.fn}</td><td>{m.fp} ({((m.fp / 1253) * 100).toFixed(2)}%)</td></tr>; })}
       </tbody></table></div>
       <p>The operational Module B artifact is a reconstructed rehearsal fit. Results are specific to this synthetic population and rule; they do not establish zero missed defects in real hardware.</p>
+    </Card>
+    <Card title="Frozen five-case challenge · synthetic injections">
+      <p>Five new 64-part CMOS_A lots were generated separately from the model training fixture and frozen before this baseline run. Labels identify planted synthetic changes and constructed healthy controls; they are not physical defect diagnoses. Each cell reports parts sent for review, with MONITOR, HOLD and REJECT counted as review.</p>
+      <div className="operational-table"><table><thead><tr><th>Scenario</th><th>Injected reviewed at 24h</th><th>Controls reviewed at 24h</th><th>Injected reviewed at 168h</th><th>Controls reviewed at 168h</th></tr></thead><tbody>
+        {challenge.cases.map(row => <tr key={row.key}><th scope="row">{row.label}</th><td>{row.injected ? `${row.review24} / ${row.injected}` : 'N/A'}</td><td>{row.controls24} / {row.controls}</td><td>{row.injected ? `${row.review168} / ${row.injected}` : 'N/A'}</td><td>{row.controls168} / {row.controls}</td></tr>)}
+      </tbody></table></div>
+      <p><strong>Failures are visible:</strong> the late-only drift has no 24h evidence (0/8 reviewed); all eight planted stable high-baseline controls are reviewed at both epochs; the whole-lot benign shift sends 40/64 controls for review at 24h; the defect-heavy lot falls from 32/32 injected reviewed at 24h to 4/32 at 168h. A previous 24h warning remains in QA history even when the 168h snapshot says PASS.</p>
+      <p>These deliberately difficult synthetic cases do not estimate accuracy or false-alarm rates in physical hardware. The CSV, injection labels, and SHA-256 freeze manifest are in <code>data/challenge_frozen</code> in the public repository. No new decision rule was fit on this challenge.</p>
     </Card>
     <Card title="Operational Module B · 168h forecasts from 0h and 24h">
       <p>MAE is mean absolute error in the parameter's unit. Upper coverage is the observed share of true 168h readings at or below the reported upper bound. There are {evaluation.defects} defective parts; coverage below 95% means the displayed upper bound did not reach its nominal target on this holdout.</p>
