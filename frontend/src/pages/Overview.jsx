@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ComponentStory from '../components/ComponentStory';
+import operationalEvaluation from '../data/operationalEvaluation.json';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { LoadingState } from '../components/ui/LoadingState';
@@ -28,10 +29,20 @@ export default function Overview() {
   if (summaryError) return <ErrorState error={summaryError} onRetry={refetchSummary} />;
 
   const baseline = evalMetrics?.baseline || {};
+  const review = operationalEvaluation.epochs['168'].review_gate;
 
   return (
     <div className="page-overview">
       <ComponentStory />
+      <section className="overview-operational-proof" aria-labelledby="operational-proof-title">
+        <div className="proof-heading"><div><span>MEASURED EVIDENCE / 168H OPERATIONAL REVIEW GATE</span><h2 id="operational-proof-title">What the screening rule caught—and missed</h2></div><button type="button" onClick={() => navigate('/models')}>Inspect the exact matrix <ArrowRight size={15}/></button></div>
+        <div className="proof-numbers">
+          <div><strong>{review.tp}/{operationalEvaluation.defects}</strong><span>Synthetic defects flagged for review</span></div>
+          <div className="proof-miss"><strong>{review.fn}</strong><span>Synthetic defects missed</span></div>
+          <div><strong>{review.fp}</strong><span>Healthy parts sent for review</span></div>
+        </div>
+        <p>MONITOR, HOLD and REJECT count as review alerts. These are retrospective synthetic results on {operationalEvaluation.population.toLocaleString()} parts across {operationalEvaluation.lots} lots; this holdout was inspected during development and does not establish performance on physical hardware.</p>
+      </section>
       <div className="overview-section-heading">
         <div><span className="overview-section-kicker">FROZEN BENCHMARK / EXPLORER</span><h2>From one part to the fleet</h2><p>1,343 synthetic holdout components across 18 lots. These saved explorer dispositions are separate from the operational policy evaluation.</p></div>
         <div className="header-chips">
