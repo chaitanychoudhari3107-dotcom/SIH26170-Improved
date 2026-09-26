@@ -34,7 +34,7 @@ export default function Data() {
       {config?.can_write&&<div className="work-actions"><button onClick={()=>task(()=>api.download('/api/operational/feedback/export','qa_feedback_reports.csv'))}>Export suspected-miss reports</button><button onClick={()=>task(()=>api.download('/api/operational/outcomes/export','qa_labelled_measurements.csv'))}>Export QA labels + measurements</button><p>If this server has no persistent database disk, download reports before a redeploy; the default SQLite file can be reset.</p></div>}
     </section>
     {error&&<p className="work-error" role="alert">{error}</p>}{notice&&<p role="status">{notice}</p>}{busy&&<p role="status">Working… Larger lots may take a moment.</p>}
-    <section className="work-panel"><h2>1. Import measurements</h2><div className="work-fields">
+    <section id="measurement-import" className="work-panel"><h2>1. Import measurements</h2><div className="work-fields">
       <label>Lot ID<input value={form.lot_id} onChange={e=>update('lot_id',e.target.value)}/></label>
       <label>Variant<select value={form.device_variant} onChange={e=>update('device_variant',e.target.value)}>{['CMOS_A','CMOS_B','CMOS_C'].map(v=><option key={v}>{v}</option>)}</select></label>
       <label>Expected components<input type="number" min="30" max="1000" value={form.expected_count} onChange={e=>update('expected_count',Number(e.target.value))}/></label>

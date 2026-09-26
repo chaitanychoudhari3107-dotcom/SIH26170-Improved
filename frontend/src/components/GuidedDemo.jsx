@@ -64,8 +64,23 @@ export default function GuidedDemo() {
         <p>The 168h model snapshot says PASS, but it does not erase the 24h warning. This is a retrospective constructed stress case, shown here so the review rule is visible without unlocking the operator workspace.</p>
       </div>}
       <label>Inspect parameter <select value={parameter} onChange={e => setParameter(e.target.value)}>
+        <option value="ALL">All parameters</option>
         {Object.keys(item.parameters).map(p => <option key={p} value={p}>{p.replaceAll('_', ' ')}</option>)}
       </select></label>
+      {parameter === 'ALL' && <div className="demo-all-parameters">
+        <p>All six measured parameters for this component. Each row shows its own unit; values with different units are not combined on one axis. Choose a parameter above for its trend chart.</p>
+        <div className="demo-all-scroll"><table>
+          <thead><tr><th>Parameter</th><th>Unit</th><th>Observed 0h</th><th>Observed 24h</th><th>24h lot median</th><th>Forecast 168h</th><th>Upper bound</th><th>Static limit</th>{showLater && <><th>Observed 96h</th><th>Observed 168h</th></>}</tr></thead>
+          <tbody>{Object.entries(item.parameters).map(([name, values]) => <tr key={name}>
+            <th scope="row">{name.replaceAll('_', ' ')}</th><td>{values.unit}</td>
+            {[values.observed_early['0'], values.observed_early['24'], values.lot_median_24h,
+              values.predicted_168h, values.upper_168h, values.limit,
+              ...(showLater ? [values.observed_retrospective['96'], values.observed_retrospective['168']] : [])]
+              .map((v, index) => <td key={index}>{v == null ? '—' : readable(v)}</td>)}
+          </tr>)}</tbody>
+        </table></div>
+        <p>The 96h and 168h observed readings appear only after you select “Reveal” below. The forecast remains the original prediction made from 0h and 24h readings.</p>
+      </div>}
       {measurement && <>
         <div className="demo-chart" role="img" aria-label={`Observed 0h and 24h ${parameter}, forecast 168h and lot median, ${showLater ? 'with retrospective 96h and 168h readings' : 'without later observed readings'}`}>
           <ResponsiveContainer width="100%" height={270}>
@@ -89,6 +104,7 @@ export default function GuidedDemo() {
       <button type="button" onClick={() => setShowLater(v => !v)} aria-expanded={showLater}>{showLater ? 'Hide retrospective measurements' : 'Reveal 96h and 168h observed readings'}</button>
       {showLater && <div className="demo-retrospective"><strong>Retrospective 168h decision: {item.at_168h.disposition}</strong><p>{item.at_168h.reason}</p><p>Later readings were hidden from the 24h decision. The original 24h forecast was reused.</p></div>}
       <p className="demo-caveat">{demo.limitations} The current Module B artifact is a {demo.module_b_release_state} build. For actual imported lots, use the workspace below and record a review.</p>
+      <div className="demo-finish"><strong>Walkthrough complete</strong><p>These examples are read-only. Measurement import, QA outcomes, and review records below are the separate, password-protected operator workflow.</p><a href="#measurement-import">See how a new lot is imported ↓</a></div>
     </>}
   </section>;
 }
