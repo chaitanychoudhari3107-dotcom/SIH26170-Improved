@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PageHeader } from '../components/layout/PageHeader';
+import { useLocation } from 'react-router-dom';
+import { ArrowRight, Database, FileCheck2, LockKeyhole, ScanSearch } from 'lucide-react';
 import GuidedDemo from '../components/GuidedDemo';
 import { api } from '../services/api';
 import './Workspace.css';
 const epochs = [0, 24, 96, 168];
 export default function Data() {
+  const location = useLocation();
+  const [demoOpen,setDemoOpen]=useState(()=>location.hash==='#guided-demo');
   const reasonInput = useRef(null);
   const [config,setConfig]=useState(null), [lots,setLots]=useState([]), [key,setKey]=useState('');
   const [form,setForm]=useState({lot_id:'DEMO_A',device_variant:'CMOS_A',expected_count:78,epoch_h:24,csv_text:''});
@@ -16,6 +19,7 @@ export default function Data() {
   const [outcomeCsv,setOutcomeCsv]=useState(''), [outcomePreview,setOutcomePreview]=useState(null);
   async function refresh(){ const c=await api.get('/api/operational/config'); setConfig(c); if(c.mode!=='protected'||c.can_write)setLots(await api.get('/api/operational/lots')); }
   useEffect(()=>{refresh().catch(e=>setError(e.message));},[]);
+  useEffect(()=>{if(run?.run_id)requestAnimationFrame(()=>document.getElementById('run-review')?.scrollIntoView({behavior:'smooth',block:'start'}));},[run?.run_id]);
   async function task(fn){setBusy(true);setError('');setNotice('');try{await fn();}catch(e){setError(e.message);}finally{setBusy(false);}}
   function update(k,v){setForm(f=>({...f,[k]:v}));setPreview(null);setImportNotice('');}
   async function openRun(id){const result=await api.get(`/api/operational/runs/${id}`);setRun(result);setSelected(result.components[0]?.component_id||'');}
@@ -24,47 +28,48 @@ export default function Data() {
   const feedback=run?.feedback?.filter(f=>f.component_id===selected).at(-1);
   const qaOutcome=run?.qa_outcomes?.find(o=>o.component_id===selected);
   const finalReview=run?.reviews?.filter(r=>r.component_id===selected&&['APPROVE','REJECT'].includes(r.action)).at(-1);
-  return <div className="workspace"><PageHeader title="Lot screening workspace" subtitle="Explore the read-only guided demo, then import complete lots and record review decisions."/>
-    <GuidedDemo />
-    <section className="work-panel"><h2>Research prototype · {config?.mode||'Loading'}</h2><p>{config?.runtime?.limitations}</p><p>Current: µA. Time: ns. Minimum lot size: 30. Declare the expected lot size from your test manifest before importing.</p>
-      {config?.mode==='protected'&&!config.can_write&&<><p>Want to try importing a lot? Unlock the operator workspace here. The public guided demo above works without a key.</p>{config.public_demo_key&&<p className="work-gate-note"><strong>Evaluator demo key:</strong> <code>{config.public_demo_key}</code><br/>Enter this key below to try CSV import and QA review. This is a shared, disposable demonstration workspace; records can be changed by other visitors and may reset on redeploy.</p>}<form onSubmit={e=>{e.preventDefault();task(async()=>{api.setToken(key);try{await api.get('/api/operational/access');await refresh();setKey('');}catch(err){api.setToken('');throw err;}});}}><label>Operator key <input type="password" autoComplete="off" value={key} onChange={e=>setKey(e.target.value)} required/></label><button disabled={busy}>Unlock workspace</button></form></>}
+  return <div className="workspace">
+    <header className="work-intro">
+      <div className="work-intro-kicker">BURNTRACE / OPERATIONAL WORKSPACE</div>
+      <h1>Bring in a lot. Produce a traceable decision.</h1>
+      <p>Start with a complete measurement file, run screening at the chosen burn-in hour, then record the engineer’s QA action. The public example is read-only; importing a lot requires the operator key.</p>
+      <div className="work-intro-actions"><a href="#workspace-access">Start with a lot <ArrowRight size={16}/></a><a href="#guided-demo" onClick={()=>setDemoOpen(true)}>Open the public example <ArrowRight size={16}/></a></div>
+      <span className="work-intro-status">{config?.can_write?'● WORKSPACE UNLOCKED':config?.mode==='read_only'?'● READ-ONLY MODE':'● PUBLIC DEMO AVAILABLE'}</span>
+    </header>
+    <nav className="work-journey" aria-label="Lot screening steps">
+      <a href="#workspace-access"><LockKeyhole size={18}/><span>01 / ACCESS</span><strong>{config?.can_write?'Unlocked':'Unlock workspace'}</strong><small>{config?.can_write?'Ready to import':'Use the evaluator key shown below'}</small></a>
+      <a href="#measurement-import"><Database size={18}/><span>02 / MEASUREMENTS</span><strong>Import a complete lot</strong><small>{lots.length?`${lots.length} accessible lot${lots.length===1?'':'s'}`:'Validate before saving'}</small></a>
+      <a href="#lot-analysis"><ScanSearch size={18}/><span>03 / SCREENING</span><strong>Analyze a snapshot</strong><small>{run?`Run #${run.run_id} open`:'Choose 24h or 168h'}</small></a>
+      <a href={run?'#run-review':'#lot-analysis'}><FileCheck2 size={18}/><span>04 / QA RECORD</span><strong>Review the evidence</strong><small>{run?.reviews?.length?`${run.reviews.length} review${run.reviews.length===1?'':'s'} recorded`:'Record a decision after screening'}</small></a>
+    </nav>
+    <details id="guided-demo" className="work-demo-fold" open={demoOpen} onToggle={event=>setDemoOpen(event.currentTarget.open)}><summary><span>PUBLIC EXAMPLE / NO KEY NEEDED</span><strong>See the screening logic on five synthetic cases</strong><small>{demoOpen?'Collapse example':'Expand read-only walkthrough'} ↓</small></summary>{demoOpen&&<GuidedDemo />}</details>
+    <section id="workspace-access" className="work-panel work-access-panel"><div className="work-stage-label">01 / ACCESS</div><h2>{config?.can_write?'Workspace unlocked':'Unlock the operator workspace'}</h2><p>{config?.runtime?.limitations}</p><p>Minimum lot size: 30. Measurements use µA and ns. Set the expected lot size from the test manifest before importing.</p>
+      {config?.mode==='protected'&&!config.can_write&&<><p>Use the evaluator key to enable CSV import and QA records.</p>{config.public_demo_key&&<p className="work-gate-note"><strong>Evaluator demo key:</strong> <code>{config.public_demo_key}</code><br/>Shared disposable workspace: other visitors can change records, and a redeploy may reset them.</p>}<form className="work-access-form" onSubmit={e=>{e.preventDefault();task(async()=>{api.setToken(key);try{await api.get('/api/operational/access');await refresh();setKey('');}catch(err){api.setToken('');throw err;}});}}><label>Operator key <input type="password" autoComplete="off" value={key} onChange={e=>setKey(e.target.value)} required/></label><button disabled={busy}>Unlock workspace</button></form></>}
       {config?.mode==='protected'&&config.can_write&&<button onClick={()=>{api.setToken('');setLots([]);setRun(null);refresh();}}>Lock workspace</button>}
       {config?.mode==='read_only'&&<p>Imports and analysis are disabled. Configure an operator key on the server to enable this workspace.</p>}
       <p>Model runtime: {config?.runtime?.ready?'verified artifacts loaded':'unavailable'}. Reviews use a shared operator identity.</p>
       {config?.can_write&&<div className="work-actions"><button onClick={()=>task(()=>api.download('/api/operational/feedback/export','qa_feedback_reports.csv'))}>Export suspected-miss reports</button><button onClick={()=>task(()=>api.download('/api/operational/outcomes/export','qa_labelled_measurements.csv'))}>Export QA labels + measurements</button><p>If this server has no persistent database disk, download reports before a redeploy; the default SQLite file can be reset.</p></div>}
     </section>
     {error&&<p className="work-error" role="alert">{error}</p>}{notice&&<p role="status">{notice}</p>}{busy&&<p role="status">Working… Larger lots may take a moment.</p>}
-    <section id="measurement-import" className="work-panel"><h2>1. Import measurements</h2><div className="work-fields">
+    <section id="measurement-import" className="work-panel"><div className="work-stage-label">02 / MEASUREMENTS</div><h2>Import a complete lot</h2><p>Set the lot ID, variant, part count, and burn-in hour. Choose a CSV, validate its rows, then import it. Validation does not save anything.</p>{!config?.can_write&&<p className="work-gate-note">Unlock the workspace in step 01 to choose and import a file. The blank template and sample files can be downloaded now.</p>}<div className="work-fields">
       <label>Lot ID<input value={form.lot_id} onChange={e=>update('lot_id',e.target.value)}/></label>
       <label>Variant<select value={form.device_variant} onChange={e=>update('device_variant',e.target.value)}>{['CMOS_A','CMOS_B','CMOS_C'].map(v=><option key={v}>{v}</option>)}</select></label>
       <label>Expected components<input type="number" min="30" max="1000" value={form.expected_count} onChange={e=>update('expected_count',Number(e.target.value))}/></label>
       <label>Measurements through<select value={form.epoch_h} onChange={e=>update('epoch_h',Number(e.target.value))}>{epochs.map(e=><option value={e} key={e}>{e}h</option>)}</select></label>
       <label>CSV file<input type="file" accept=".csv,text/csv" disabled={busy||!config?.can_write} onChange={e=>{const f=e.target.files[0];update('csv_text','');if(f){if(f.size>2000000){setError('CSV must be at most 2 MB.');return;}f.text().then(t=>update('csv_text',t)).catch(()=>setError('Could not read this file.'));}}}/></label>
-    </div><p>CSV must contain every epoch up to the selected time. Identical reimports are skipped; conflicting measurements are rejected. Validation makes no permanent changes.</p>
-      <div className="work-actions"><button onClick={()=>task(()=>api.download(`/api/operational/template?epoch_h=${form.epoch_h}`,`template_${form.epoch_h}h.csv`))}>Download template</button>
-      <a href="/demo/DEMO_A_24h.csv" download>Synthetic training fixture (24h)</a><a href="/demo/DEMO_A_168h.csv" download>Same fixture (168h)</a>
-      <button disabled={busy||!config?.can_write||!form.csv_text} onClick={()=>task(async()=>setPreview(await api.post('/api/operational/import/validate',form)))}>Validate CSV</button>
+    </div><p>CSV must contain every epoch through the selected hour. Identical reimports are skipped; conflicting measurements are rejected.</p>
+      <div className="work-import-actions"><div><strong>A / Prepare a file</strong><div className="work-actions"><button onClick={()=>task(()=>api.download(`/api/operational/template?epoch_h=${form.epoch_h}`,`template_${form.epoch_h}h.csv`))}>Download blank template</button>
+      <a href="/demo/DEMO_A_24h.csv" download>Example 24h CSV</a><a href="/demo/DEMO_A_168h.csv" download>Same lot at 168h</a></div><small>The sample is a synthetic training fixture for testing the workflow, not accuracy evidence. Use 78 as its expected component count.</small></div>
+      <div><strong>B / Validate, then import</strong><div className="work-actions"><button disabled={busy||!config?.can_write||!form.csv_text} onClick={()=>task(async()=>setPreview(await api.post('/api/operational/import/validate',form)))}>Validate CSV</button>
       <button disabled={busy||!preview||!config?.can_write} onClick={()=>task(async()=>{const r=await api.post('/api/operational/import',form);setImportNotice(r.inserted_measurements?`Import complete: ${r.inserted_measurements} measurements added; ${r.unchanged_measurements} already present. Find ${r.lot_id} in section 2 below.`:`Import complete: all ${r.unchanged_measurements} measurements were already present in ${r.lot_id}. Nothing was duplicated. Check section 2 below.`);setPreview(null);await refresh();})}>Import validated CSV</button></div>
+      <small>“Import validated CSV” becomes available only after a successful validation.</small></div></div>
       {preview&&<p role="status">Valid: {preview.rows} rows, {preview.new_measurements} new measurements. Lot completeness after import: {preview.registered_after_import}/{preview.expected_count}.</p>}
       {importNotice&&<p className="work-gate-note" role="status"><strong>{importNotice}</strong></p>}
-      <p>The downloadable fixture is training data for workflow testing, not independent accuracy evidence. Use its row count as the expected component count.</p>
     </section>
-    <section className="work-panel"><h2>1B. Submit confirmed QA outcomes</h2>
-      <p>This is a separate upload for later QA-confirmed results. First import the component's measurements in section 1. Then fill one row per component with its actual lot ID, component ID, DEFECTIVE or HEALTHY outcome, and a QA evidence reference. It records a label; it does not retrain the model.</p>
-      {!config?.can_write&&<p className="work-gate-note" role="status">You can download the blank template now. To upload and validate a completed file, unlock the operator workspace above. The public guided demo at the top works without a key.</p>}
-      <div className="work-actions"><button disabled={busy} onClick={()=>task(()=>api.download('/api/operational/outcomes/template','qa_outcomes_template.csv'))}>Download blank QA outcome template</button></div>
-      <label>QA outcomes CSV file<input type="file" accept=".csv,text/csv" disabled={!config?.can_write||busy} onChange={e=>{const f=e.target.files[0];setOutcomePreview(null);setOutcomeCsv('');if(f){if(f.size>2000000){setError('QA outcomes CSV must be at most 2 MB.');return;}f.text().then(setOutcomeCsv).catch(()=>setError('Could not read the QA outcomes file.'));}}}/></label>
-      <div className="work-actions"><button disabled={busy||!config?.can_write||!outcomeCsv} onClick={()=>task(async()=>setOutcomePreview(await api.post('/api/operational/outcomes/validate',{csv_text:outcomeCsv})))}>Validate QA outcomes</button>
-      <button disabled={busy||!config?.can_write||!outcomePreview} onClick={()=>task(async()=>{const result=await api.post('/api/operational/outcomes/import',{csv_text:outcomeCsv});setNotice(`Stored ${result.new_or_corrected} QA outcomes; ${result.unchanged} unchanged. Model output remains unchanged.`);setOutcomePreview(null);if(run)await openRun(run.run_id);})}>Import validated QA outcomes</button></div>
-      {outcomePreview&&<p role="status">Valid: {outcomePreview.rows} components; {outcomePreview.new_or_corrected} new or corrected labels. Match the lot and component IDs to measurements already imported above.</p>}
-      {config?.can_write&&!outcomeCsv&&<p className="work-gate-note">Choose a completed QA outcomes CSV to enable validation. The template intentionally contains only column names.</p>}
-      {config?.can_write&&outcomeCsv&&!outcomePreview&&<p className="work-gate-note">Validate this file first. Import becomes available only after validation succeeds.</p>}
-      <p>To give the team the collected data, click <strong>Export QA labels + measurements</strong> after unlocking. On Render without a persistent database disk, these records can disappear on redeploy; export them before redeploying.</p>
-    </section>
-    <section className="work-panel"><h2>2. Analyze a complete lot</h2><button disabled={busy} onClick={()=>task(refresh)}>Refresh lots</button>{!lots.length&&<p>No accessible lots yet. Import a CSV to create a lot.</p>}
+    <section id="lot-analysis" className="work-panel"><div className="work-stage-label">03 / SCREENING</div><h2>Analyze a complete lot</h2><p>A run is available only when every registered part has all measurements through the chosen hour. Open a run below to inspect its decisions.</p><button disabled={busy} onClick={()=>task(refresh)}>Refresh lots</button>{!lots.length&&<p>{config?.can_write?'No accessible lots yet. Import a CSV to create one.':'Unlock in step 01 to see imported lots.'}</p>}
     {lots.map(l=><article className="work-lot" key={l.lot_id}><h3>{l.lot_id} · {l.device_variant} · {l.registered}/{l.expected_count} components</h3><div className="work-actions">{epochs.map(e=><button key={e} disabled={busy||!config?.can_write||!config?.runtime?.ready||epochs.filter(t=>t<=e).some(t=>l.epochs[String(t)]!==l.expected_count)} onClick={()=>task(async()=>{const r=await api.post(`/api/operational/lots/${encodeURIComponent(l.lot_id)}/analyze`,{epoch_h:e});await openRun(r.run_id);await refresh();})}>Analyze {e}h ({l.epochs[String(e)]}/{l.expected_count})</button>)}</div><div className="work-actions">{l.runs.map(r=><button key={r.run_id} disabled={busy} onClick={()=>task(()=>openRun(r.run_id))}>Run #{r.run_id} · {r.epoch_h}h</button>)}</div></article>)}
     </section>
-    {run&&<section className="work-panel"><h2>3. Review run #{run.run_id} · {run.lot_id} · {run.epoch_h}h</h2><p>{Object.entries(run.counts).map(([k,v])=>`${k}: ${v}`).join(' · ')}</p><p>HOLD means forecast risk; REJECT means an observed specification breach. Early passes are provisional. Missing specification limits are not inferred.</p>
+    {run&&<section id="run-review" className="work-panel"><div className="work-stage-label">04 / QA RECORD</div><h2>Review run #{run.run_id} · {run.lot_id} · {run.epoch_h}h</h2><p>{Object.entries(run.counts).map(([k,v])=>`${k}: ${v}`).join(' · ')}</p><p>HOLD means forecast risk; REJECT means an observed specification breach. Early passes are provisional. Missing specification limits are not inferred.</p>
     <div className="work-actions">{['json','csv'].map(f=><button key={f} onClick={()=>task(()=>api.download(`/api/operational/runs/${run.run_id}/export?format=${f}`,`run_${run.run_id}.${f}`))}>Export {f.toUpperCase()}</button>)}</div>
     <label>Component<select value={selected} onChange={e=>{setSelected(e.target.value);setAction('ACKNOWLEDGE');setMissReason('');setMissEvidence('');setResolutionReason('');}}>{[...run.components].sort((a,b)=>({REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[a.disposition]-{REJECT:0,HOLD:1,MONITOR:2,PROVISIONAL_PASS:3,PASS:4}[b.disposition])).map(c=><option key={c.component_id} value={c.component_id}>{c.disposition} · {c.component_id}</option>)}</select></label>
     {component&&<><h3>{component.disposition} · {component.component_id}</h3><p>{component.reason}</p>
@@ -95,5 +100,17 @@ export default function Data() {
     <form onSubmit={e=>{e.preventDefault();task(async()=>{await api.post(`/api/operational/runs/${run.run_id}/reviews`,{component_id:selected,action,reason});setReason('');const updated=await api.get(`/api/operational/runs/${run.run_id}`);setRun(updated);setNotice('Review recorded. Original model output preserved.');});}}><h3>Record a review</h3><label>Action<select value={action} onChange={e=>setAction(e.target.value)}>{['ACKNOWLEDGE','REQUEST_RETEST','HOLD','REJECT',...(run.epoch_h===168&&component.disposition==='PASS'&&(!feedback||feedback.status==='DISMISSED')&&qaOutcome?.confirmed_outcome!=='DEFECTIVE'?['APPROVE']:[])].map(a=><option key={a}>{a}</option>)}</select></label><label>Reason (at least 10 characters)<textarea ref={reasonInput} required minLength={10} maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label><button disabled={busy||!config?.can_write||reason.trim().length<10}>Save review</button></form>
     <ul>{run.reviews?.filter(r=>r.component_id===selected).map(r=><li key={r.review_id}>{r.created_at} · {r.action} · {r.actor}: {r.reason}</li>)}</ul></>}
     <details><summary>Model provenance and forecast receipt</summary><pre>{JSON.stringify({model:run.model_provenance,forecast:run.forecast_receipt,input_hash:run.input_hash,policy:run.policy_version},null,2)}</pre></details></section>}
+    <section id="qa-outcomes" className="work-panel work-secondary-panel"><div className="work-stage-label">OPTIONAL / LABELS</div><h2>Submit confirmed QA outcomes</h2>
+      <p>This is a separate upload for later QA-confirmed results. First import the component's measurements in section 1. Then fill one row per component with its actual lot ID, component ID, DEFECTIVE or HEALTHY outcome, and a QA evidence reference. It records a label; it does not retrain the model.</p>
+      {!config?.can_write&&<p className="work-gate-note" role="status">You can download the blank template now. To upload and validate a completed file, unlock the operator workspace above. The public guided demo at the top works without a key.</p>}
+      <div className="work-actions"><button disabled={busy} onClick={()=>task(()=>api.download('/api/operational/outcomes/template','qa_outcomes_template.csv'))}>Download blank QA outcome template</button></div>
+      <label>QA outcomes CSV file<input type="file" accept=".csv,text/csv" disabled={!config?.can_write||busy} onChange={e=>{const f=e.target.files[0];setOutcomePreview(null);setOutcomeCsv('');if(f){if(f.size>2000000){setError('QA outcomes CSV must be at most 2 MB.');return;}f.text().then(setOutcomeCsv).catch(()=>setError('Could not read the QA outcomes file.'));}}}/></label>
+      <div className="work-actions"><button disabled={busy||!config?.can_write||!outcomeCsv} onClick={()=>task(async()=>setOutcomePreview(await api.post('/api/operational/outcomes/validate',{csv_text:outcomeCsv})))}>Validate QA outcomes</button>
+      <button disabled={busy||!config?.can_write||!outcomePreview} onClick={()=>task(async()=>{const result=await api.post('/api/operational/outcomes/import',{csv_text:outcomeCsv});setNotice(`Stored ${result.new_or_corrected} QA outcomes; ${result.unchanged} unchanged. Model output remains unchanged.`);setOutcomePreview(null);if(run)await openRun(run.run_id);})}>Import validated QA outcomes</button></div>
+      {outcomePreview&&<p role="status">Valid: {outcomePreview.rows} components; {outcomePreview.new_or_corrected} new or corrected labels. Match the lot and component IDs to measurements already imported above.</p>}
+      {config?.can_write&&!outcomeCsv&&<p className="work-gate-note">Choose a completed QA outcomes CSV to enable validation. The template intentionally contains only column names.</p>}
+      {config?.can_write&&outcomeCsv&&!outcomePreview&&<p className="work-gate-note">Validate this file first. Import becomes available only after validation succeeds.</p>}
+      <p>To give the team the collected data, click <strong>Export QA labels + measurements</strong> after unlocking. On Render without a persistent database disk, these records can disappear on redeploy; export them before redeploying.</p>
+    </section>
   </div>;
 }
