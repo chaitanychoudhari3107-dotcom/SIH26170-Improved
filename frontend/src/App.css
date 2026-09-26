@@ -10,3 +10,12 @@
   padding: 2rem 3rem;
   max-width: 1400px;
 }
+
+@media (max-width: 900px) {
+  .app-container { display: block; }
+  .main-content { margin-left: 0; padding: 1.25rem; max-width: none; }
+}
+
+@media (max-width: 600px) {
+  .main-content { padding: .8rem; }
+}

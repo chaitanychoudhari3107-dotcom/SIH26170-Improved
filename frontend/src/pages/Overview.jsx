@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PageHeader } from '../components/layout/PageHeader';
+import ComponentStory from '../components/ComponentStory';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { LoadingState } from '../components/ui/LoadingState';
@@ -31,10 +31,9 @@ export default function Overview() {
 
   return (
     <div className="page-overview">
-      <PageHeader 
-        title="Fleet Reliability & Screening Command" 
-        subtitle="Frozen benchmark explorer · synthetic holdout · 1,343 components across 18 lots. Operational policy performance is shown separately under Models."
-      >
+      <ComponentStory />
+      <div className="overview-section-heading">
+        <div><span className="overview-section-kicker">FROZEN BENCHMARK / EXPLORER</span><h2>From one part to the fleet</h2><p>1,343 synthetic holdout components across 18 lots. These saved explorer dispositions are separate from the operational policy evaluation.</p></div>
         <div className="header-chips">
           <span className="spec-chip">
             <span className="spec-dot live" />
@@ -44,7 +43,7 @@ export default function Overview() {
             STATUS: {summary?.dataset_status || 'FROZEN_FINAL'}
           </span>
         </div>
-      </PageHeader>
+      </div>
 
       {/* Quick Search Banner */}
       <div className="overview-search-banner">
@@ -130,6 +129,18 @@ export default function Overview() {
       </div>
 
       <p className="overview-policy-note">The counts above are the frozen benchmark explorer's saved fusion output. The operational workspace uses a separately evaluated review policy; see its 24h and 168h confusion matrices under Models &amp; Metrics.</p>
+
+      <section className="dataset-evidence" aria-labelledby="dataset-evidence-title">
+        <div>
+          <h2 id="dataset-evidence-title">Dataset &amp; evidence</h2>
+          <p><strong>5,400 synthetic components</strong> across 72 lots and three device variants, with six electrical parameters measured at 0h, 24h, 96h and 168h. The evaluation explorer contains 1,343 components from 18 held-out lots.</p>
+          <p>Five separately frozen, 64-part challenge lots expose difficult cases and documented misses. Labels are synthetic injections, not verified physical defects. The operational rule was also inspected on the holdout during development.</p>
+        </div>
+        <div className="dataset-evidence-links">
+          <button type="button" onClick={() => navigate('/models')}>See measured results <ArrowRight size={14}/></button>
+          <button type="button" onClick={() => navigate('/system')}>Explore data lineage <ArrowRight size={14}/></button>
+        </div>
+      </section>
 
       {/* Analytical Workflow Architecture Banner */}
       <div className="lineage-strip-card">

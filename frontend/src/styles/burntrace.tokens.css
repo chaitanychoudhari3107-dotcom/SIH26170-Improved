@@ -1,0 +1,26 @@
+/* BurnTrace design tokens. Applied during the UI redesign, not by this file alone. */
+:root {
+  --bt-canvas: #f3f0e8;
+  --bt-paper: #fffefa;
+  --bt-ink: #17252b;
+  --bt-ink-secondary: #465961;
+  --bt-rule: #c8d2cf;
+  --bt-instrument: #15242c;
+  --bt-instrument-text: #f2f3ea;
+  --bt-forecast: #4d80aa;
+  --bt-review: #9b5b11;
+  --bt-review-on-dark: #f3b65a;
+  --bt-reject: #ad3d43;
+  --bt-reject-on-dark: #f37a7b;
+  --bt-pass: #247263;
+  --bt-pass-on-dark: #82c7b5;
+  --bt-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --bt-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --bt-space-1: 0.5rem;
+  --bt-space-2: 1rem;
+  --bt-space-3: 1.5rem;
+  --bt-space-4: 2rem;
+  --bt-space-5: 3rem;
+  --bt-radius-control: 0.5rem;
+  --bt-radius-panel: 1rem;
+}

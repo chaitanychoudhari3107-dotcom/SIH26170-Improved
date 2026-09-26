@@ -20,8 +20,8 @@ export function Sidebar() {
           <Cpu className="brand-icon" size={20} />
         </div>
         <div className="brand-text">
-          <div className="brand-title">SIH26170</div>
-          <div className="brand-subtitle">RELIABILITY ANALYTICS</div>
+          <div className="brand-title">BurnTrace</div>
+          <div className="brand-subtitle">BURN-IN SCREENING</div>
         </div>
       </div>
 
