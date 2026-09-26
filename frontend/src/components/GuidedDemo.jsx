@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CartesianGrid, Legend, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { api } from '../services/api';
+import { ModuleBReasons } from './ModuleBReasons';
 import './GuidedDemo.css';
 
 const readable = value => Number(value).toPrecision(5);
@@ -104,7 +105,7 @@ export default function GuidedDemo() {
         </div>
         <p>24h lot median (purple point): {readable(measurement.lot_median_24h)} {measurement.unit} · 168h forecast: {readable(measurement.predicted_168h)} {measurement.unit} · upper bound (amber marker): {readable(measurement.upper_168h)} {measurement.unit} · {measurement.limit == null ? 'no supplied static limit' : `static limit: ${readable(measurement.limit)} ${measurement.unit}${showLimit ? '' : ' (outside this chart scale)'}`}. The median is a single 24h lot comparison, not a forecast or specification limit. The vertical marker at 24h is the early-decision cutoff.</p>
       </>}
-      <div className="demo-decision"><strong>24h: {item.at_24h.disposition.replaceAll('_', ' ')}</strong><p>{item.at_24h.reason}</p><p>Module A: {item.at_24h.module_a_disposition} · score {readable(item.at_24h.module_a_score)}. {item.at_24h.module_b_reason_codes ? `Module B codes: ${item.at_24h.module_b_reason_codes}` : 'No Module B warning codes.'}</p></div>
+      <div className="demo-decision"><strong>24h: {item.at_24h.disposition.replaceAll('_', ' ')}</strong><p>{item.at_24h.reason}</p><p>Module A: {item.at_24h.module_a_disposition} · score {readable(item.at_24h.module_a_score)}.</p><div className="demo-reason-heading">Module B indicators</div><ModuleBReasons codes={item.at_24h.module_b_reason_codes} /></div>
       <button type="button" onClick={() => setShowLater(v => !v)} aria-expanded={showLater}>{showLater ? 'Hide retrospective measurements' : 'Reveal 96h and 168h observed readings'}</button>
       {showLater && <div className="demo-retrospective"><strong>Retrospective 168h decision: {item.at_168h.disposition}</strong><p>{item.at_168h.reason}</p><p>Later readings were hidden from the 24h decision. The original 24h forecast was reused.</p></div>}
       <p className="demo-caveat">{demo.limitations} The current Module B artifact is a {demo.module_b_release_state} build. For actual imported lots, use the workspace below and record a review.</p>

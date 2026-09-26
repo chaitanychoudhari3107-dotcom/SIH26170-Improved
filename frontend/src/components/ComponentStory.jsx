@@ -3,6 +3,7 @@ import { ArrowRight, RotateCcw } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
+import { ModuleBReasons } from './ModuleBReasons';
 import './ComponentStory.css';
 
 const CASES = [
@@ -98,7 +99,7 @@ export default function ComponentStory() {
         </div>
         <div className="bt-lot-context"><span>LOT COMPARISON / 24H</span><strong>{fmt(early['24'])} {measurement.unit} <em>vs.</em> {fmt(measurement.lot_median_24h)} {measurement.unit} median</strong><small>{lotDifference >= 0 ? 'Above' : 'Below'} this lot’s 24h median by {fmt(Math.abs(lotDifference))} {measurement.unit}. Context only; the median is not a specification limit.</small></div>
         <div className="bt-story-verdict"><div><small>24H QA ACTION</small><strong className={`bt-verdict-${item.at_24h.disposition.toLowerCase()}`}>{item.at_24h.disposition.replaceAll('_', ' ')}</strong><p>{item.at_24h.reason}</p></div><span>MODULE A · {item.at_24h.module_a_disposition}</span></div>
-        <div className="bt-evidence-explain">The disposition considers all six parameters, not only the selected chart. Module A: <strong>{item.at_24h.module_a_disposition}</strong>. Module B: <strong>{item.at_24h.module_b_reason_codes || 'No warning code'}</strong>. {item.synthetic_label && item.at_24h.disposition === 'PROVISIONAL_PASS' ? 'This planted defect is a documented 24h miss; provisional pass is not final clearance.' : ''}</div>
+        <div className="bt-evidence-explain">The disposition considers all six parameters, not only the selected chart. Module A: <strong>{item.at_24h.module_a_disposition}</strong>. <div className="bt-reason-heading">Module B indicators</div><ModuleBReasons codes={item.at_24h.module_b_reason_codes} compact />{item.synthetic_label && item.at_24h.disposition === 'PROVISIONAL_PASS' ? <p>This planted defect is a documented 24h miss; provisional pass is not final clearance.</p> : null}</div>
         <div className="bt-story-reveal"><button type="button" aria-expanded={revealed} onClick={() => setRevealed(value => !value)}><RotateCcw size={15}/>{revealed ? 'Hide later measurements' : 'Reveal later measurements'}</button>{revealed && <p>Retrospective: observed 96h {fmt(later['96'])} and 168h {fmt(later['168'])} {measurement.unit}. 168h decision: <strong>{item.at_168h.disposition.replaceAll('_', ' ')}</strong>. These values were not inputs to the 24h decision.</p>}</div>
       </>}
     </div>

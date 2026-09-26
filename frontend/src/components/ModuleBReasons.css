@@ -1,0 +1,4 @@
+.demo-reason-heading,.bt-reason-heading{margin:.65rem 0 .25rem;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--bt-review-on-dark,#f3b65a)}
+.bt-reasons ul{margin:.2rem 0 .4rem 1.25rem;padding:0;line-height:1.55}.bt-reasons li{padding:.12rem 0}.bt-reasons strong{font-weight:600;color:inherit}
+.bt-reasons details{margin-top:.4rem;color:#aebfc1;font-size:.75rem}.bt-reasons summary{cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px}.bt-reasons code{display:block;overflow-wrap:anywhere;line-height:1.5;margin-top:.35rem}
+.bt-reasons summary:focus-visible{outline:2px solid #f3b65a;outline-offset:3px}
