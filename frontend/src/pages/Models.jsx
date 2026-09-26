@@ -1,5 +1,4 @@
 import React from 'react';
-import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { LoadingState } from '../components/ui/LoadingState';
@@ -27,23 +26,11 @@ export default function Models() {
 
   return (
     <div className="page-models">
-      <PageHeader 
-        title="Model Performance & Evaluation Telemetry" 
-        subtitle="Operational workspace policy at 24h and 168h, followed by separate frozen Module A and Module B release metrics. Synthetic retrospective evaluation."
-      >
-        <div className="models-header-chips">
-          <span className="spec-chip">
-            <span className="spec-dot live" />
-            EVAL SPLIT: HOLDOUT (24H / 168H)
-          </span>
-          <span className="spec-chip">
-            POPULATION: 1,343 COMPONENTS
-          </span>
-        </div>
-      </PageHeader>
+      <div className="models-intro"><span>MEASURED EVIDENCE / SYNTHETIC HOLDOUT</span><h1>Screening results, including the misses.</h1><p>Start with the exact operational review rule used by the workspace. Then inspect its tradeoff, difficult challenge cases, and forecast errors. The separately frozen Module A and B release studies are available below.</p></div>
 
       <OperationalEvaluation />
 
+      <details className="models-release-details"><summary><span>02 / RELEASE ARTIFACTS</span><strong>Explore separate frozen Module A and Module B evaluations</strong><small>Expand technical tables ↓</small></summary><div className="models-release-content">
       <h2>Separate frozen Module A release evaluation</h2>
       <p className="models-scope-note">The cards and matrix below describe Module A at 168h; they are not the operational review-gate matrix above. The Module B release forecast table uses a different saved artifact from the operational rehearsal fit. “CONFIRMED” is an internal Module A tier for a measured limit breach in synthetic data, not a QA-confirmed physical defect.</p>
       {/* Top Headline Telemetry Strip */}
@@ -137,7 +124,7 @@ export default function Models() {
               <div className="cm-cell tn-cell">
                 <span className="cell-label">TRUE NEGATIVE (TN)</span>
                 <span className="cell-val">{currentPoint.tn}</span>
-                <span className="cell-sub">Healthy confirmed & cleared</span>
+                <span className="cell-sub">Synthetic healthy part not flagged</span>
               </div>
             </div>
           </div>
@@ -216,7 +203,7 @@ export default function Models() {
             </table>
           </div>
           <div className="subgrid-note">
-            Notice how physical electrical anomalies manifest progressively from 0h (Recall: 15.6%) up to final 168h burn-in (Recall: 72.2%).
+            In this synthetic holdout, more labelled defects are detected as later measurements become available: recall rises from 15.6% at 0h to 72.2% at 168h.
           </div>
         </Card>
 
@@ -316,6 +303,7 @@ export default function Models() {
           </div>
         </Card>
       </div>
+      </div></details>
     </div>
   );
 }

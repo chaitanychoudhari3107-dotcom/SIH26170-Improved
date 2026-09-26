@@ -47,25 +47,32 @@ export default function OperationalEvaluation() {
   const current = evaluation.epochs[epoch];
   const matrix = current.review_gate;
   return <section className="operational-evaluation" aria-label="Operational policy evaluation">
-    <Card title="Operational policy · measured review outcomes">
-      <p>Retrospective synthetic holdout: {evaluation.population.toLocaleString()} parts, {evaluation.defects} labelled defects, {evaluation.healthy.toLocaleString()} healthy parts across {evaluation.lots} complete lots. These outcomes were already inspected during development; this is not independent validation of a newly tuned rule.</p>
+    <div className="operational-lead">
+      <span>01 / OPERATIONAL REVIEW GATE</span>
+      <h2>How many defects would reach a human reviewer?</h2>
+      <p>Choose the decision hour. These are retrospective synthetic results on the same {evaluation.population.toLocaleString()} parts ({evaluation.defects} labelled defects and {evaluation.healthy.toLocaleString()} healthy parts) across {evaluation.lots} complete lots.</p>
       <div className="operational-tabs" role="group" aria-label="Evaluation time">
-        {['24', '168'].map(value => <button key={value} type="button" aria-pressed={epoch === value} onClick={() => setEpoch(value)}>{value}h</button>)}
+        {['24', '168'].map(value => <button key={value} type="button" aria-pressed={epoch === value} onClick={() => setEpoch(value)}>{value}h {value==='24'?'early review':'later snapshot'}</button>)}
       </div>
-      <p><strong>Review gate:</strong> REJECT, HOLD and MONITOR count as flagged for human review. At 24h, all remaining decisions are <strong>PROVISIONAL_PASS</strong>, not final clearance. HOLD is forecast risk; REJECT is an observed limit breach. MONITOR is not a confirmed defect.</p>
+      <div className="operational-headline"><div><strong>{matrix.tp} / {evaluation.defects}</strong><span>synthetic defects flagged</span></div><div><strong>{matrix.fn}</strong><span>synthetic defects missed</span></div><div><strong>{matrix.fp}</strong><span>healthy parts sent for review</span></div></div>
+      <p className="operational-caveat">MONITOR, HOLD and REJECT count as review alerts. At 24h, every other decision is a provisional pass, not clearance. This holdout was inspected during development, so it is not an independent test of a newly tuned rule.</p>
+    </div>
+    <Card title={`${epoch}h review-gate confusion matrix · exact counts`}>
+      <p><strong>Rows by synthetic label:</strong> defective or healthy. <strong>Columns by action:</strong> flagged for review or not flagged. HOLD means forecast risk; REJECT means an observed limit breach; MONITOR requests review and does not confirm a defect.</p>
       <div className="operational-matrix" role="group" aria-label={`${epoch} hour operational review gate confusion matrix`}>
-        <div><span>TP · defective flagged</span><strong>{matrix.tp}</strong></div>
-        <div><span>FN · defective missed</span><strong>{matrix.fn}</strong></div>
-        <div><span>FP · healthy reviewed</span><strong>{matrix.fp}</strong></div>
-        <div><span>TN · healthy cleared</span><strong>{matrix.tn}</strong></div>
+        <div className="operational-tp"><span>TP / defect flagged</span><strong>{matrix.tp}</strong><small>of {evaluation.defects} labelled defects</small></div>
+        <div className="operational-fn"><span>FN / defect missed</span><strong>{matrix.fn}</strong><small>no review alert at {epoch}h</small></div>
+        <div className="operational-fp"><span>FP / healthy reviewed</span><strong>{matrix.fp}</strong><small>review workload</small></div>
+        <div className="operational-tn"><span>TN / healthy not flagged</span><strong>{matrix.tn}</strong><small>of {evaluation.healthy.toLocaleString()} healthy parts</small></div>
       </div>
-      <p>Recall {((matrix.tp / evaluation.defects) * 100).toFixed(1)}% · healthy review rate {((matrix.fp / evaluation.healthy) * 100).toFixed(2)}%. The stronger REJECT/HOLD signal catches {current.strong_signal.tp} defects and flags {current.strong_signal.fp} healthy parts. Current dispositions: {Object.entries(current.dispositions).map(([name, count]) => `${name} ${count}`).join(' · ')}.</p>
+      <p><strong>Defect recall:</strong> {((matrix.tp / evaluation.defects) * 100).toFixed(1)}% (TP / all labelled defects). <strong>Healthy review rate:</strong> {((matrix.fp / evaluation.healthy) * 100).toFixed(2)}% (FP / healthy parts). The stricter REJECT/HOLD signal catches {current.strong_signal.tp} defects and flags {current.strong_signal.fp} healthy parts.</p>
+      <p className="operational-dispositions">Actual {epoch}h dispositions: {Object.entries(current.dispositions).map(([name, count]) => `${name} ${count}`).join(' · ')}.</p>
     </Card>
     <Card title={`Same ${epoch}h lots · defects caught versus healthy reviews`}>
-      <p>Each row uses the same {evaluation.population.toLocaleString()} labelled parts. Static limits flag observed specification breaches only; Module A flags its MONITOR output; the operational rows run the actual workspace policy. More catches can require substantially more healthy reviews.</p>
+      <p>Each row uses the same {evaluation.population.toLocaleString()} labelled parts. Static limits flag observed specification breaches only; Module A flags its MONITOR output; the operational rows run the actual workspace policy. These are different alert counts on the same lots, not a comparison at a matched review budget.</p>
       <ReviewTradeoffFigure current={current} epoch={epoch} />
       <div className="operational-table"><table><thead><tr><th>Decision rule</th><th>Defects caught / 90</th><th>Defects missed</th><th>Healthy reviewed / 1,253</th></tr></thead><tbody>
-        {operatingPoints.map(([key, label]) => { const m = current[key]; return <tr key={key}><th scope="row">{label}</th><td>{m.tp} ({((m.tp / 90) * 100).toFixed(1)}%)</td><td>{m.fn}</td><td>{m.fp} ({((m.fp / 1253) * 100).toFixed(2)}%)</td></tr>; })}
+        {operatingPoints.map(([key, label]) => { const m = current[key]; return <tr key={key} className={key==='review_gate'?'operational-selected-row':''}><th scope="row">{label}{key==='review_gate'&&<span className="operational-row-tag">SELECTED</span>}</th><td>{m.tp} ({((m.tp / evaluation.defects) * 100).toFixed(1)}%)</td><td>{m.fn}</td><td>{m.fp} ({((m.fp / evaluation.healthy) * 100).toFixed(2)}%)</td></tr>; })}
       </tbody></table></div>
       <p>The operational Module B artifact is a reconstructed rehearsal fit. Results are specific to this synthetic population and rule; they do not establish zero missed defects in real hardware.</p>
     </Card>
@@ -74,7 +81,7 @@ export default function OperationalEvaluation() {
       <div className="operational-table"><table><thead><tr><th>Scenario</th><th>Injected reviewed at 24h</th><th>Controls reviewed at 24h</th><th>Injected reviewed at 168h</th><th>Controls reviewed at 168h</th></tr></thead><tbody>
         {challenge.cases.map(row => <tr key={row.key}><th scope="row">{row.label}</th><td>{row.injected ? `${row.review24} / ${row.injected}` : 'N/A'}</td><td>{row.controls24} / {row.controls}</td><td>{row.injected ? `${row.review168} / ${row.injected}` : 'N/A'}</td><td>{row.controls168} / {row.controls}</td></tr>)}
       </tbody></table></div>
-      <p><strong>Failures are visible:</strong> the late-only drift has no 24h evidence (0/8 reviewed); all eight planted stable high-baseline controls are reviewed at both epochs; the whole-lot benign shift sends 40/64 controls for review at 24h; the defect-heavy lot falls from 32/32 injected reviewed at 24h to 4/32 at 168h. A previous 24h warning remains in QA history even when the 168h snapshot says PASS.</p>
+      <p><strong>Failures are visible:</strong> the late-only drift has no 24h evidence (0/8 injected parts reviewed); the benign high-baseline lot sends 18/64 healthy controls to review at 24h and 13/64 at 168h; the whole-lot benign shift sends 40/64 healthy controls for review at 24h; the defect-heavy lot falls from 32/32 injected reviewed at 24h to 4/32 at 168h. A previous 24h warning remains in QA history even when the 168h snapshot says PASS.</p>
       <p>These deliberately difficult synthetic cases do not estimate accuracy or false-alarm rates in physical hardware. The CSV, injection labels, and SHA-256 freeze manifest are in <code>data/challenge_frozen</code> in the public repository. No new decision rule was fit on this challenge.</p>
     </Card>
     <Card title="Operational Module B · 168h forecasts from 0h and 24h">
