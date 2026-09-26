@@ -1,0 +1,203 @@
+{
+  "policy": "prototype-review-policy-1",
+  "measurement_sha256": "7270a50391aaf843426d31a2ed0669995b7408d992e895c7e27034eb82f6c792",
+  "label_sha256": "573f17e7421a48cb8eb8309776a2a274cfa9105b133e3d9dfeb130057ece6d3a",
+  "monitor_treatment": "MONITOR, HOLD, REJECT = sent for review; PASS/PROVISIONAL_PASS = not reviewed",
+  "scope": "newly generated labelled synthetic challenge; distinct rows and lot IDs from training fixtures; designed injections and healthy controls",
+  "limitation": "not independently observed hardware truth or an unbiased deployment false-negative/false-positive estimate; challenge design can differ from real failure distributions",
+  "results": [
+    {
+      "case": "static_pass_latent",
+      "epoch_h": 24,
+      "injected_n": 8,
+      "injected_reviewed": 4,
+      "injected_missed": 4,
+      "control_n": 56,
+      "control_reviewed": 15,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "MONITOR": 19,
+        "PROVISIONAL_PASS": 45
+      },
+      "missed_injected_ids": [
+        "CH_static_pass_latent_004",
+        "CH_static_pass_latent_005",
+        "CH_static_pass_latent_006",
+        "CH_static_pass_latent_008"
+      ]
+    },
+    {
+      "case": "static_pass_latent",
+      "epoch_h": 168,
+      "injected_n": 8,
+      "injected_reviewed": 8,
+      "injected_missed": 0,
+      "control_n": 56,
+      "control_reviewed": 6,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "MONITOR": 14,
+        "PASS": 50
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "low_start_late_drifter",
+      "epoch_h": 24,
+      "injected_n": 8,
+      "injected_reviewed": 0,
+      "injected_missed": 8,
+      "control_n": 56,
+      "control_reviewed": 15,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "PROVISIONAL_PASS": 49,
+        "MONITOR": 15
+      },
+      "missed_injected_ids": [
+        "CH_low_start_late_drifter_001",
+        "CH_low_start_late_drifter_002",
+        "CH_low_start_late_drifter_003",
+        "CH_low_start_late_drifter_004",
+        "CH_low_start_late_drifter_005",
+        "CH_low_start_late_drifter_006",
+        "CH_low_start_late_drifter_007",
+        "CH_low_start_late_drifter_008"
+      ]
+    },
+    {
+      "case": "low_start_late_drifter",
+      "epoch_h": 168,
+      "injected_n": 8,
+      "injected_reviewed": 8,
+      "injected_missed": 0,
+      "control_n": 56,
+      "control_reviewed": 7,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "MONITOR": 15,
+        "PASS": 49
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "benign_high_baseline",
+      "epoch_h": 24,
+      "injected_n": 0,
+      "injected_reviewed": 0,
+      "injected_missed": 0,
+      "control_n": 64,
+      "control_reviewed": 18,
+      "high_baseline_reviewed": 8,
+      "dispositions": {
+        "MONITOR": 18,
+        "PROVISIONAL_PASS": 46
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "benign_high_baseline",
+      "epoch_h": 168,
+      "injected_n": 0,
+      "injected_reviewed": 0,
+      "injected_missed": 0,
+      "control_n": 64,
+      "control_reviewed": 13,
+      "high_baseline_reviewed": 8,
+      "dispositions": {
+        "MONITOR": 13,
+        "PASS": 51
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "whole_lot_shift",
+      "epoch_h": 24,
+      "injected_n": 0,
+      "injected_reviewed": 0,
+      "injected_missed": 0,
+      "control_n": 64,
+      "control_reviewed": 40,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "PROVISIONAL_PASS": 24,
+        "MONITOR": 40
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "whole_lot_shift",
+      "epoch_h": 168,
+      "injected_n": 0,
+      "injected_reviewed": 0,
+      "injected_missed": 0,
+      "control_n": 64,
+      "control_reviewed": 6,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "PASS": 58,
+        "MONITOR": 6
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "peer_baseline_corruption",
+      "epoch_h": 24,
+      "injected_n": 32,
+      "injected_reviewed": 32,
+      "injected_missed": 0,
+      "control_n": 32,
+      "control_reviewed": 6,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "MONITOR": 38,
+        "PROVISIONAL_PASS": 26
+      },
+      "missed_injected_ids": []
+    },
+    {
+      "case": "peer_baseline_corruption",
+      "epoch_h": 168,
+      "injected_n": 32,
+      "injected_reviewed": 4,
+      "injected_missed": 28,
+      "control_n": 32,
+      "control_reviewed": 5,
+      "high_baseline_reviewed": null,
+      "dispositions": {
+        "PASS": 55,
+        "MONITOR": 9
+      },
+      "missed_injected_ids": [
+        "CH_peer_baseline_corruption_001",
+        "CH_peer_baseline_corruption_002",
+        "CH_peer_baseline_corruption_004",
+        "CH_peer_baseline_corruption_005",
+        "CH_peer_baseline_corruption_007",
+        "CH_peer_baseline_corruption_008",
+        "CH_peer_baseline_corruption_009",
+        "CH_peer_baseline_corruption_010",
+        "CH_peer_baseline_corruption_011",
+        "CH_peer_baseline_corruption_013",
+        "CH_peer_baseline_corruption_014",
+        "CH_peer_baseline_corruption_015",
+        "CH_peer_baseline_corruption_016",
+        "CH_peer_baseline_corruption_017",
+        "CH_peer_baseline_corruption_018",
+        "CH_peer_baseline_corruption_019",
+        "CH_peer_baseline_corruption_020",
+        "CH_peer_baseline_corruption_021",
+        "CH_peer_baseline_corruption_022",
+        "CH_peer_baseline_corruption_023",
+        "CH_peer_baseline_corruption_024",
+        "CH_peer_baseline_corruption_025",
+        "CH_peer_baseline_corruption_027",
+        "CH_peer_baseline_corruption_028",
+        "CH_peer_baseline_corruption_029",
+        "CH_peer_baseline_corruption_030",
+        "CH_peer_baseline_corruption_031",
+        "CH_peer_baseline_corruption_032"
+      ]
+    }
+  ]
+}

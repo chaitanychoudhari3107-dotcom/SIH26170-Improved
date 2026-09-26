@@ -1,0 +1,25 @@
+{
+  "purpose": "pre-specified new synthetic challenge; no sampled rows from model training fixtures",
+  "seed": 26170,
+  "components_per_lot": 64,
+  "variant": "CMOS_A",
+  "cases": [
+    "static_pass_latent",
+    "low_start_late_drifter",
+    "benign_high_baseline",
+    "whole_lot_shift",
+    "peer_baseline_corruption"
+  ],
+  "case_definitions": {
+    "static_pass_latent": "8 injected rise-time drifters, final 14.7 ns below 15 ns proxy",
+    "low_start_late_drifter": "8 injected IDDQ drifters that emerge after 24h",
+    "benign_high_baseline": "8 stable elevated-IDDQ controls; all 64 healthy by construction",
+    "whole_lot_shift": "all 64 controls have 1.5x IDDQ at every epoch",
+    "peer_baseline_corruption": "32 injected IDDQ drifters among 32 controls"
+  },
+  "generation": "seeded independent Gaussian draws around data/reference/Device_Specs.csv synthetic CMOS_A baselines; hard-case patterns explicitly injected",
+  "truth": "synthetic injection labels; not observed hardware defects or verified real healthy parts",
+  "measurement_sha256": "7270a50391aaf843426d31a2ed0669995b7408d992e895c7e27034eb82f6c792",
+  "label_sha256": "573f17e7421a48cb8eb8309776a2a274cfa9105b133e3d9dfeb130057ece6d3a",
+  "policy_at_freeze": "prototype-review-policy-1"
+}
