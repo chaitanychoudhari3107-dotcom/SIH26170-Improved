@@ -33,7 +33,10 @@ BASE = {'IDDQ': (1.5, .16), 'Input_Leakage_Current': (.02, .004),
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Freeze CSVs were written with CRLF. Git can check them out as LF on
+    # Linux; reconstruct the original line endings before checking the hash.
+    payload = path.read_bytes().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+    return hashlib.sha256(payload).hexdigest()
 
 
 def rows_for(case: str, seed: int) -> tuple[list[dict], list[dict]]:

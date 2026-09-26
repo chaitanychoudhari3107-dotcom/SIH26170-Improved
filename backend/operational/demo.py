@@ -31,7 +31,10 @@ def frozen_static_pass_case():
     manifest = json.loads((FROZEN_FOLDER / 'freeze_manifest.json').read_text(encoding='utf-8'))
     for name, key in (('challenge_measurements.csv', 'measurement_sha256'),
                       ('challenge_labels.csv', 'label_sha256')):
-        if hashlib.sha256((FROZEN_FOLDER / name).read_bytes()).hexdigest() != manifest[key]:
+        # Git may convert the frozen CSV's CRLF bytes to LF at checkout on
+        # Render. Reconstruct CRLF before checking the original freeze hash.
+        payload = (FROZEN_FOLDER / name).read_bytes().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+        if hashlib.sha256(payload).hexdigest() != manifest[key]:
             raise ValueError('Frozen challenge integrity check failed')
     with (FROZEN_FOLDER / 'challenge_measurements.csv').open(newline='', encoding='utf-8') as f:
         rows = [r for r in csv.DictReader(f) if r['lot_id'] == 'CH_static_pass_latent']
