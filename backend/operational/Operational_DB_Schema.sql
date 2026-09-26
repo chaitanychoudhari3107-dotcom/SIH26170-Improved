@@ -118,3 +118,17 @@ CREATE TABLE IF NOT EXISTS missed_defect_feedback (
     UNIQUE(run_id, component_id)
 );
 CREATE INDEX IF NOT EXISTS idx_missed_feedback_run ON missed_defect_feedback(run_id);
+
+-- QA-confirmed outcomes are operator-supplied labels, separate from model
+-- predictions and from suspected missed-defect reports. Corrections append a
+-- new row so the history remains auditable.
+CREATE TABLE IF NOT EXISTS qa_outcomes (
+    outcome_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    component_id TEXT NOT NULL REFERENCES components(component_id),
+    lot_id TEXT NOT NULL REFERENCES lots(lot_id),
+    confirmed_outcome TEXT NOT NULL CHECK(confirmed_outcome IN ('DEFECTIVE','HEALTHY')),
+    evidence_reference TEXT NOT NULL,
+    actor TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_qa_outcomes_component ON qa_outcomes(component_id, outcome_id);

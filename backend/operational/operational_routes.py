@@ -2,6 +2,7 @@
 import csv
 import io
 import json
+import re
 import sqlite3
 from contextlib import closing
 from typing import Literal
@@ -64,6 +65,53 @@ class FeedbackInput(StrictInput):
 class FeedbackResolution(StrictInput):
     status: Literal['QA_REVIEWED_DEFECT', 'DISMISSED']
     resolution_reason: str = Field(min_length=10, max_length=2000)
+
+
+class OutcomeImport(StrictInput):
+    csv_text: str = Field(min_length=10, max_length=2_000_000)
+
+
+OUTCOME_FIELDS = ['lot_id', 'component_id', 'confirmed_outcome', 'evidence_reference']
+
+
+def parse_outcomes(data):
+    reader = csv.DictReader(io.StringIO(data.csv_text.lstrip('\ufeff')))
+    headers = reader.fieldnames or []
+    if headers != OUTCOME_FIELDS:
+        raise HTTPException(422, f'QA outcome CSV columns must be exactly: {", ".join(OUTCOME_FIELDS)}')
+    rows, seen = [], set()
+    for line, row in enumerate(reader, start=2):
+        if len(rows) >= 1000 or None in row or any(v is None for v in row.values()):
+            raise HTTPException(422, f'Invalid QA outcome row or too many rows at line {line}')
+        row = {k: v.strip() for k, v in row.items()}
+        if (not re.fullmatch(ID_PATTERN, row['lot_id']) or
+                not re.fullmatch(ID_PATTERN, row['component_id']) or
+                row['confirmed_outcome'] not in {'DEFECTIVE', 'HEALTHY'} or
+                not 10 <= len(row['evidence_reference']) <= 2000):
+            raise HTTPException(422, f'Line {line}: invalid ID, outcome, or evidence reference (10–2000 characters)')
+        if row['component_id'] in seen:
+            raise HTTPException(422, f'Line {line}: duplicate component ID')
+        seen.add(row['component_id'])
+        rows.append(row)
+    if not rows:
+        raise HTTPException(422, 'QA outcome CSV must contain at least one row')
+    return rows
+
+
+def check_outcomes(connection, rows):
+    for row in rows:
+        part = connection.execute('SELECT lot_id FROM components WHERE component_id=?', (row['component_id'],)).fetchone()
+        if part is None or part['lot_id'] != row['lot_id']:
+            raise HTTPException(422, f"{row['component_id']}: component is not in the specified imported lot")
+
+
+def latest_outcome(connection, component_id):
+    return connection.execute('SELECT * FROM qa_outcomes WHERE component_id=? ORDER BY outcome_id DESC LIMIT 1', (component_id,)).fetchone()
+
+
+def safe_csv_text(value):
+    # An evidence note is free text; keep spreadsheet apps from treating it as a formula.
+    return "'" + value if value.lstrip().startswith(('=', '+', '-', '@')) else value
 
 
 def fetch_lot(connection, lot_id):
@@ -157,9 +205,72 @@ def verify_access():
 
 
 @router.get('/operational/template')
-def template(epoch_h: Literal[0, 24, 96, 168] = 24):
+def template(epoch_h: int = 24):
+    if epoch_h not in EPOCHS:
+        raise HTTPException(422, 'Select 0, 24, 96 or 168 hours')
     columns = IDS + [f'{p}_{e}h' for p in PARAMS for e in EPOCHS if e <= epoch_h]
     return Response(','.join(columns) + '\n', media_type='text/csv', headers={'Content-Disposition': f'attachment; filename="measurements_{epoch_h}h.csv"'})
+
+
+@router.get('/operational/outcomes/template', dependencies=[Depends(read_access)])
+def outcomes_template():
+    return Response(','.join(OUTCOME_FIELDS) + '\n', media_type='text/csv',
+                    headers={'Content-Disposition': 'attachment; filename="qa_outcomes_template.csv"'})
+
+
+@router.post('/operational/outcomes/validate', dependencies=[Depends(write_access)])
+def validate_outcomes(data: OutcomeImport):
+    rows = parse_outcomes(data)
+    with closing(get_connection()) as connection:
+        check_outcomes(connection, rows)
+        changes = sum(not (prior and prior['confirmed_outcome'] == row['confirmed_outcome'] and
+                           prior['evidence_reference'] == row['evidence_reference'])
+                      for row in rows for prior in [latest_outcome(connection, row['component_id'])])
+    return {'valid': True, 'rows': len(rows), 'new_or_corrected': changes,
+            'preview': rows[:5]}
+
+
+@router.post('/operational/outcomes/import', dependencies=[Depends(write_access)])
+def import_outcomes(data: OutcomeImport):
+    rows = parse_outcomes(data)
+    inserted = 0
+    with closing(get_connection()) as connection:
+        with connection:
+            connection.execute('BEGIN IMMEDIATE')
+            check_outcomes(connection, rows)
+            for row in rows:
+                prior = latest_outcome(connection, row['component_id'])
+                if prior and prior['confirmed_outcome'] == row['confirmed_outcome'] and prior['evidence_reference'] == row['evidence_reference']:
+                    continue
+                connection.execute('INSERT INTO qa_outcomes(component_id,lot_id,confirmed_outcome,evidence_reference,actor) VALUES(?,?,?,?,?)',
+                                   (row['component_id'], row['lot_id'], row['confirmed_outcome'],
+                                    row['evidence_reference'], 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'))
+                inserted += 1
+    return {'rows': len(rows), 'new_or_corrected': inserted, 'unchanged': len(rows) - inserted,
+            'message': 'QA outcome labels stored separately; models and frozen evaluation data were not changed'}
+
+
+@router.get('/operational/outcomes/export', dependencies=[Depends(read_access)])
+def export_outcomes():
+    # One component per row, with recorded measurements and its latest QA label.
+    fields = ['lot_id', 'component_id', 'device_variant', 'confirmed_outcome',
+              'evidence_reference', 'outcome_id', 'labelled_at'] + [f'{p}_{e}h' for p in PARAMS for e in EPOCHS]
+    stream = io.StringIO()
+    writer = csv.DictWriter(stream, fieldnames=fields)
+    writer.writeheader()
+    with closing(get_connection()) as connection:
+        labels = connection.execute('SELECT o.* FROM qa_outcomes o WHERE o.outcome_id=(SELECT MAX(o2.outcome_id) FROM qa_outcomes o2 WHERE o2.component_id=o.component_id) ORDER BY o.outcome_id').fetchall()
+        for label in labels:
+            component = connection.execute('SELECT device_variant FROM components WHERE component_id=?', (label['component_id'],)).fetchone()
+            row = {'lot_id': label['lot_id'], 'component_id': label['component_id'],
+                   'device_variant': component['device_variant'], 'confirmed_outcome': label['confirmed_outcome'],
+                   'evidence_reference': safe_csv_text(label['evidence_reference']), 'outcome_id': label['outcome_id'],
+                   'labelled_at': label['created_at']}
+            for m in connection.execute('SELECT * FROM measurements WHERE component_id=?', (label['component_id'],)):
+                row.update({f'{p}_{m["epoch_h"]}h': m[p] for p in PARAMS})
+            writer.writerow(row)
+    return Response(stream.getvalue(), media_type='text/csv',
+                    headers={'Content-Disposition': 'attachment; filename="qa_labelled_measurements.csv"'})
 
 
 @router.post('/operational/import/validate', dependencies=[Depends(write_access)])
@@ -238,6 +349,9 @@ def get_run(connection, run_id):
               'reviews': [dict(r) for r in connection.execute('SELECT * FROM review_actions WHERE run_id=? ORDER BY review_id', (run_id,))],
               'feedback': [dict(r) for r in connection.execute(
                   'SELECT f.* FROM missed_defect_feedback f JOIN screening_runs s ON s.run_id=f.run_id WHERE s.lot_id=? ORDER BY f.feedback_id',
+                  (record['lot_id'],))],
+              'qa_outcomes': [dict(r) for r in connection.execute(
+                  'SELECT o.* FROM qa_outcomes o WHERE o.lot_id=? AND o.outcome_id=(SELECT MAX(o2.outcome_id) FROM qa_outcomes o2 WHERE o2.component_id=o.component_id)',
                   (record['lot_id'],))]}
     return attach_prior_alerts(connection, fetch_lot(connection, record['lot_id']), result)
 
@@ -279,6 +393,8 @@ def review(run_id: int, data: ReviewInput, request: Request):
                 raise HTTPException(422, 'Release approval requires a 168h PASS decision; record a hold or rejection instead')
             if data.action == 'APPROVE' and any(r['component_id'] == data.component_id and r['status'] != 'DISMISSED' for r in run['feedback']):
                 raise HTTPException(409, 'An active missed-defect report blocks approval; investigate or dismiss it with evidence first')
+            if data.action == 'APPROVE' and any(r['component_id'] == data.component_id and r['confirmed_outcome'] == 'DEFECTIVE' for r in run['qa_outcomes']):
+                raise HTTPException(409, 'QA-confirmed defect blocks approval; a new QA correction is required')
             actor = 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'
             cur = connection.execute('INSERT INTO review_actions(run_id,component_id,action,reason,actor) VALUES(?,?,?,?,?)',
                                      (run_id, data.component_id, data.action, data.reason, actor))
@@ -320,8 +436,13 @@ def resolve_feedback(feedback_id: int, data: FeedbackResolution):
                 raise HTTPException(409, 'This report has already been reviewed')
             connection.execute('UPDATE missed_defect_feedback SET status=?,resolution_reason=?,resolved_at=CURRENT_TIMESTAMP WHERE feedback_id=?',
                                (data.status, data.resolution_reason, feedback_id))
+            if data.status == 'QA_REVIEWED_DEFECT':
+                lot = connection.execute('SELECT lot_id FROM components WHERE component_id=?', (record['component_id'],)).fetchone()
+                connection.execute('INSERT INTO qa_outcomes(component_id,lot_id,confirmed_outcome,evidence_reference,actor) VALUES(?,?,?,?,?)',
+                                   (record['component_id'], lot['lot_id'], 'DEFECTIVE',
+                                    data.resolution_reason, 'shared_operator' if access_mode() == 'protected' else 'local_demo_operator'))
     return {'feedback_id': feedback_id, 'status': data.status,
-            'message': 'QA annotation saved; no automatic model retraining occurred'}
+            'message': 'QA annotation saved; confirmed defects are available in the labelled export; no automatic retraining occurred'}
 
 
 @router.get('/operational/feedback/export', dependencies=[Depends(read_access)])
