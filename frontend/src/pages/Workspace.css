@@ -37,3 +37,6 @@
 .work-secondary-panel{border-style:dashed;background:#0e1723}.work-lot{border-color:#375059}.work-lot h3{font-family:var(--bt-font-mono);font-size:.9rem}
 @media(max-width:850px){.work-journey{grid-template-columns:repeat(2,minmax(0,1fr))}.work-import-actions{grid-template-columns:1fr}}
 @media(max-width:520px){.work-intro{padding:1.15rem}.work-intro h1{font-size:2rem}.work-journey{gap:.4rem}.work-journey a{padding:.7rem}.work-journey strong{font-size:.78rem}.work-demo-fold>summary small{margin-left:0}.work-access-form label{width:100%}}
+.workspace .work-error{color:#ff9696;border-color:#d97070;background:#301c24}
+.workspace .work-fields>label{min-width:0}
+@media(max-width:600px){.workspace .work-actions>button,.workspace .work-actions>a{max-width:100%;overflow-wrap:anywhere}.work-panel{min-width:0;overflow-wrap:anywhere}.work-import-actions>div{min-width:0}}
