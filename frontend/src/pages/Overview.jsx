@@ -46,6 +46,14 @@ export default function Overview() {
         </div>
       </PageHeader>
 
+      <div className="overview-demo-entry">
+        <div>
+          <strong>Start here: see a screening decision in about one minute</strong>
+          <p>Choose a synthetic component, see its 0h/24h readings and 168h forecast, then reveal what happened later. No password or CSV is needed.</p>
+        </div>
+        <button type="button" onClick={() => navigate('/data')}>Open public guided demo <ArrowRight size={16}/></button>
+      </div>
+
       {/* Quick Search Banner */}
       <div className="overview-search-banner">
         <div className="search-banner-inner">
@@ -129,6 +137,8 @@ export default function Overview() {
         </div>
       </div>
 
+      <p className="overview-policy-note">The counts above are the frozen benchmark explorer's saved fusion output. The operational workspace uses a separately evaluated review policy; see its 24h and 168h confusion matrices under Models &amp; Metrics.</p>
+
       {/* Analytical Workflow Architecture Banner */}
       <div className="lineage-strip-card">
         <div className="lineage-strip-header">
@@ -176,7 +186,7 @@ export default function Overview() {
       {/* Module Overview Grid */}
       <div className="modules-overview-grid">
         {/* Module A Summary */}
-        <Card title="Module A: Static Screening (168h)" className="summary-module-card">
+        <Card title="Module A: Lot-relative screening + limit checks (168h)" className="summary-module-card">
           <div className="module-summary-body">
             <div className="module-stat-row">
               <span className="stat-label">Model Pipeline:</span>
@@ -187,8 +197,8 @@ export default function Overview() {
               <span className="stat-val code-font">0.900 hard-limit score floor; statistical alerts use separate criteria</span>
             </div>
             <div className="module-stat-row">
-              <span className="stat-label">CONFIRMED Failures:</span>
-              <span className="stat-val text-reject font-bold">23 parts (Score ≥ 0.90)</span>
+              <span className="stat-label">Measured limit breaches:</span>
+              <span className="stat-val text-reject font-bold">23 synthetic parts</span>
             </div>
             <div className="module-stat-row">
               <span className="stat-label">Statistical MONITOR:</span>
@@ -201,12 +211,12 @@ export default function Overview() {
             <div className="tier-breakdown-bar">
               <div className="tier-segment pass" style={{ width: '94.2%' }} title="PASS: 1,265" />
               <div className="tier-segment monitor" style={{ width: '4.1%' }} title="MONITOR: 55" />
-              <div className="tier-segment reject" style={{ width: '1.7%' }} title="CONFIRMED: 23" />
+              <div className="tier-segment reject" style={{ width: '1.7%' }} title="Measured limit breaches: 23" />
             </div>
             <div className="tier-labels">
               <span>PASS (94.2%)</span>
               <span>MONITOR (4.1%)</span>
-              <span>CONFIRMED (1.7%)</span>
+              <span>LIMIT BREACH (1.7%)</span>
             </div>
           </div>
         </Card>
@@ -216,7 +226,7 @@ export default function Overview() {
           <div className="module-summary-body">
             <div className="module-stat-row">
               <span className="stat-label">Model Release:</span>
-              <span className="stat-val code-font">ModuleB-FINAL01-RC2</span>
+              <span className="stat-val code-font">ModuleB-FINAL01-RC2 · saved benchmark forecasts</span>
             </div>
             <div className="module-stat-row">
               <span className="stat-label">Prediction Target:</span>

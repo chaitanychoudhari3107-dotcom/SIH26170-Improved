@@ -212,7 +212,7 @@ def template(epoch_h: int = 24):
     return Response(','.join(columns) + '\n', media_type='text/csv', headers={'Content-Disposition': f'attachment; filename="measurements_{epoch_h}h.csv"'})
 
 
-@router.get('/operational/outcomes/template', dependencies=[Depends(read_access)])
+@router.get('/operational/outcomes/template')
 def outcomes_template():
     return Response(','.join(OUTCOME_FIELDS) + '\n', media_type='text/csv',
                     headers={'Content-Disposition': 'attachment; filename="qa_outcomes_template.csv"'})

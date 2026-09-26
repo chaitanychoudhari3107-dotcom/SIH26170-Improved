@@ -200,7 +200,7 @@ export default function System() {
                   <p>
                     Module A evaluates parts across a <strong>13-column contract schema</strong>. It calculates static datasheet limit exceedances 
                     alongside robust lot-relative Mahalanobis outlier distances. If static limits are breached, parts are assigned evidence tier 
-                    <span className="code-font red">CONFIRMED</span> with score &ge; 0.90. Parts with excessive statistical lot drift are flagged 
+                    <span className="code-font red">CONFIRMED</span> with score &ge; 0.90. This internal tier means a measured limit breach in the synthetic benchmark, not a QA-confirmed physical defect. Parts with excessive statistical lot drift are flagged 
                     <span className="code-font amber">MONITOR</span>.
                   </p>
                   <div className="contract-tags">
@@ -232,7 +232,7 @@ export default function System() {
                 <div className="contract-content">
                   <h4>Stage 5: Rule-Based Decision Fusion Matrix</h4>
                   <p>
-                    The decision fusion layer combines frozen Module A and Module B outputs using these project policy rules:
+                    The saved benchmark explorer combines frozen Module A and Module B outputs using the rules below. The operational workspace uses a separate policy that calls forecast-only risk HOLD; its measured 24h and 168h results are under Models &amp; Metrics.
                   </p>
                   <ul className="fusion-rules-list">
                     <li><strong className="text-reject">REJECT (28 parts):</strong> Module A tier is <code>CONFIRMED</code> (23 observed hard-limit breaches) OR Module B prediction / upper bound crosses a limit (5 forecast-only holds). These evidence types are shown separately.</li>

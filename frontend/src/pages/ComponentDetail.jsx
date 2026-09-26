@@ -69,6 +69,15 @@ export default function ComponentDetail() {
   const tier = module_a?.evidence_tier || module_a?.module_a_evidence_tier || 'UNKNOWN';
   const riskScore = module_a?.score ?? module_a?.module_a_score ?? 0;
   const finalVerdict = fused_verdict || (tier === 'CONFIRMED' ? 'REJECT' : disposition);
+  const monitorExplanation = disposition === 'MONITOR'
+    ? `Module A flagged a lot-relative anomaly in ${lot_id}; send this component for QA review.`
+    : bReasons.some(code => code.startsWith('B_WIDE_ENVELOPE'))
+      ? 'The 0h/24h forecast has a wide uncertainty envelope; send this component for QA review.'
+      : bReasons.some(code => code.startsWith('B_LOT_OUTLIER_24H'))
+        ? 'The 24h reading differs from its lot peers; send this component for QA review.'
+        : bReasons.some(code => code.startsWith('B_HIGH_FORECAST_DRIFT'))
+          ? 'The early forecast indicates elevated drift; send this component for QA review.'
+          : 'A configured screening indicator requires QA review; inspect the reason codes below.';
 
   return (
     <div className="page-detail">
@@ -84,7 +93,7 @@ export default function ComponentDetail() {
           <div className="detail-id-row">
             <h1 className="detail-title code-font">{componentId}</h1>
             <Badge status={finalVerdict} size="lg">FUSED: {finalVerdict}</Badge>
-            <Badge status={tier} size="lg">TIER: {tier}</Badge>
+            <Badge status={tier} size="lg">TIER: {tier === 'CONFIRMED' ? 'MEASURED LIMIT BREACH' : tier}</Badge>
           </div>
           <div className="detail-meta">
             {lot_id && <span className="meta-chip">LOT: <strong>{lot_id}</strong></span>}
@@ -109,11 +118,11 @@ export default function ComponentDetail() {
           <div className="verdict-banner-desc">
             {finalVerdict === 'REJECT' && (
               tier === 'CONFIRMED' 
-                ? `Physical datasheet limit breach detected at 168h on ${module_a?.primary_parameter || 'measured parameters'}. Component must be quarantined and rejected.`
-                : `Module A did not confirm a measured failure. A forecast or its upper uncertainty bound crossed a limit; this policy withholds the part for engineering review.`
+                ? `Measured specification limit exceeded on ${module_a?.primary_parameter || 'one or more parameters'} in this synthetic benchmark. The saved explorer policy rejects this part; physical defect status requires QA verification.`
+                : `The saved explorer policy calls this a REJECT because a forecast or its upper bound crossed a limit. The operational workspace treats forecast-only risk as HOLD for engineering review.`
             )}
             {finalVerdict === 'MONITOR' && (
-              `Component exhibits elevated statistical drift or outlier behavior relative to its lot centroid (${lot_id}). Retain for surveillance.`
+              monitorExplanation
             )}
             {finalVerdict === 'PASS' && (
               `No alert under the current screening policy. This result does not guarantee future reliability.`
@@ -125,7 +134,7 @@ export default function ComponentDetail() {
       {/* 3 Core Analytical Diagnostic Cards */}
       <div className="detail-grid">
         {/* Module A Card */}
-        <Card title="Module A: Static Screening (168h)" className="module-card">
+        <Card title="Module A: Lot-relative screening + limit checks (168h)" className="module-card">
           <div className="score-section">
             <div className="score-label">
               <span>Screening Risk Score</span>
@@ -147,7 +156,7 @@ export default function ComponentDetail() {
               <span>0.90 Hard-limit floor</span>
               <span>1.00 Score maximum</span>
             </div>
-            <p className="section-subtitle">The 0.90 floor identifies confirmed hard-limit breaches; statistical MONITOR decisions use separate lot-relative evidence and can have lower displayed scores.</p>
+            <p className="section-subtitle">The 0.90 floor marks measured limit breaches in the synthetic benchmark; MONITOR can also arise from separate lot-relative evidence at a lower displayed score. The internal CONFIRMED tier is not a QA-confirmed physical defect.</p>
           </div>
           
           <div className="detail-row">
@@ -232,7 +241,7 @@ export default function ComponentDetail() {
             <span className="corroboration-title">Corroboration Logic:</span>
             <span className="corroboration-text">
               {tier === 'CONFIRMED'
-                ? 'Module A confirms a hard electrical datasheet breach (CONFIRMED_FLOOR = 0.90) overriding all secondary prognosis.'
+                ? 'Module A marks an observed specification exceedance in this synthetic benchmark (internal CONFIRMED_FLOOR = 0.90). Hardware defect status still requires QA evidence.'
                 : 'Module A screening and Module B 0h-24h trend projection are synthesized under Decision Fusion protocol.'}
             </span>
           </div>

@@ -148,7 +148,9 @@ export default function Analyze() {
                     <div className="res-card-middle">
                       <div className="res-info-row">
                         <span className="res-lbl">Evidence Tier:</span>
-                        <span className="res-val font-bold">{tier}</span>
+                        <span className="res-val font-bold" title={tier === 'CONFIRMED' ? 'Measured limit breach in the synthetic screening data; physical defect status requires QA confirmation.' : undefined}>
+                          {tier === 'CONFIRMED' ? 'LIMIT BREACH' : tier}
+                        </span>
                       </div>
                       <div className="res-info-row">
                         <span className="res-lbl">Screening Risk:</span>

@@ -45,7 +45,7 @@ export default function Models() {
       <OperationalEvaluation />
 
       <h2>Separate frozen Module A release evaluation</h2>
-      <p className="models-scope-note">The cards and matrix below describe Module A at 168h; they are not the operational review-gate matrix above. The Module B release forecast table also uses a different saved artifact from the operational rehearsal fit.</p>
+      <p className="models-scope-note">The cards and matrix below describe Module A at 168h; they are not the operational review-gate matrix above. The Module B release forecast table uses a different saved artifact from the operational rehearsal fit. “CONFIRMED” is an internal Module A tier for a measured limit breach in synthetic data, not a QA-confirmed physical defect.</p>
       {/* Top Headline Telemetry Strip */}
       <div className="eval-strip-grid">
         <div className="eval-strip-card">

@@ -4,6 +4,7 @@
 .work-prior-alert strong{color:var(--status-monitor-text,#fbbf24)}
 .work-feedback{border:1px solid var(--border-focus,#38bdf8);border-radius:8px;padding:16px;margin:20px 0;background:rgba(56,189,248,.06)}
 .work-feedback h3{margin:0 0 8px}.work-feedback textarea{width:100%}
+.work-gate-note{border-left:3px solid #38bdf8;padding:10px 14px;background:rgba(56,189,248,.08);color:var(--text-primary,#f1f5f9)}
 
 .workspace button:hover:not(:disabled){background:var(--bg-card-hover,#141c2e);border-color:var(--border-focus,#38bdf8)}
 .workspace select option{background:var(--bg-input,#080d16);color:var(--text-primary,#f1f5f9)}

@@ -192,7 +192,9 @@ export default function Components() {
                             <Badge status={verdict}>{verdict}</Badge>
                           </td>
                           <td>
-                            <span className="tier-pill">{tier}</span>
+                            <span className="tier-pill" title={tier === 'CONFIRMED' ? 'Measured limit breach in the synthetic screening data; physical defect status requires QA confirmation.' : undefined}>
+                              {tier === 'CONFIRMED' ? 'LIMIT BREACH' : tier}
+                            </span>
                           </td>
                           <td className="code-font">
                             <span className={`score-badge ${score >= 0.9 ? 'high-risk' : (score >= 0.5 ? 'med-risk' : '')}`}>
@@ -245,4 +247,3 @@ export default function Components() {
     </div>
   );
 }
-

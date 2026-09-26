@@ -36,9 +36,9 @@ export default function GuidedDemo() {
   const spread = visibleValues.length ? Math.max(...visibleValues) - Math.min(...visibleValues) : 0;
   const padding = Math.max(spread * 0.12, Math.max(...(visibleValues.length ? visibleValues : [1])) * 0.02);
   const yDomain = visibleValues.length ? [Math.max(0, Math.min(...visibleValues) - padding), Math.max(...visibleValues) + padding] : ['auto', 'auto'];
-  return <section className="guided-demo work-panel" aria-label="Guided operational demonstration">
-    <h2>Guided demo · five backend policy decisions</h2>
-    <p>The backend analyses complete synthetic lots at 24h, then reuses each lot's early forecast for its 168h run. The fourth case shows an earlier warning beside a later PASS; the fifth comes from the frozen injected-drift challenge. This public demo does not import data into your workspace or need an operator key.</p>
+  return <section id="guided-demo" className="guided-demo work-panel" aria-label="Guided operational demonstration">
+    <h2>Public screening walkthrough · no password needed</h2>
+    <p>In about one minute: choose a case below, inspect its 0h/24h readings and 168h forecast, then reveal the later observed result. The backend runs complete synthetic lots; this walkthrough does not alter the protected workspace. The fourth case keeps an earlier warning visible beside a later PASS, and the fifth shows a planted drift the policy misses at 24h.</p>
     {error && <p role="alert" className="work-error">Demo unavailable: {error}</p>}
     {!demo && !error && <p role="status">Running the synthetic lot through the operational model…</p>}
     {item && <>
