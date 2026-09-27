@@ -41,6 +41,25 @@ class OperationalTests(unittest.TestCase):
         row=next(r for r in result['components'] if r['component_id']==rows[0]['component_id'])
         self.assertEqual(row['disposition'],'REJECT')
         self.assertIn('IDDQ',row['observed_breaches'])
+    def test_review_demo_shows_early_and_late_breaches(self):
+        for epoch in (24, 168):
+            text=(ROOT/f'frontend/public/demo/DEMO_REVIEW_{epoch}h.csv').read_text()
+            payload=dict(csv_text=text,lot_id='DEMO_REVIEW',device_variant='CMOS_A',expected_count=78,epoch_h=epoch)
+            self.post('import/validate', payload)
+            self.post('import', payload)
+            result=self.post('lots/DEMO_REVIEW/analyze', {'epoch_h':epoch})
+            decisions={row['component_id']:row['disposition'] for row in result['components']}
+            self.assertEqual(decisions['REVIEW_C00002'],'REJECT')
+            if epoch==168:
+                self.assertEqual(decisions['REVIEW_C00003'],'REJECT')
+                self.assertGreaterEqual(result['counts']['REJECT'],3)
+                review=self.post(f"runs/{result['run_id']}/reviews",dict(component_id='REVIEW_C00003',action='REJECT',reason='Observed late IDDQ limit breach'))
+                self.assertIn('review_id',review)
+                saved=self.client.get(f"/api/operational/runs/{result['run_id']}").json()
+                self.assertEqual(saved['reviews'][-1]['action'],'REJECT')
+            else:
+                self.assertNotEqual(decisions['REVIEW_C00003'],'REJECT')
+                self.assertGreaterEqual(result['counts']['REJECT'],2)
     def test_auth_and_preview_rollback(self):
         self.assertEqual(TestClient(app).get('/api/operational/lots').status_code,401)
         self.assertEqual(TestClient(app).post('/api/operational/import',json=self.payload()).status_code,401)
