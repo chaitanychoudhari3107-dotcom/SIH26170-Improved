@@ -75,7 +75,7 @@ export default function Components() {
             }}
           />
           {searchQuery && (
-            <button className="clear-search-btn" onClick={() => { setSearchQuery(''); setPage(1); }}>
+            <button aria-label="Clear component search" className="clear-search-btn" onClick={() => { setSearchQuery(''); setPage(1); }}>
               <X size={14} />
             </button>
           )}
@@ -175,6 +175,8 @@ export default function Components() {
                         <tr 
                           key={row.component_id}
                           className="catalog-row"
+                          tabIndex={0}
+                          onKeyDown={(event) => { if (event.key === 'Enter') navigate(`/analyze/${row.component_id}`); }}
                           onClick={() => navigate(`/analyze/${row.component_id}`)}
                         >
                           <td className="code-font font-bold text-accent">

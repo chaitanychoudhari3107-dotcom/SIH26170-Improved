@@ -14,7 +14,7 @@ export function DataTable({ columns, data, onRowClick }) {
         </thead>
         <tbody>
           {data.map((row, i) => (
-            <tr key={i} onClick={() => onRowClick && onRowClick(row)} style={{ cursor: onRowClick ? 'pointer' : 'default' }}>
+            <tr key={i} tabIndex={onRowClick ? 0 : undefined} onKeyDown={e => { if (e.key === 'Enter' && onRowClick) onRowClick(row); }} onClick={() => onRowClick && onRowClick(row)} style={{ cursor: onRowClick ? 'pointer' : 'default' }}>
               {columns.map((col, j) => (
                 <td key={j}>{col.accessor(row)}</td>
               ))}

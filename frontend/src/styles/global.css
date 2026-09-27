@@ -58,3 +58,16 @@ input:focus, select:focus, textarea:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* Shared interaction rules for the complete BurnTrace workflow. */
+:root { color-scheme: dark; }
+button, a, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+:where(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 4px;
+}
+button:disabled { cursor: not-allowed; }
+input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 1; }
+.recharts-cartesian-axis-tick-value { fill: var(--text-secondary); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

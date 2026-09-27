@@ -9,6 +9,7 @@ const Data = lazy(() => import('./pages/Data'));
 const Models = lazy(() => import('./pages/Models'));
 const System = lazy(() => import('./pages/System'));
 import './App.css';
+import './styles/mission-control.css';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <div className="app-container">
         <Sidebar />
         <main className="main-content">
+          <div className="mission-rail" aria-label="Dataset status"><span><b className="mission-rail-mark" aria-hidden="true" />BURNTRACE / SIH26170</span><span>FROZEN SYNTHETIC BENCHMARK <i aria-hidden="true">·</i> 18 LOTS</span></div>
           <Suspense fallback={<p role="status">Loading page…</p>}><Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/analyze" element={<Analyze />} />
