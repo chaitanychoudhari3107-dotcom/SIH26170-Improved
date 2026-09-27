@@ -58,7 +58,6 @@ export default function ComponentStory() {
       </div>
       <p className="bt-story-case-caption">{choice.caption}</p>
       <div className="bt-story-actions">
-        <button type="button" className="bt-story-primary" onClick={() => navigate('/data#guided-demo')}>Explore all five cases <ArrowRight size={17} /></button>
         <button type="button" className="bt-story-secondary" onClick={() => navigate('/models')}>See measured performance <ArrowRight size={16} /></button>
       </div>
       <p className="bt-story-disclosure">Constructed synthetic examples from the operational backend. A demo decision is not proof of accuracy on physical hardware.</p>
