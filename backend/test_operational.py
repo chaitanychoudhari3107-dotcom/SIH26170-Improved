@@ -60,6 +60,27 @@ class OperationalTests(unittest.TestCase):
             else:
                 self.assertNotEqual(decisions['REVIEW_C00003'],'REJECT')
                 self.assertGreaterEqual(result['counts']['REJECT'],2)
+    def test_earlier_alert_requires_qa_evidence_before_approval(self):
+        with (ROOT/'data/operational/DEMO_PRIOR_ALERT_168h.csv').open(newline='') as source:
+            full=list(csv.DictReader(source))
+        keys=[k for k in full[0] if k.endswith(('_0h','_24h')) or k in ('component_id','lot_id','device_family','device_variant')]
+        stream=io.StringIO();writer=csv.DictWriter(stream,fieldnames=keys);writer.writeheader()
+        writer.writerows({k:r[k] for k in keys} for r in full)
+        lot='PEER_BASELINE_CORRUPTION'
+        self.post('import',dict(csv_text=stream.getvalue(),lot_id=lot,device_variant='CMOS_A',expected_count=50,epoch_h=24))
+        early=self.post(f'lots/{lot}/analyze',{'epoch_h':24})
+        self.post('import',dict(csv_text=(ROOT/'data/operational/DEMO_PRIOR_ALERT_168h.csv').read_text(),lot_id=lot,device_variant='CMOS_A',expected_count=50,epoch_h=168))
+        later=self.post(f'lots/{lot}/analyze',{'epoch_h':168})
+        cid='PEER_BASELINE_CORRUPTION_001'
+        self.assertEqual(next(r for r in early['components'] if r['component_id']==cid)['disposition'],'MONITOR')
+        part=next(r for r in later['components'] if r['component_id']==cid)
+        self.assertEqual(part['disposition'],'PASS')
+        self.assertEqual(part['prior_24h_alert']['disposition'],'MONITOR')
+        url=f"runs/{later['run_id']}/reviews"
+        approval=dict(component_id=cid,action='APPROVE',reason='Reviewed complete retest evidence')
+        self.post(url,approval,409)
+        self.post('outcomes/import',dict(csv_text='lot_id,component_id,confirmed_outcome,evidence_reference\n'+f'{lot},{cid},HEALTHY,Retest reference QA-12345\n'))
+        self.assertIn('review_id',self.post(url,approval))
     def test_auth_and_preview_rollback(self):
         self.assertEqual(TestClient(app).get('/api/operational/lots').status_code,401)
         self.assertEqual(TestClient(app).post('/api/operational/import',json=self.payload()).status_code,401)

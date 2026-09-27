@@ -391,8 +391,13 @@ def review(run_id: int, data: ReviewInput, request: Request):
                 raise HTTPException(422, 'Component is not part of this run')
             if data.action == 'APPROVE' and run['epoch_h'] != 168:
                 raise HTTPException(422, 'Release approval requires the complete 168h run')
-            if data.action == 'APPROVE' and next(r for r in run['components'] if r['component_id'] == data.component_id)['disposition'] != 'PASS':
+            part = next(r for r in run['components'] if r['component_id'] == data.component_id)
+            if data.action == 'APPROVE' and part['disposition'] != 'PASS':
                 raise HTTPException(422, 'Release approval requires a 168h PASS decision; record a hold or rejection instead')
+            if data.action == 'APPROVE' and part.get('prior_24h_alert') and not any(
+                    r['component_id'] == data.component_id and r['confirmed_outcome'] == 'HEALTHY'
+                    for r in run['qa_outcomes']):
+                raise HTTPException(409, 'Earlier 24h alert blocks approval until QA records a HEALTHY outcome with evidence')
             if data.action == 'APPROVE' and any(r['component_id'] == data.component_id and r['status'] != 'DISMISSED' for r in run['feedback']):
                 raise HTTPException(409, 'An active missed-defect report blocks approval; investigate or dismiss it with evidence first')
             if data.action == 'APPROVE' and any(r['component_id'] == data.component_id and r['confirmed_outcome'] == 'DEFECTIVE' for r in run['qa_outcomes']):
