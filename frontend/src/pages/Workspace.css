@@ -5,6 +5,7 @@
 .work-feedback{border:1px solid var(--border-focus,#81b9e6);border-radius:8px;padding:16px;margin:20px 0;background:rgba(129,185,230,.06)}
 .work-feedback h3{margin:0 0 8px}.work-feedback textarea{width:100%}
 .work-gate-note{border-left:3px solid #81b9e6;padding:10px 14px;background:rgba(129,185,230,.08);color:var(--text-primary,#f2f3ea)}
+.work-locked-file{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:12px 0}.work-locked-file strong{font-weight:600}.work-locked-file small{color:#b4c9c7}.work-locked-file button{border-color:#81b9e6}
 
 .workspace button:hover:not(:disabled){background:var(--bg-card-hover,#29424a);border-color:var(--border-focus,#81b9e6)}
 .workspace select option{background:var(--bg-input,#101b21);color:var(--text-primary,#f2f3ea)}
