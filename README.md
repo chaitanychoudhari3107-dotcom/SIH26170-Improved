@@ -1,12 +1,22 @@
 # BurnTrace
 
-## AI-assisted semiconductor burn-in screening for SIH26170
+### Explainable, lot-aware semiconductor burn-in screening for SIH 26170
 
 BurnTrace is a research prototype for **Smart India Hackathon 2026, Problem Statement 26170 (ISRO)**. It combines observed anomaly screening, early degradation forecasting and evidence-backed decision fusion in one React and FastAPI application.
 
+[![Live prototype](https://img.shields.io/badge/Live_prototype-Open_BurnTrace-0b7285?style=for-the-badge)](https://sih26170-improved.onrender.com/)
+[![Judge walkthrough](https://img.shields.io/badge/Judge_walkthrough-Start_here-1d4ed8?style=for-the-badge)](#judge-walkthrough)
+[![Application checks](https://img.shields.io/github/actions/workflow/status/chaitanychoudhari3107-dotcom/SIH26170-Improved/checks.yml?branch=main&style=for-the-badge&label=Application%20checks)](https://github.com/chaitanychoudhari3107-dotcom/SIH26170-Improved/actions/workflows/checks.yml)
+
 > **Scope:** BurnTrace currently uses the supplied synthetic semiconductor benchmark. It supports research and prototype evaluation; it is not a production qualification system and does not claim zero false positives or zero false negatives.
 
-[![Application checks](https://github.com/chaitanychoudhari3107-dotcom/SIH26170-Improved/actions/workflows/checks.yml/badge.svg)](https://github.com/chaitanychoudhari3107-dotcom/SIH26170-Improved/actions/workflows/checks.yml)
+## Evaluation evidence at a glance
+
+- **1,343 components from 18 complete holdout lots**, separated by manufacturing lot rather than by individual rows.
+- **Exact 24h and 168h confusion matrices**, including false negatives and healthy components sent for review.
+- **Five frozen challenge lots** covering latent drift, late drift, benign baseline shifts and a defect-heavy peer baseline.
+- **Part-level evidence** with observed measurements, 168h forecasts, lot context, reason codes and exportable review history.
+- **Reproducible application checks** for benchmark regressions, protected access, CSV validation, lot analysis and evidence exports.
 
 ## Project links
 
@@ -14,6 +24,8 @@ BurnTrace is a research prototype for **Smart India Hackathon 2026, Problem Stat
 | --- | --- |
 | Live prototype | [Open BurnTrace](https://sih26170-improved.onrender.com/) |
 | Source code | [Browse this repository](https://github.com/chaitanychoudhari3107-dotcom/SIH26170-Improved) |
+| Measured results | [Inspect the 24h and 168h review gates](https://sih26170-improved.onrender.com/models) |
+| Architecture and lineage | [Inspect the analytical pipeline](https://sih26170-improved.onrender.com/system) |
 | Technical documentation | [Open the documentation directory](docs/) |
 | Runtime provenance | [Inspect the current runtime manifest](data/runtime/runtime_manifest.json) |
 | Judge walkthrough | [Run the guided demonstration](#judge-walkthrough) |

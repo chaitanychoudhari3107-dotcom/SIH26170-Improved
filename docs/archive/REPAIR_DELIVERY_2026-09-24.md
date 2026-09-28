@@ -1,5 +1,7 @@
 # Repair delivery — 24 September 2026
 
+> **Archived implementation record:** This document describes the repository state on 24 September 2026. The current README, runtime manifest and live application describe the submission build and take precedence where the project has changed.
+
 ## Implemented
 
 1. Corrected measurement units, full observed epoch history, search verdict consistency and benchmark metric scope.
