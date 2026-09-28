@@ -12,12 +12,11 @@ BurnTrace is a research prototype for **Smart India Hackathon 2026, Problem Stat
 
 | Resource | Link |
 | --- | --- |
+| Live prototype | [Open BurnTrace](https://sih26170-improved.onrender.com/) |
 | Source code | [Browse this repository](https://github.com/chaitanychoudhari3107-dotcom/SIH26170-Improved) |
 | Technical documentation | [Open the documentation directory](docs/) |
 | Runtime provenance | [Inspect the current runtime manifest](data/runtime/runtime_manifest.json) |
 | Judge walkthrough | [Run the guided demonstration](#judge-walkthrough) |
-
-<!-- Add the verified public prototype URL to the table before submission. -->
 
 ## The problem
 
@@ -73,7 +72,7 @@ The benchmark explorer and operational workspace remain separate. The former pre
 
 ### Public evaluator path
 
-After starting the application, open the homepage and select **Open public guided demo**. The walkthrough runs five synthetic cases through the backend decision path without a password or CSV upload.
+Open the [live BurnTrace prototype](https://sih26170-improved.onrender.com/) and select **Open public guided demo**. The walkthrough runs five synthetic cases through the backend decision path without a password or CSV upload.
 
 1. Choose a case.
 2. Inspect its 0h and 24h measurements.
