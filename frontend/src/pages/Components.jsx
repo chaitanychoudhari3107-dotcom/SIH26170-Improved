@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
@@ -11,12 +11,13 @@ import './Components.css';
 
 export default function Components() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [perPage] = useState(50);
   const [searchQuery, setSearchQuery] = useState('');
   const [verdictFilter, setVerdictFilter] = useState('');
   const [variantFilter, setVariantFilter] = useState('');
-  const [lotFilter, setLotFilter] = useState('');
+  const [lotFilter, setLotFilter] = useState(() => searchParams.get('lot') || '');
 
   // Fetch 18 lots for the lot filter
   const { data: lotsData } = useApi('/api/lots');
@@ -39,6 +40,7 @@ export default function Components() {
     setVerdictFilter('');
     setVariantFilter('');
     setLotFilter('');
+    setSearchParams({});
     setPage(1);
   };
 
@@ -122,7 +124,7 @@ export default function Components() {
               className="filter-select"
               aria-label="Filter by lot"
               value={lotFilter}
-              onChange={(e) => { setLotFilter(e.target.value); setPage(1); }}
+              onChange={(e) => { setLotFilter(e.target.value); setSearchParams(e.target.value ? {lot:e.target.value} : {}); setPage(1); }}
             >
               <option value="">All 18 Lots</option>
               {lots.map(l => (

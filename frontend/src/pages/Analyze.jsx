@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '../components/layout/PageHeader';
 import { SearchInput } from '../components/ui/SearchInput';
 
@@ -48,6 +48,7 @@ export default function Analyze() {
   }, [query, retry]);
 
   const performSearch = () => setRetry(v => v + 1);
+  const matchingLot = results.length && results.every(result => result.lot_id && result.lot_id === results[0].lot_id) ? results[0].lot_id : null;
 
   const handleSearch = (val) => {
     if (val.trim()) {
@@ -134,7 +135,8 @@ export default function Analyze() {
         {!loading && !error && results.length > 0 && (
           <div className="results-container">
             <div className="results-meta">
-              Found <strong>{results.length}</strong> matching component{results.length > 1 ? 's' : ''}
+              <span>Showing <strong>{results.length}</strong> matching component{results.length > 1 ? 's' : ''}{results.length >= 50 ? ' (first 50 results)' : ''}</span>
+              {matchingLot && <Link to={`/components?lot=${encodeURIComponent(matchingLot)}`}>Browse full lot {matchingLot} <ArrowRight size={14} aria-hidden="true" /></Link>}
             </div>
 
             <div className="results-grid">
@@ -144,13 +146,10 @@ export default function Analyze() {
                 const isFail = (tier === 'CONFIRMED' || verdict === 'REJECT');
 
                 return (
-                  <div 
+                  <Link
                     key={res.component_id} 
-                    role="link"
-                    tabIndex={0}
-                    onKeyDown={event => { if (event.key === 'Enter') navigate(`/analyze/${res.component_id}`); }}
+                    to={`/analyze/${res.component_id}`}
                     className={`component-result-card ${isFail ? 'fail-border' : ''}`}
-                    onClick={() => navigate(`/analyze/${res.component_id}`)}
                   >
                     <div className="res-card-top">
                       <span className="res-card-id code-font">{res.component_id}</span>
@@ -160,6 +159,7 @@ export default function Analyze() {
                     </div>
 
                     <div className="res-card-middle">
+                      <div className="res-info-row"><span className="res-lbl">Lot ID:</span><span className="res-val code-font">{res.lot_id || '—'}</span></div>
                       <div className="res-info-row">
                         <span className="res-lbl">Evidence Tier:</span>
                         <span className="res-val font-bold" title={tier === 'CONFIRMED' ? 'Measured limit breach in the synthetic screening data; physical defect status requires QA confirmation.' : undefined}>
@@ -180,7 +180,7 @@ export default function Analyze() {
                       <span>Launch Deep Dive</span>
                       <ArrowRight size={14} />
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
