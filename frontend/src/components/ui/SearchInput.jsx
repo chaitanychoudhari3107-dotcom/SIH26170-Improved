@@ -2,7 +2,7 @@ import React from 'react';
 import { Search } from 'lucide-react';
 import './ui.css';
 
-export function SearchInput({ value, onChange, placeholder = 'Search...', onSubmit, autoFocus }) {
+export function SearchInput({ value, onChange, placeholder = 'Search...', onSubmit, autoFocus, label = 'Search components or lots' }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && onSubmit) {
       onSubmit(value);
@@ -19,6 +19,7 @@ export function SearchInput({ value, onChange, placeholder = 'Search...', onSubm
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
+        aria-label={label}
         autoFocus={autoFocus}
       />
     </div>

@@ -88,6 +88,9 @@
   border: 1px solid var(--border-default);
   background-color: var(--bg-card);
 }
+.detail-source-note{margin:.35rem 0 1rem;padding:.65rem .8rem;border-left:3px solid #176b70;background:#f2f7f5;color:#35494b;font-size:.78rem;line-height:1.5}
+.detail-source-note strong{font:650 .64rem var(--bt-font-mono);letter-spacing:.07em;color:#176b70}
+.detail-source-note a{color:#176b70;text-decoration:underline;text-underline-offset:2px}
 
 .verdict-banner.pass {
   border-color: var(--status-pass-border);

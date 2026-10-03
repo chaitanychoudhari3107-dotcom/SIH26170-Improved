@@ -6,7 +6,10 @@ async function request(endpoint, options = {}) {
     const data = await response.json().catch(()=>null);
     const d=data?.detail;
     const message=typeof d==='string'?d:Array.isArray(d)?d.map(x=>x.msg).join('; '):d?.message;
-    const error=new Error(message||data?.message||`Request failed (${response.status})`);error.status=response.status;throw error;
+    const error=new Error(message||data?.message||`Request failed (${response.status})`);
+    error.status=response.status;
+    error.details=typeof d==='object'&&!Array.isArray(d)?d:null;
+    throw error;
   }
   return response;
 }

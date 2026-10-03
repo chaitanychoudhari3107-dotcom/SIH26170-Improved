@@ -219,10 +219,12 @@
   font-weight: 600;
   color: var(--accent);
   opacity: 0.8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   transition: opacity 0.15s ease;
 }
 
-.catalog-row:hover .row-action-btn {
+.catalog-row:hover .row-action-btn,.row-action-btn:focus-visible {
   opacity: 1;
 }
 

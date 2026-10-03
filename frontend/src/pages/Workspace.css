@@ -50,3 +50,20 @@
 .work-demo-fold>summary span,.work-demo-fold>summary small{color:#526267}
 .work-demo-fold[open]>summary{border-color:#d8e0df}
 .work-intro:after{display:none}
+
+/* Keep the action, reason and next step in one inspection record. */
+.work-decision-summary{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.7fr);gap:1rem;align-items:start;margin:1.1rem 0;padding:1.15rem 1.3rem;background:#fff7e7;border:1px solid #e9d6b5;border-left:4px solid #9a650d;border-radius:6px;color:#1c292b}
+.work-decision-summary.work-decision-reject{background:#fff0ee;border-color:#e9c7c2;border-left-color:#b33a36}
+.work-decision-summary.work-decision-pass,.work-decision-summary.work-decision-provisional_pass{background:#eef6f0;border-color:#cce0d2;border-left-color:#28734a}
+.work-decision-kicker{font:650 .64rem var(--bt-font-mono);letter-spacing:.08em;color:#526267}
+.work-decision-summary h3{margin:.35rem 0 .45rem;font-size:1.15rem}.work-decision-summary p{margin:.3rem 0;line-height:1.5;color:#35494b}
+.work-decision-action{border-left:1px solid #d8e0df;padding-left:1rem}.work-decision-action strong{font-size:.8rem}
+.work-retest-shortcut{margin:.15rem 0 .4rem!important}
+.work-table caption{text-align:left;padding:.3rem 0 .65rem;color:#526267;font-size:.8rem}
+@media(max-width:700px){.work-decision-summary{grid-template-columns:1fr;padding:1rem}.work-decision-action{border-left:0;border-top:1px solid #d8e0df;padding:.8rem 0 0}}
+.work-file-state,.work-validation-success,.work-validation-error{padding:.85rem 1rem;border-radius:5px;line-height:1.5;margin:1rem 0}
+.work-file-state{background:#f3f7f5;color:#35494b;border:1px solid #d8e0df}
+.work-validation-success{background:#eef6f0;color:#1c292b;border:1px solid #cce0d2;border-left:4px solid #28734a}
+.work-validation-error{background:#fff0ee;color:#1c292b;border:1px solid #e9c7c2;border-left:4px solid #b33a36}
+.work-validation-success p,.work-validation-error p{margin:.3rem 0;color:inherit}
+.work-validation-error p:last-child{font-size:.8rem;color:#526267}

@@ -61,7 +61,7 @@ export default function Analyze() {
     <div className="page-analyze">
       <PageHeader 
         title="Component Deep-Dive & Inspection" 
-        subtitle="Search any component across the 1,343 holdout population (C00158–C05320) or browse by lot"
+        subtitle="Saved benchmark explorer · Search 1,343 synthetic holdout components (C00158–C05320) or browse by lot. Operational run decisions are under Operational Data."
       />
       
       {/* Search Bar */}

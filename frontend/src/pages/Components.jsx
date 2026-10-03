@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
@@ -48,7 +48,7 @@ export default function Components() {
     <div className="page-components">
       <PageHeader 
         title="Component Fleet Catalog" 
-        subtitle="Browse, filter, and inspect all 1,343 components across the 18 holdout production lots."
+        subtitle="Saved benchmark explorer · Browse 1,343 synthetic components across 18 held-out lots. Live imported-lot decisions are under Operational Data."
       >
         <div className="components-header-stats">
           <span className="stats-pill">
@@ -67,6 +67,7 @@ export default function Components() {
           <input 
             type="text" 
             className="filter-search-input"
+            aria-label="Search component ID or lot"
             placeholder="Search Component ID or Lot..."
             value={searchQuery}
             onChange={(e) => {
@@ -87,6 +88,7 @@ export default function Components() {
             <span className="filter-label">VERDICT:</span>
             <select 
               className="filter-select"
+              aria-label="Filter by saved explorer verdict"
               value={verdictFilter}
               onChange={(e) => { setVerdictFilter(e.target.value); setPage(1); }}
             >
@@ -102,6 +104,7 @@ export default function Components() {
             <span className="filter-label">VARIANT:</span>
             <select 
               className="filter-select"
+              aria-label="Filter by device variant"
               value={variantFilter}
               onChange={(e) => { setVariantFilter(e.target.value); setPage(1); }}
             >
@@ -117,6 +120,7 @@ export default function Components() {
             <span className="filter-label">LOT:</span>
             <select 
               className="filter-select"
+              aria-label="Filter by lot"
               value={lotFilter}
               onChange={(e) => { setLotFilter(e.target.value); setPage(1); }}
             >
@@ -175,8 +179,6 @@ export default function Components() {
                         <tr 
                           key={row.component_id}
                           className="catalog-row"
-                          tabIndex={0}
-                          onKeyDown={(event) => { if (event.key === 'Enter') navigate(`/analyze/${row.component_id}`); }}
                           onClick={() => navigate(`/analyze/${row.component_id}`)}
                         >
                           <td className="code-font font-bold text-accent">
@@ -207,9 +209,9 @@ export default function Components() {
                             {row.primary_parameter || '—'}
                           </td>
                           <td style={{ textAlign: 'right' }}>
-                            <span className="row-action-btn">
+                            <Link className="row-action-btn" to={`/analyze/${row.component_id}`} onClick={event=>event.stopPropagation()} aria-label={`Inspect component ${row.component_id}`}>
                               Inspect <ArrowRight size={13} />
-                            </span>
+                            </Link>
                           </td>
                         </tr>
                       );

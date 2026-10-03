@@ -86,6 +86,7 @@ export default function ComponentDetail() {
           <ArrowLeft size={16} /> Back to Components Catalog
         </Link>
       </div>
+      <p className="detail-source-note"><strong>SAVED BENCHMARK EXPLORER</strong> · Synthetic holdout. The verdict below is the saved explorer output; imported-lot QA decisions use the separately evaluated <Link to="/data">Operational Data workflow</Link>.</p>
 
       {/* Main Component Header */}
       <header className="detail-header">
@@ -125,7 +126,7 @@ export default function ComponentDetail() {
               monitorExplanation
             )}
             {finalVerdict === 'PASS' && (
-              `No alert under the current screening policy. This result does not guarantee future reliability.`
+              `No alert under the saved explorer policy. This result does not guarantee future reliability or qualify hardware for flight.`
             )}
           </div>
         </div>
