@@ -67,3 +67,51 @@
 .work-validation-error{background:#fff0ee;color:#1c292b;border:1px solid #e9c7c2;border-left:4px solid #b33a36}
 .work-validation-success p,.work-validation-error p{margin:.3rem 0;color:inherit}
 .work-validation-error p:last-child{font-size:.8rem;color:#526267}
+
+/* Operational evidence stays scannable before the full data table. */
+.work-parameter-heading{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin:1.5rem 0 .75rem}
+.work-parameter-heading h3{margin:.3rem 0 0;font-size:1.05rem}
+.work-parameter-heading p{font-size:.75rem;color:#526267;max-width:47ch;margin:0!important;line-height:1.45!important}
+.work-parameter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+.work-parameter-card{min-width:0;background:#fff;border:1px solid #d8e0df;border-top:3px solid #a7b7b4;border-radius:6px;padding:.85rem .95rem;color:#1c292b}
+.work-parameter-card.is-risk{border-top-color:#a56e17;background:#fffcf6}
+.work-parameter-card.is-breach{border-top-color:#b33a36;background:#fffaf9}
+.work-parameter-card-top{display:flex;justify-content:space-between;align-items:start;gap:.4rem;min-height:2.6rem}
+.work-parameter-card h4{font-size:.82rem;line-height:1.3;margin:0;overflow-wrap:anywhere}
+.work-parameter-card-top span{font-size:.62rem;font-weight:700;color:#526267;text-align:right;white-space:nowrap}
+.work-parameter-card.is-risk .work-parameter-card-top span{color:#86580d}
+.work-parameter-card.is-breach .work-parameter-card-top span{color:#a12f2c}
+.work-parameter-reading{display:flex;flex-direction:column;gap:.2rem;margin:.45rem 0 .8rem}
+.work-parameter-reading span{font-size:.67rem;color:#526267}
+.work-parameter-reading strong{font-size:1.3rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.work-parameter-card dl{margin:0;padding-top:.55rem;border-top:1px solid #e5ebe9}
+.work-parameter-card dl div{display:flex;justify-content:space-between;gap:.5rem;padding:.2rem 0;font-size:.69rem}
+.work-parameter-card dt{color:#526267}.work-parameter-card dd{margin:0;text-align:right;font-weight:650;font-variant-numeric:tabular-nums}
+.work-parameter-note{font-size:.75rem;color:#526267;margin:.65rem 0 1rem!important}
+.work-evidence-details{border:1px solid #d8e0df;border-radius:6px;background:#fff;color:#1c292b;margin:1rem 0}
+.work-evidence-details>summary{cursor:pointer;padding:.8rem 1rem;font-size:.8rem;font-weight:650}
+.work-evidence-details[open]>summary{border-bottom:1px solid #d8e0df}
+.work-evidence-details .work-table{padding:0 1rem;margin:.8rem 0}
+@media(max-width:1000px){.work-parameter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.work-parameter-grid{grid-template-columns:1fr}.work-parameter-heading{display:block}.work-parameter-heading p{margin:.5rem 0 0!important}.work-parameter-card-top{min-height:0}}
+
+/* The import path uses the same quiet surfaces as the rest of the workbench. */
+.workspace .work-import-actions>div{background:#f8faf9;border-color:#d8e0df;color:#1c292b}
+.workspace .work-import-actions>div>strong{color:#176b70;font-weight:700}
+.workspace .work-import-actions small{color:#526267}
+.workspace .work-import-actions .work-actions a{background:#fff;border-color:#b8cbc7;color:#176b70;font-weight:600}
+.workspace .work-import-actions .work-actions a:hover{background:#edf5f2;border-color:#176b70}
+.workspace .work-gate-note code{background:#fff;color:#1c292b;border-color:#b8cbc7}
+.workspace select option{background:#fff;color:#1c292b}
+.workspace .work-secondary-panel{background:#fff;border:1px solid #d8e0df;padding:0}
+.work-secondary-summary{display:flex;align-items:center;gap:.6rem 1.2rem;flex-wrap:wrap;cursor:pointer;padding:1.1rem 1.4rem;list-style:none}
+.work-secondary-summary::-webkit-details-marker{display:none}
+.work-secondary-summary .work-stage-label{margin:0!important;color:#866020}
+.work-secondary-summary strong{font-size:.95rem;letter-spacing:-.015em}
+.work-secondary-summary small{margin-left:auto;color:#526267;font-size:.72rem}
+.work-secondary-summary:after{content:'+';font-size:1.25rem;font-weight:400;color:#176b70;line-height:1}
+.work-secondary-panel[open] .work-secondary-summary:after{content:'−'}
+.work-secondary-panel[open] .work-secondary-summary{border-bottom:1px solid #d8e0df}
+.work-secondary-content{padding:1rem 1.4rem 1.4rem}
+.work-secondary-summary:focus-visible{outline:3px solid #176b70;outline-offset:3px}
+@media(max-width:650px){.work-secondary-summary small{margin-left:0;width:100%}.work-secondary-summary:after{margin-left:auto}.work-secondary-content{padding:1rem}}
