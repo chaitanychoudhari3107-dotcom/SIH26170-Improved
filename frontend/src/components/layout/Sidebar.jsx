@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Search, Cpu, Database, LineChart, Layers, ArrowUpRight } from 'lucide-react';
+import { LayoutDashboard, Search, Cpu, Database, LineChart, Layers } from 'lucide-react';
 import './Sidebar.css';
 
 export function Sidebar() {
@@ -16,16 +16,14 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="brand-logo" aria-hidden="true">
-          <svg viewBox="0 0 48 48" fill="none" role="presentation"><path d="M8 32h8l5-14 6 18 5-12h8" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11h34M7 39h34" stroke="currentColor" strokeWidth="1" opacity=".42"/><circle cx="32" cy="24" r="2.5" fill="#e6af63"/></svg>
-        </div>
+        <div className="brand-logo" aria-hidden="true">B</div>
         <div className="brand-text">
           <div className="brand-title">Burn<span>Trace</span></div>
           <div className="brand-subtitle">RELIABILITY WORKBENCH</div>
         </div>
       </div>
 
-      <div className="sidebar-section-label">WORKSPACE <span>01 — 06</span></div>
+      <div className="sidebar-section-label">WORKSPACE</div>
       <nav className="sidebar-nav" aria-label="Main navigation">
         {navItems.map((item) => (
           <NavLink
@@ -35,13 +33,12 @@ export function Sidebar() {
           >
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-label">{item.label}</span>
-            <ArrowUpRight className="nav-arrow" size={14} aria-hidden="true" />
           </NavLink>
         ))}
       </nav>
 
       <div className="sidebar-footer">
-        <div className="system-pill"><span className="system-pill-text">RESEARCH PROTOTYPE · SYNTHETIC</span></div>
+        <div className="system-pill"><span className="system-pill-text">Research prototype · Synthetic data</span></div>
         <div className="sidebar-meta">
           <div className="meta-row">
             <span>DATASET:</span>

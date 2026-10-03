@@ -58,6 +58,7 @@ export default function ComponentStory() {
       </div>
       <p className="bt-story-case-caption">{choice.caption}</p>
       <div className="bt-story-actions">
+        <button type="button" className="bt-story-primary" onClick={() => navigate('/data#guided-demo')}>Explore all five cases <ArrowRight size={17} /></button>
         <button type="button" className="bt-story-secondary" onClick={() => navigate('/models')}>See measured performance <ArrowRight size={16} /></button>
       </div>
       <p className="bt-story-disclosure">Constructed synthetic examples from the operational backend. A demo decision is not proof of accuracy on physical hardware.</p>
@@ -74,18 +75,18 @@ export default function ComponentStory() {
         <div className="bt-story-chart" role="img" aria-label={`${activeParameter.replaceAll('_', ' ')}: observed readings at 0h and 24h, forecast and upper bound at 168h, 24h lot median${revealed ? ', and later observed readings at 96h and 168h' : ''}`}>
           <ResponsiveContainer width="100%" height={188}>
             <LineChart data={chart} margin={{top: 18, right: 24, bottom: 4, left: 3}}>
-              <CartesianGrid stroke="#475b78" strokeDasharray="2 5" opacity={0.38} />
-              <XAxis dataKey="hour" stroke="#aabcb9" tick={{fontSize: 11}} />
-              <YAxis width={59} domain={domain} tickFormatter={fmt} stroke="#aabcb9" tick={{fontSize: 10}} />
-              <Tooltip cursor={{ stroke: '#637c9c', strokeDasharray: '3 4' }} formatter={(v, name) => [`${fmt(v)} ${measurement.unit}`, name]}
-                contentStyle={{background:'#0d1527',border:'1px solid #5a7074',color:'#fff'}} labelStyle={{color:'#fff'}} itemStyle={{color:'#fff'}} />
-              <ReferenceLine x="24h" stroke="#8b9c9e" strokeDasharray="3 5" />
-              {showLimit && <ReferenceLine y={measurement.limit} stroke="#ff5279" strokeDasharray="3 3" />}
-              <Line type="linear" dataKey="observed" name="Observed" stroke="#00e68e" strokeWidth={3} dot={{r:4}} connectNulls={false} />
-              <Line type="linear" dataKey="forecast" name="Forecast from 0h/24h" stroke="#00d9ef" strokeWidth={2.5} strokeDasharray="6 4" connectNulls dot={{r:4}} />
-              <ReferenceLine segment={[{x:'168h',y:measurement.predicted_168h},{x:'168h',y:measurement.upper_168h}]} stroke="#ffbf3b" strokeWidth={3} />
-              <ReferenceDot x="24h" y={measurement.lot_median_24h} r={5} fill="#c8d3e4" stroke="#090f20" />
-              {measurement.upper_168h != null && <ReferenceDot x="168h" y={measurement.upper_168h} r={5} fill="#ffbf3b" stroke="#090f20" />}
+              <CartesianGrid stroke="#e2e9e6" strokeDasharray="2 5" />
+              <XAxis dataKey="hour" stroke="#647479" tick={{fontSize: 11}} />
+              <YAxis width={59} domain={domain} tickFormatter={fmt} stroke="#647479" tick={{fontSize: 10}} />
+              <Tooltip cursor={{ stroke: '#8aa5a1', strokeDasharray: '3 4' }} formatter={(v, name) => [`${fmt(v)} ${measurement.unit}`, name]}
+                contentStyle={{background:'#fff',border:'1px solid #d8e0df',color:'#1c292b'}} labelStyle={{color:'#1c292b'}} itemStyle={{color:'#1c292b'}} />
+              <ReferenceLine x="24h" stroke="#839791" strokeDasharray="3 5" />
+              {showLimit && <ReferenceLine y={measurement.limit} stroke="#b33a36" strokeDasharray="3 3" />}
+              <Line type="linear" dataKey="observed" name="Observed" stroke="#28734a" strokeWidth={3} dot={{r:4}} connectNulls={false} />
+              <Line type="linear" dataKey="forecast" name="Forecast from 0h/24h" stroke="#346a8a" strokeWidth={2.5} strokeDasharray="6 4" connectNulls dot={{r:4}} />
+              <ReferenceLine segment={[{x:'168h',y:measurement.predicted_168h},{x:'168h',y:measurement.upper_168h}]} stroke="#9a650d" strokeWidth={3} />
+              <ReferenceDot x="24h" y={measurement.lot_median_24h} r={5} fill="#647479" stroke="#fff" />
+              {measurement.upper_168h != null && <ReferenceDot x="168h" y={measurement.upper_168h} r={5} fill="#9a650d" stroke="#fff" />}
             </LineChart>
           </ResponsiveContainer>
         </div>

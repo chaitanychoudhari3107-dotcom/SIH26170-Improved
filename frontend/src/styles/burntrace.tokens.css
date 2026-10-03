@@ -1,26 +1,25 @@
-/* BurnTrace design tokens. Applied during the UI redesign, not by this file alone. */
 :root {
-  --bt-canvas: #101b30;
-  --bt-paper: #0d1527;
-  --bt-ink: #f4f8ff;
-  --bt-ink-secondary: #c2d0e2;
-  --bt-rule: #344359;
-  --bt-instrument: #090f20;
-  --bt-instrument-text: #f4f8ff;
-  --bt-forecast: #00d9ef;
-  --bt-review: #ffbf3b;
-  --bt-review-on-dark: #ffbf3b;
-  --bt-reject: #ff5279;
-  --bt-reject-on-dark: #ff5279;
-  --bt-pass: #00e68e;
-  --bt-pass-on-dark: #00e68e;
+  --bt-canvas: #ffffff;
+  --bt-paper: #f5f8f7;
+  --bt-ink: #1c292b;
+  --bt-ink-secondary: #526267;
+  --bt-rule: #d8e0df;
+  --bt-instrument: #ffffff;
+  --bt-instrument-text: #1c292b;
+  --bt-forecast: #346a8a;
+  --bt-review: #9a650d;
+  --bt-review-on-dark: #865707;
+  --bt-reject: #b33a36;
+  --bt-reject-on-dark: #a63330;
+  --bt-pass: #28734a;
+  --bt-pass-on-dark: #256c45;
   --bt-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
   --bt-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --bt-space-1: 0.5rem;
+  --bt-space-1: .5rem;
   --bt-space-2: 1rem;
   --bt-space-3: 1.5rem;
   --bt-space-4: 2rem;
   --bt-space-5: 3rem;
-  --bt-radius-control: 0.5rem;
-  --bt-radius-panel: 1rem;
+  --bt-radius-control: 6px;
+  --bt-radius-panel: 10px;
 }

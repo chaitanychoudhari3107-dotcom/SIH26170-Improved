@@ -8,5 +8,5 @@ body,
 }
 
 body {
-  background: #070b12;
+  background: var(--bg-primary);
 }
