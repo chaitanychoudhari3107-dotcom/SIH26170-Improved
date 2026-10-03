@@ -1,17 +1,17 @@
 :root {
   --bt-canvas: #ffffff;
-  --bt-paper: #f5f8f7;
-  --bt-ink: #1c292b;
-  --bt-ink-secondary: #526267;
-  --bt-rule: #d8e0df;
+  --bt-paper: var(--bg-secondary);
+  --bt-ink: var(--text-primary);
+  --bt-ink-secondary: var(--text-secondary);
+  --bt-rule: var(--border-default);
   --bt-instrument: #ffffff;
-  --bt-instrument-text: #1c292b;
-  --bt-forecast: #346a8a;
-  --bt-review: #9a650d;
+  --bt-instrument-text: var(--text-primary);
+  --bt-forecast: var(--accent-blue);
+  --bt-review: var(--status-monitor);
   --bt-review-on-dark: #865707;
-  --bt-reject: #b33a36;
+  --bt-reject: var(--status-reject);
   --bt-reject-on-dark: #a63330;
-  --bt-pass: #28734a;
+  --bt-pass: var(--status-pass);
   --bt-pass-on-dark: #256c45;
   --bt-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
   --bt-font-mono: 'IBM Plex Mono', ui-monospace, monospace;

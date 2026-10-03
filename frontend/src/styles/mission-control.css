@@ -201,3 +201,40 @@ body { background: var(--bg-primary); color: var(--text-primary); font-variant-n
 @media(max-width:600px){
   .app-container .bt-story-chart,.app-container .bt-story-chart .recharts-responsive-container { height:230px!important; }
 }
+
+/* Final light-theme hierarchy: legible at ordinary laptop scale. */
+.app-container .sidebar { background:#f9fbfa; }
+.app-container .sidebar-brand { padding-top:2.1rem; padding-bottom:1.75rem; }
+.app-container .brand-title { font-size:1.6rem; letter-spacing:-.045em; }
+.app-container .brand-subtitle { font-size:.69rem; letter-spacing:.055em; color:var(--text-muted); }
+.app-container .sidebar-section-label { font-size:.72rem; letter-spacing:.065em; color:var(--text-muted); }
+.app-container .nav-link { font-size:.91rem; line-height:1.3; min-height:46px; }
+.app-container .nav-icon { color:#59736e; }
+.app-container .nav-link.active { color:var(--accent-hover); }
+.app-container .sidebar-footer { font-size:.78rem; }
+.app-container .sidebar-footer small { font:500 .68rem/1.5 var(--bt-font-mono); color:var(--text-muted); }
+.app-container .main-content { max-width:1480px; padding:2rem clamp(1.5rem,3vw,3rem) 3rem; }
+.app-container :is(.page-header,.bt-story,.operational-lead,.work-intro,.card,.inspection-start,.kpi-card,.work-panel) { border-radius:10px; }
+.app-container :is(.page-title,.bt-story h1,.work-intro h1,.models-intro h1) { letter-spacing:-.035em; }
+.app-container :is(.page-subtitle,.bt-story-intro>p:not(.bt-story-disclosure):not(.bt-story-case-caption),.models-intro p,.work-intro p) { font-size:1rem; line-height:1.6; }
+.app-container :is(.proof-heading p,.overview-next-heading p,.overview-next-card p,.inspection-footnote,.inspection-steps p,.brief-reason) { font-size:.91rem; line-height:1.55; }
+.app-container :is(.bt-story-eyebrow,.bt-instrument-header,.bt-instrument-subhead,.bt-story-case-caption,.inspection-kicker,.proof-heading span,.overview-next-heading>span,.brief-eyebrow,.models-intro span) { font-size:.75rem; letter-spacing:.055em; }
+.app-container :is(.bt-story-case-tabs button,.bt-chart-key,.bt-chart-note,.bt-evidence-sequence span,.bt-parameter-picker span,.bt-story-verdict p,.bt-story-verdict>span,.overview-proof-note,.overview-data-footnote,.overview-search-examples,.inspection-example>span:last-child,.models-release-details>summary small) { font-size:.78rem; line-height:1.5; }
+.app-container :is(.overview-search-examples code,.proof-numbers span,.overview-next-card>a,.proof-heading>a,.brief-footnote,.brief-section-heading>span,.technical-detail>summary small) { font-size:.79rem; }
+.app-container .bt-story-case-tabs button { min-height:46px; }
+.app-container .bt-story-chart .recharts-cartesian-axis-tick-value { font-size:.78rem; }
+.app-container :is(.catalog-table,.comparison-table,.epoch-eval-table,.operational-table table,.mini-table,.work-table table,.brief-table) :is(th,td) { font-size:.84rem; line-height:1.45; }
+.app-container :is(.catalog-table,.comparison-table,.epoch-eval-table,.operational-table table,.mini-table,.work-table table,.brief-table) thead th { color:var(--text-secondary); background:#edf3f1; }
+.app-container .brief-facts span { font-size:.75rem; }
+.app-container .brief-table thead th { font-size:.75rem; }
+.app-container .brief-driver { font-size:.7rem; }
+@media(max-width:900px){
+  .app-container .main-content { padding:1.25rem 1.25rem 2rem; }
+  .app-container .sidebar-brand { padding:.65rem .9rem; }
+  .app-container .brand-title { font-size:1.14rem; }
+  .app-container .nav-link { font-size:.82rem; min-height:42px; }
+}
+@media(max-width:600px){
+  .app-container .main-content { padding:1rem .85rem 2rem; }
+  .app-container .brand-title { font-size:1.1rem; }
+}
