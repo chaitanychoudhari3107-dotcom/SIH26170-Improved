@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, RotateCcw } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ export default function ComponentStory() {
   const [selected, setSelected] = useState(0);
   const [parameter, setParameter] = useState('');
   const [revealed, setRevealed] = useState(false);
+  const chartRef = useRef(null);
   useEffect(() => {
     let active = true;
     api.get('/api/operational/demo').then(result => { if (active) setDemo(result); })
@@ -46,6 +47,10 @@ export default function ComponentStory() {
   const showLimit = measurement?.limit != null && measurement.limit >= Math.min(...visible) - span && measurement.limit <= Math.max(...visible) + span;
   const domain = visible?.length ? [Math.max(0, Math.min(...visible, ...(showLimit ? [measurement.limit] : [])) - pad), Math.max(...visible, ...(showLimit ? [measurement.limit] : [])) + pad] : ['auto', 'auto'];
   const lotDifference = measurement ? early['24'] - measurement.lot_median_24h : 0;
+  const chooseParameter = name => {
+    setParameter(name);
+    chartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   return <section className="bt-story" aria-labelledby="bt-story-title">
     <div className="bt-story-intro">
@@ -69,10 +74,22 @@ export default function ComponentStory() {
       {!demo && !error && <div role="status" className="bt-story-state">Running the synthetic lot through the operational model…</div>}
       {demo && !item && <div role="alert" className="bt-story-state">This example is unavailable in the current model run.</div>}
       {item && measurement && <>
-        <div className="bt-instrument-subhead"><div className="bt-part-identity"><small>COMPONENT / {item.lot_size || demo.lot_size}-PART LOT</small><strong title={item.component_id}>{item.component_id}</strong></div><label className="bt-parameter-picker"><span>INSPECT PARAMETER</span><select value={activeParameter} onChange={event => setParameter(event.target.value)}>{Object.keys(item.parameters).map(name => <option key={name} value={name}>{name.replaceAll('_', ' ')}</option>)}</select></label></div>
+        <div className="bt-instrument-subhead"><div className="bt-part-identity"><small>COMPONENT / {item.lot_size || demo.lot_size}-PART LOT</small><strong title={item.component_id}>{item.component_id}</strong></div><span className="bt-part-hint">Select a parameter below to inspect its trajectory</span></div>
         <div className={`bt-early-decision bt-early-${item.at_24h.disposition.toLowerCase()}`}><div><small>24H QA ACTION · ALL SIX PARAMETERS</small><strong>{item.at_24h.disposition.replaceAll('_', ' ')}</strong><span>{item.at_24h.reason}</span></div><div className="bt-decision-signals"><span>Module A: {item.at_24h.module_a_disposition}</span><span>Module B: {item.at_24h.module_b_reason_codes ? 'indicator present' : 'no warning indicator'}</span></div></div>
+        <div className="bt-parameter-overview" aria-label="All six parameter measurements and forecasts">
+          <div className="bt-parameter-overview-heading"><strong>All six parameters</strong><span>24h measured → 168h forecast · select to inspect</span></div>
+          <div className="bt-parameter-grid">
+            {Object.entries(item.parameters).map(([name, values]) => <button type="button" key={name}
+              className="bt-parameter-option" aria-pressed={activeParameter === name}
+              onClick={() => chooseParameter(name)}>
+              <span className="bt-parameter-name">{name.replaceAll('_', ' ')}</span>
+              <span className="bt-parameter-values"><b>{fmt(values.observed_early['24'])}</b><i aria-hidden="true">→</i><b>{fmt(values.predicted_168h)}</b><small>{values.unit}</small></span>
+            </button>)}
+          </div>
+          <p>The combined QA action considers all six. Selecting a parameter changes only the chart and detail below.</p>
+        </div>
         <div className="bt-evidence-sequence" aria-label="Screening sequence"><span>01 / Measured 0–24h</span><span>02 / Forecast 168h</span><span>03 / Compare lot</span><span>04 / QA decision</span></div>
-        <div className="bt-story-chart" role="img" aria-label={`${activeParameter.replaceAll('_', ' ')}: observed readings at 0h and 24h, forecast and upper bound at 168h, 24h lot median${revealed ? ', and later observed readings at 96h and 168h' : ''}`}>
+        <div ref={chartRef} className="bt-story-chart" role="img" aria-label={`${activeParameter.replaceAll('_', ' ')}: observed readings at 0h and 24h, forecast and upper bound at 168h, 24h lot median${revealed ? ', and later observed readings at 96h and 168h' : ''}`}>
           <ResponsiveContainer width="100%" height={188}>
             <LineChart data={chart} margin={{top: 18, right: 24, bottom: 4, left: 3}}>
               <CartesianGrid stroke="#e2e9e6" strokeDasharray="2 5" />
