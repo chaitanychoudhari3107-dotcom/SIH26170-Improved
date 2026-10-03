@@ -69,15 +69,28 @@ export default function ComponentDetail() {
   const tier = module_a?.evidence_tier || module_a?.module_a_evidence_tier || 'UNKNOWN';
   const riskScore = module_a?.score ?? module_a?.module_a_score ?? 0;
   const finalVerdict = fused_verdict || (tier === 'CONFIRMED' ? 'REJECT' : disposition);
+  const indicatorParameter = bReasons.map(code => code.split(':')[1]).find(Boolean);
+  const primaryKey = finalVerdict === 'PASS' ? null : (
+    (finalVerdict === 'MONITOR' && disposition !== 'MONITOR'
+      ? indicatorParameter : module_a?.primary_parameter || module_a?.module_a_primary_parameter)
+    || indicatorParameter || module_b?.primary_parameter
+  );
+  const primaryParameter = parameters.find(p => p.key === primaryKey);
+  const measured24 = historical_measurements?.find(m => m.epoch_h === 24)?.[primaryKey];
+  const primaryForecast = module_b?.predictions?.[primaryKey]?.predicted_168h ?? module_b?.[`predicted_${primaryKey}_168h`];
+  const primaryUpper = module_b?.predictions?.[primaryKey]?.p95_168h ?? module_b?.[`module_b_p95_${primaryKey}_168h`];
+  const primaryLimit = evidence?.evidence?.[primaryKey]?.limit ?? evidence?.[`evidence_${primaryKey}_limit`];
+  const formatReading = (value, unit) => value == null || !Number.isFinite(Number(value))
+    ? '—' : `${Number(value).toFixed(3)} ${unit}`;
   const monitorExplanation = disposition === 'MONITOR'
-    ? `Module A flagged a lot-relative anomaly in ${lot_id}; send this component for QA review.`
+    ? `Module A found a lot-relative anomaly${primaryParameter ? ` in ${primaryParameter.label}` : ''} within lot ${lot_id}; QA review is needed.`
     : bReasons.some(code => code.startsWith('B_WIDE_ENVELOPE'))
-      ? 'The 0h/24h forecast has a wide uncertainty envelope; send this component for QA review.'
+      ? `${primaryParameter?.label || 'The leading parameter'} has a wide 168h forecast range from its 0h/24h readings; QA review is needed.`
       : bReasons.some(code => code.startsWith('B_LOT_OUTLIER_24H'))
-        ? 'The 24h reading differs from its lot peers; send this component for QA review.'
+        ? `${primaryParameter?.label || 'The 24h reading'} differs from its lot peers; QA review is needed.`
         : bReasons.some(code => code.startsWith('B_HIGH_FORECAST_DRIFT'))
-          ? 'The early forecast indicates elevated drift; send this component for QA review.'
-          : 'A configured screening indicator requires QA review; inspect the reason codes below.';
+          ? `${primaryParameter?.label || 'The leading parameter'} has elevated forecast drift; QA review is needed.`
+          : `A screening indicator${primaryParameter ? ` in ${primaryParameter.label}` : ''} requires QA review. The technical analysis contains its reason code.`;
 
   return (
     <div className="page-detail">
@@ -93,8 +106,6 @@ export default function ComponentDetail() {
         <div className="detail-header-left">
           <div className="detail-id-row">
             <h1 className="detail-title code-font">{componentId}</h1>
-            <Badge status={finalVerdict} size="lg">FUSED: {finalVerdict}</Badge>
-            <Badge status={tier} size="lg">TIER: {tier === 'CONFIRMED' ? 'MEASURED LIMIT BREACH' : tier}</Badge>
           </div>
           <div className="detail-meta">
             {lot_id && <span className="meta-chip">LOT: <strong>{lot_id}</strong></span>}
@@ -105,32 +116,61 @@ export default function ComponentDetail() {
         </div>
       </header>
 
-      {/* Fusion Verdict Banner */}
-      <div className={`verdict-banner ${finalVerdict.toLowerCase()}`}>
-        <div className="verdict-banner-icon">
-          {finalVerdict === 'PASS' && <CheckCircle size={24} className="text-pass" />}
-          {finalVerdict === 'MONITOR' && <AlertTriangle size={24} className="text-monitor" />}
-          {finalVerdict === 'REJECT' && <XCircle size={24} className="text-reject" />}
-        </div>
-        <div className="verdict-banner-content">
-          <div className="verdict-banner-title">
-            FUSED RELIABILITY VERDICT: {finalVerdict}
+      <section className={`decision-brief ${String(finalVerdict).toLowerCase()}`} aria-labelledby="decision-brief-title">
+        <div className="brief-heading">
+          <div>
+            <span className="brief-eyebrow">SCREENING DECISION / SAVED BENCHMARK</span>
+            <h2 id="decision-brief-title">
+              {finalVerdict === 'REJECT' ? <XCircle size={24} /> : finalVerdict === 'MONITOR' ? <AlertTriangle size={24} /> : <CheckCircle size={24} />}
+              {finalVerdict === 'REJECT' ? `Reject ${componentId} under the saved policy` : finalVerdict === 'MONITOR' ? `Send ${componentId} for QA review` : `No review alert for ${componentId}`}
+            </h2>
           </div>
-          <div className="verdict-banner-desc">
-            {finalVerdict === 'REJECT' && (
-              tier === 'CONFIRMED' 
-                ? `Measured specification limit exceeded on ${module_a?.primary_parameter || 'one or more parameters'} in this synthetic benchmark. The saved explorer policy rejects this part; physical defect status requires QA verification.`
-                : `The saved explorer policy calls this a REJECT because a forecast or its upper bound crossed a limit. The operational workspace treats forecast-only risk as HOLD for engineering review.`
-            )}
-            {finalVerdict === 'MONITOR' && (
-              monitorExplanation
-            )}
-            {finalVerdict === 'PASS' && (
-              `No alert under the saved explorer policy. This result does not guarantee future reliability or qualify hardware for flight.`
-            )}
-          </div>
+          <Badge status={finalVerdict} size="lg">{finalVerdict}</Badge>
         </div>
-      </div>
+        <p className="brief-reason">
+          {finalVerdict === 'MONITOR' ? monitorExplanation : finalVerdict === 'REJECT'
+            ? tier === 'CONFIRMED'
+              ? `An observed specification limit was exceeded${primaryParameter ? ` on ${primaryParameter.label}` : ''}. Physical defect status still requires QA verification.`
+              : 'The saved explorer rejects this forecast-risk case. The operational workspace treats forecast-only risk as HOLD for engineering review.'
+            : 'No alert under the saved explorer policy. This does not guarantee future reliability or qualify hardware for flight.'}
+        </p>
+        <div className="brief-facts">
+          <div><span>Leading parameter</span><strong>{primaryParameter?.label || 'No single driver'}</strong></div>
+          <div><span>24h measured</span><strong>{primaryParameter ? formatReading(measured24, primaryParameter.unit) : '—'}</strong></div>
+          <div><span>168h forecast</span><strong>{primaryParameter ? formatReading(primaryForecast, primaryParameter.unit) : '—'}</strong></div>
+          <div><span>168h upper bound</span><strong>{primaryParameter ? formatReading(primaryUpper, primaryParameter.unit) : '—'}</strong></div>
+          <div><span>Static max limit</span><strong>{primaryParameter ? formatReading(primaryLimit, primaryParameter.unit) : '—'}</strong></div>
+        </div>
+        <p className="brief-footnote">Forecast and upper bound use 0h and 24h readings. Later measurements in technical analysis are retrospective. The decision considers all six parameters.</p>
+      </section>
+
+      <section className="parameter-overview" aria-labelledby="parameter-overview-title">
+        <div className="brief-section-heading">
+          <div><span className="brief-eyebrow">EVIDENCE / ALL SIX PARAMETERS</span><h2 id="parameter-overview-title">Measurements and forecast at a glance</h2></div>
+          <span>24h observed → 168h forecast</span>
+        </div>
+        <div className="table-responsive">
+          <table className="brief-table">
+            <thead><tr><th>Parameter</th><th>24h measured</th><th>168h forecast</th><th>Upper bound</th><th>Static max</th></tr></thead>
+            <tbody>{parameters.map(({ key, label, unit }) => {
+              const forecast = module_b?.predictions?.[key]?.predicted_168h ?? module_b?.[`predicted_${key}_168h`];
+              const upper = module_b?.predictions?.[key]?.p95_168h ?? module_b?.[`module_b_p95_${key}_168h`];
+              const limit = evidence?.evidence?.[key]?.limit ?? evidence?.[`evidence_${key}_limit`];
+              const measured = historical_measurements?.find(m => m.epoch_h === 24)?.[key];
+              return <tr key={key} className={key === primaryKey ? 'brief-primary-row' : ''}>
+                <th scope="row">{label}{key === primaryKey && <span className="brief-driver">Leading signal</span>}</th>
+                <td>{formatReading(measured, unit)}</td><td>{formatReading(forecast, unit)}</td>
+                <td>{formatReading(upper, unit)}</td><td>{formatReading(limit, unit)}</td>
+              </tr>;
+            })}</tbody>
+          </table>
+        </div>
+        <p className="brief-footnote">A wide forecast range can request review even when its upper bound is below the static limit. “—” means no value or limit is specified.</p>
+      </section>
+
+      <details className="technical-detail">
+        <summary><span><strong>Explore technical analysis</strong><small>Module scores, reason codes, individual forecasts and measurement history</small></span><span className="technical-chevron" aria-hidden="true">⌄</span></summary>
+        <div className="technical-detail-content">
 
       {/* 3 Core Analytical Diagnostic Cards */}
       <div className="detail-grid">
@@ -407,6 +447,8 @@ export default function ComponentDetail() {
           </Card>
         </div>
       )}
+        </div>
+      </details>
     </div>
   );
 }

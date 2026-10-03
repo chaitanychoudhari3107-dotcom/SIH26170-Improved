@@ -92,6 +92,47 @@
 .detail-source-note strong{font:650 .64rem var(--bt-font-mono);letter-spacing:.07em;color:#176b70}
 .detail-source-note a{color:#176b70;text-decoration:underline;text-underline-offset:2px}
 
+/* Decision first: a single action and a compact six-parameter evidence scan. */
+.decision-brief,.parameter-overview,.technical-detail{border:1px solid #d6dfdd;border-radius:10px;background:#fff;overflow:hidden}
+.decision-brief{padding:1.65rem 1.85rem;border-left:4px solid #28765e}
+.decision-brief.monitor{border-left-color:#a97512;background:linear-gradient(90deg,#fffbf1 0%,#fff 32%)}
+.decision-brief.reject{border-left-color:#b44a42;background:linear-gradient(90deg,#fff7f5 0%,#fff 32%)}
+.brief-eyebrow{font:700 .68rem var(--font-mono);letter-spacing:.095em;color:#556f6b}
+.brief-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:1.25rem}
+.brief-heading h2{display:flex;align-items:center;gap:.65rem;margin:.45rem 0 0;font-size:1.55rem;line-height:1.25;letter-spacing:-.025em;color:var(--text-primary)}
+.decision-brief.monitor .brief-heading h2 svg{color:#9a6a10}
+.decision-brief.reject .brief-heading h2 svg{color:#b44a42}
+.decision-brief.pass .brief-heading h2 svg{color:#28765e}
+.brief-reason{max-width:78ch;margin:1rem 0 1.3rem;color:var(--text-secondary);line-height:1.55;font-size:.98rem}
+.brief-facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;border:1px solid #dde4e2;background:#dde4e2;border-radius:7px;overflow:hidden}
+.brief-facts>div{display:flex;flex-direction:column;gap:.42rem;background:#fff;padding:1rem;min-width:0}
+.brief-facts span{font:.68rem var(--font-mono);color:#58706e;text-transform:uppercase;letter-spacing:.04em}
+.brief-facts strong{font-size:.94rem;line-height:1.35;overflow-wrap:anywhere}
+.brief-footnote{margin:1rem 0 0;font-size:.75rem;color:var(--text-muted);line-height:1.5}
+.parameter-overview{padding:1.4rem 1.55rem}
+.brief-section-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.1rem}
+.brief-section-heading h2{margin:.4rem 0 0;font-size:1.27rem;letter-spacing:-.02em}
+.brief-section-heading>span{color:var(--text-muted);font-size:.78rem;white-space:nowrap}
+.brief-table{width:100%;border-collapse:collapse;text-align:left;font-variant-numeric:tabular-nums}
+.brief-table th,.brief-table td{padding:.83rem .85rem;border-bottom:1px solid #e5eae8;font-size:.84rem}
+.brief-table thead th{font:.68rem var(--font-mono);text-transform:uppercase;letter-spacing:.04em;color:#596e6c;background:#f5f8f7;white-space:nowrap}
+.brief-table tbody th{font-weight:650;min-width:180px}
+.brief-table tbody td{font-family:var(--font-mono);white-space:nowrap}
+.brief-table tbody tr:last-child th,.brief-table tbody tr:last-child td{border-bottom:0}
+.brief-table .brief-primary-row{background:#eef6f4}
+.brief-driver{display:inline-block;margin-left:.6rem;padding:.16rem .4rem;border-radius:3px;background:#dbece7;color:#176b70;font-size:.62rem;white-space:nowrap}
+.technical-detail>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.2rem 1.55rem;cursor:pointer;list-style:none}
+.technical-detail>summary::-webkit-details-marker{display:none}
+.technical-detail>summary strong,.technical-detail>summary small{display:block}
+.technical-detail>summary strong{font-size:1rem;color:var(--text-primary)}
+.technical-detail>summary small{margin-top:.25rem;font-size:.78rem;color:var(--text-muted)}
+.technical-detail>summary:focus-visible{outline:3px solid #176b70;outline-offset:-4px}
+.technical-chevron{font-size:1.5rem;color:#176b70;transition:transform .2s}
+.technical-detail[open] .technical-chevron{transform:rotate(180deg)}
+.technical-detail-content{display:flex;flex-direction:column;gap:1.5rem;padding:1.3rem 1.55rem 1.65rem;border-top:1px solid #e2e8e6}
+@media(max-width:1150px){.brief-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.decision-brief,.parameter-overview{padding:1.15rem}.brief-heading{align-items:flex-start}.brief-heading h2{font-size:1.28rem}.brief-facts{grid-template-columns:1fr 1fr}.brief-facts>div{padding:.75rem}.brief-facts strong{font-size:.8rem}.brief-section-heading{display:block}.brief-section-heading>span{display:block;margin-top:.4rem}.technical-detail>summary,.technical-detail-content{padding:1rem}}
+
 .verdict-banner.pass {
   border-color: var(--status-pass-border);
   background: #eef6f0;
