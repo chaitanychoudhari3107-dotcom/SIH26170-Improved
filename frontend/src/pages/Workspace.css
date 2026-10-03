@@ -5,7 +5,6 @@
 .work-feedback{border:1px solid var(--border-focus,#81b9e6);border-radius:8px;padding:16px;margin:20px 0;background:rgba(129,185,230,.06)}
 .work-feedback h3{margin:0 0 8px}.work-feedback textarea{width:100%}
 .work-gate-note{border-left:3px solid #81b9e6;padding:10px 14px;background:rgba(129,185,230,.08);color:var(--text-primary,#f2f3ea)}
-.work-locked-file{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:12px 0}.work-locked-file strong{font-weight:600}.work-locked-file small{color:#b4c9c7}.work-locked-file button{border-color:#81b9e6}
 
 .workspace button:hover:not(:disabled){background:var(--bg-card-hover,#29424a);border-color:var(--border-focus,#81b9e6)}
 .workspace select option{background:var(--bg-input,#101b21);color:var(--text-primary,#f2f3ea)}
@@ -41,3 +40,13 @@
 .workspace .work-error{color:#ff9696;border-color:#d97070;background:#301c24}
 .workspace .work-fields>label{min-width:0}
 @media(max-width:600px){.workspace .work-actions>button,.workspace .work-actions>a{max-width:100%;overflow-wrap:anywhere}.work-panel{min-width:0;overflow-wrap:anywhere}.work-import-actions>div{min-width:0}}
+
+/* Light workbench contrast corrections */
+.work-journey a{background:#fff;border-color:#d8e0df;color:#1c292b;transform:none}
+.work-journey a:hover{border-color:#176b70;transform:none}
+.work-journey svg,.work-journey span{color:#176b70}
+.work-journey small{color:#526267}
+.work-demo-fold{background:#fff;color:#1c292b;border-color:#d8e0df}
+.work-demo-fold>summary span,.work-demo-fold>summary small{color:#526267}
+.work-demo-fold[open]>summary{border-color:#d8e0df}
+.work-intro:after{display:none}

@@ -91,17 +91,17 @@
 
 .verdict-banner.pass {
   border-color: var(--status-pass-border);
-  background: linear-gradient(90deg, rgba(130, 199, 181, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: #eef6f0;
 }
 
 .verdict-banner.monitor {
   border-color: var(--status-monitor-border);
-  background: linear-gradient(90deg, rgba(243, 182, 90, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: #fff7e7;
 }
 
 .verdict-banner.reject {
   border-color: var(--status-reject-border);
-  background: linear-gradient(90deg, rgba(243, 122, 123, 0.08) 0%, rgba(12, 16, 25, 0.6) 100%);
+  background: #fff0ee;
 }
 
 .verdict-banner-icon {

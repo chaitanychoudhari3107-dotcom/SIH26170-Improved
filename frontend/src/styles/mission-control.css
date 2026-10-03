@@ -146,3 +146,58 @@ body { background: var(--bg-primary); color: var(--text-primary); font-variant-n
 .app-container .operational-row-tag { background:var(--status-monitor-bg); color:var(--status-monitor-text); }
 .app-container .workspace .guided-demo .demo-cases button[aria-pressed=true] { border-color:var(--accent); background:#eef5f2; color:var(--text-primary); }
 .app-container .demo-finish a { color:var(--accent); }
+
+/* Editorial navigation: typography and a single active rule carry the hierarchy. */
+.app-container .sidebar { background:#fbfcfa; }
+.app-container .sidebar-brand { padding:2rem 1.5rem 1.7rem; border-bottom:0; }
+.app-container .brand-title { font-size:1.55rem; letter-spacing:-.055em; }
+.app-container .brand-title span { color:var(--text-primary); }
+.app-container .brand-subtitle { margin-top:.45rem; font-size:.57rem; letter-spacing:.11em; }
+.app-container .sidebar-nav { padding:0 1rem; gap:0; }
+.app-container .sidebar-nav-group { display:flex; flex-direction:column; gap:.15rem; margin-bottom:1.45rem; }
+.app-container .sidebar-section-label { padding:1rem .75rem .55rem; font-size:.6rem; letter-spacing:.11em; color:#667774; }
+.app-container .nav-link { border:0; border-left:3px solid transparent; border-radius:0; padding:.72rem .85rem; min-height:44px; font-weight:500; }
+.app-container .nav-link:hover { background:#f0f5f2; }
+.app-container .nav-link.active { background:transparent; border-left-color:var(--accent); box-shadow:none; color:var(--text-primary); font-weight:700; }
+.app-container .nav-link.active:hover { background:#f0f5f2; }
+.app-container .nav-icon { color:#748b87; }
+.app-container .sidebar-footer { padding:1.15rem 1.5rem 1.4rem; background:transparent; display:flex; flex-direction:column; gap:.4rem; color:var(--text-secondary); font-size:.68rem; line-height:1.45; }
+.app-container .sidebar-footer small { font:500 .58rem/1.5 var(--bt-font-mono); color:#687a77; }
+
+/* Give the observed and forecast trajectory the majority of the first screen. */
+.app-container .bt-story { grid-template-columns:minmax(230px,.52fr) minmax(520px,1.48fr); gap:clamp(1.4rem,2.5vw,2.5rem); padding:clamp(1.4rem,2.5vw,2.4rem); }
+.app-container .bt-story h1 { font-size:clamp(1.9rem,2.4vw,2.65rem); line-height:1.13; max-width:18ch; margin:1.5rem 0 .75rem; }
+.app-container .bt-story-intro>p:not(.bt-story-disclosure):not(.bt-story-case-caption) { font-size:.94rem; line-height:1.55; }
+.app-container .bt-story-case-tabs { margin:1.4rem 0 .4rem; gap:.2rem; }
+.app-container .bt-story-case-tabs button { padding:.62rem .7rem; font-size:.84rem; }
+.app-container .bt-story-actions { margin-top:.6rem; }
+.app-container .bt-story-disclosure { padding-top:1.1rem; }
+.app-container .bt-instrument { border-radius:.45rem; }
+.app-container .bt-story-chart,.app-container .bt-story-chart .recharts-responsive-container { height:280px!important; }
+
+/* Remove dark-theme remnants from the verdict and operational journey. */
+.app-container .verdict-banner.pass { background:#eef6f0; }
+.app-container .verdict-banner.monitor { background:#fff7e7; }
+.app-container .verdict-banner.reject { background:#fff0ee; }
+.app-container .work-journey a { background:#fff; border-color:var(--border-default); color:var(--text-primary); }
+.app-container .work-journey span,.app-container .work-journey svg { color:var(--accent); }
+.app-container .work-journey small { color:var(--text-secondary); }
+.app-container .work-intro::after { display:none; }
+
+@media(max-width:1100px){
+  .app-container .bt-story { grid-template-columns:1fr; }
+  .app-container .bt-story h1 { max-width:24ch; }
+}
+@media(max-width:900px){
+  .app-container .sidebar-brand { padding:.65rem .9rem; }
+  .app-container .brand-title { font-size:1.12rem; }
+  .app-container .sidebar-nav { display:flex; flex-direction:row; padding:.3rem .4rem; gap:.25rem; }
+  .app-container .sidebar-nav-group { display:flex; flex-direction:row; flex:none; gap:.1rem; margin:0; }
+  .app-container .sidebar-section-label { display:none; }
+  .app-container .nav-link { border-left:0; border-bottom:2px solid transparent; padding:.5rem .6rem; min-height:38px; }
+  .app-container .nav-link.active { border-left:0; border-bottom-color:var(--accent); }
+  .app-container .sidebar-footer { display:none; }
+}
+@media(max-width:600px){
+  .app-container .bt-story-chart,.app-container .bt-story-chart .recharts-responsive-container { height:230px!important; }
+}
